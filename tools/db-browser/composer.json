@@ -1,0 +1,11 @@
+{
+    "require": {
+         "wai-blue/sondie-client-php": "@dev"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../php-api-client"
+        }
+    ]
+}
