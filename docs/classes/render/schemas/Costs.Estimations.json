@@ -1,0 +1,51 @@
+{
+    "definitions": {
+        "title": "Costs.Estimations",
+        "properties": {
+            "RelatedRecordId": {
+                "type": "object",
+                "properties": {
+                    "Class": {
+                        "type": "string"
+                    },
+                    "RecordId": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "RecordId"
+                        }
+                    }
+                }
+            },
+            "ISDCNumber": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "Labour": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "Investments": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "Expenses": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "Contingency": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            }
+        }
+    }
+}

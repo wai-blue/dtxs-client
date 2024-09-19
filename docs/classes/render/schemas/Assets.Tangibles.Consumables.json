@@ -1,0 +1,39 @@
+{
+    "definitions": {
+        "title": "Assets.Tangibles.Consumables",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "UnitCostFactors": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Assets.Tangibles.Consumables": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            },
+            "Costs": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Assets.Tangibles.Consumables": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

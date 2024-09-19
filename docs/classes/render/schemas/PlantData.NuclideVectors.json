@@ -1,0 +1,26 @@
+{
+    "definitions": {
+        "title": "PlantData.NuclideVectors",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "Isotopes": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "PlantData.NuclideVectors": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

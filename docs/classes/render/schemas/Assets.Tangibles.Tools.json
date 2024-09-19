@@ -1,0 +1,70 @@
+{
+    "definitions": {
+        "title": "Assets.Tangibles.Tools",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "ManufacturerName": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "URDFKinematicDocumentId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Assets.Intangibles.Documents"
+                }
+            },
+            "IFCObject": {
+                "type": "object",
+                "properties": {
+                    "Model": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "Reference",
+                            "ReferencedClass": "Assets.Intangibles.Documents"
+                        }
+                    },
+                    "IfcGUID": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "IfcGUID"
+                        }
+                    }
+                }
+            },
+            "UnitCostFactors": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Assets.Tangibles.Tools": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            },
+            "Costs": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Assets.Tangibles.Tools": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

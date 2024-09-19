@@ -1,0 +1,44 @@
+{
+    "definitions": {
+        "title": "PlantData.SiteStructure.Floors",
+        "properties": {
+            "BuildingId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "PlantData.SiteStructure.Buildings"
+                }
+            },
+            "Number": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "IFCObject": {
+                "type": "object",
+                "properties": {
+                    "Model": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "Reference",
+                            "ReferencedClass": "Assets.Intangibles.Documents"
+                        }
+                    },
+                    "IfcGUID": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "IfcGUID"
+                        }
+                    }
+                }
+            },
+            "Elevation": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            }
+        }
+    }
+}

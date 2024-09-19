@@ -1,0 +1,53 @@
+{
+    "definitions": {
+        "title": "Safety.Regulatory.ClearanceLimits",
+        "properties": {
+            "RegulatoryFrameworkId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Safety.Regulatory.Frameworks"
+                }
+            },
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "WasteCategoryId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Safety.Regulatory.WasteCategories"
+                }
+            },
+            "ActivityLimit": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Safety.Regulatory.ClearanceLimits": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            },
+            "ContaminationLimit": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Safety.Regulatory.ClearanceLimits": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

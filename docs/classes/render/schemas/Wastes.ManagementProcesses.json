@@ -1,0 +1,62 @@
+{
+    "definitions": {
+        "title": "Wastes.ManagementProcesses",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "RegulatoryFrameworkId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Safety.Regulatory.Frameworks"
+                }
+            },
+            "TaskIds": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "_SONDIX": {
+                        "ReferencedClass": "Tasks"
+                    }
+                }
+            },
+            "WasteAcceptanceCriteriaId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Safety.Regulatory.ClearanceLimits"
+                }
+            },
+            "UnitCostFactors": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Wastes.ManagementProcesses": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            },
+            "Costs": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Wastes.ManagementProcesses": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,55 @@
+{
+    "definitions": {
+        "title": "Assets.Intangibles.Calculations.DoseUptake",
+        "properties": {
+            "TaskId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Tasks"
+                }
+            },
+            "ActorId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": [
+                        "Actors.Persons",
+                        "Actors.Robots",
+                        "Actors.Teams"
+                    ]
+                }
+            },
+            "MeasuredQuantity": {
+                "type": "object",
+                "properties": {
+                    "Quantity": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "String"
+                        }
+                    },
+                    "Unit": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "String"
+                        }
+                    }
+                }
+            },
+            "Value": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "CartesianPoint": {
+                "type": "array",
+                "format": "table",
+                "items": {
+                    "type": "number"
+                }
+            }
+        }
+    }
+}

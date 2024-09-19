@@ -1,0 +1,26 @@
+{
+    "definitions": {
+        "title": "Materials",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "VolumicMass": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "ChemicalComposition": {
+                "type": "string",
+                "format": "textarea",
+                "_SONDIX": {
+                    "Type": "Object"
+                }
+            }
+        }
+    }
+}

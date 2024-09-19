@@ -1,0 +1,488 @@
+openapi: 3.0.0
+info:
+  title: SONDIX API
+  version: '0.04'
+  description: Specification of the SONDIX API.
+host: sondix.devel
+basePath: /v0.04
+schemes:
+  - https
+servers:
+  - url: https://localhost:9090/sondix/api/v0.04
+    description: Development server
+components:
+  securitySchemes:
+    keycloakOpenId:
+      # type: openIdConnect
+      # openIdConnectUrl: http://localhost:8080/auth/realms/SONDIX/.well-known/openid-configuration
+
+      # type: http
+      # openIdConnectUrl: http://localhost:8080/auth/realms/SONDIX/.well-known/openid-configuration
+      # scheme: bearer
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://localhost:8080/auth/realms/SONDIX/protocol/openid-connect/auth
+          scopes: {}
+
+security:
+  - keycloakOpenId:
+    - record_read
+    - record_write
+
+####################################################
+# TAGS
+
+tags:
+  # - name: prototype-collection
+  #   description: >
+  #     A general-purpose collection management. Implements basic CRUD
+  #     functionality and does not specify any limitations. <b>Used only for
+  #     prototyping. May not be used in production.</b>
+  # - name: prototype-document
+  #   description: >
+  #     A general-purpose document management. Implements basic CRUD functionality
+  #     and does not specify any limitations. <b>Used only for prototyping. May
+  #     not be used in production.</b>
+  - name: database
+    description: >
+      Used for creating and activating databases.
+  - name: record
+    description: >
+      A general-purpose <b>record compatible with SONDIX API Classes</b>. Each
+      record is identified by its <b>Class</b> and database where it is stored.<br/>
+      <br/>
+      Content of a record is represented by certain attributes and their
+      values (it is a list of key-value pairs).<br/>
+      <br/>
+      Set of valid attributes (keys) for the record depends on
+      record's Class - each class has its own set of attributes.
+  # - name: user
+  #   description: >
+  #     OpenID-compatible authorisation principal. Used for obtaining access/refresh tokens
+  #     for accessing resources of this API.
+  # - name: message
+  #   description: >
+  #     Messaging platform
+
+####################################################
+# PATHS
+
+paths:
+
+  ####################################################
+  # database
+
+    /database/{$databaseName}:
+      post:
+        tags:
+          - database
+        description: Create an empty database.
+        parameters:
+          - in: path
+            name: databaseName
+            description: >
+              Name of the database to create.
+            schema:
+              type: string
+            required: true
+        responses:
+          '200':
+            description: Database was added
+          '400':
+            description: Unknown error.
+          '401':
+            description: Not authorized.
+          '406':
+            description: Format of the request is not valid.
+
+      delete:
+        tags:
+          - database
+        description: Delete a database.
+        produces:
+          - application/json
+        parameters:
+          - in: path
+            name: databaseName
+            description: >
+              Name of the database to delete.
+            schema:
+              type: string
+            required: true
+        responses:
+          '200':
+            description: Database has been deleted.
+          '400':
+            description: Unknown error.
+          '401':
+            description: Not authorized.
+          '404':
+            description: Database does not exist.
+          '406':
+            description: Format of the request is not valid.
+
+    /databases:
+      get:
+        tags:
+          - database
+        description: Get list of available databases.
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: List of available databases.
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/definitions/DatabaseInfo'
+          '400':
+            description: Unknown error.
+          '401':
+            description: Not authorized.
+          '406':
+            description: Format of the request is not valid.
+
+  ####################################################
+  # record
+
+    /database/{$databaseName}/record:
+      post:
+        tags:
+          - record
+        description: Add a record.
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        parameters:
+          - in: header
+            name: authorization
+            type: string
+            example: Bearer MY_ACCESS_TOKEN
+            required: true
+          - in: path
+            name: databaseName
+            description: >
+              Name of the database where the record will be stored.
+            schema:
+              type: string
+            required: true
+          - in: body
+            name: class
+            description: Class to which the record is categorized.
+            schema:
+              $ref: '#/definitions/RecordClass'
+            required: true
+          - in: body
+            name: content
+            description: Content of the new record. Metadata about creation datetime etc. will be added automatically.
+            schema:
+              $ref: '#/definitions/RecordContent'
+            required: true
+        responses:
+          '200':
+            description: RecordId of the added record.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/definitions/RecordId'
+          '400':
+            description: Unknown error.
+          '401':
+            description: Not authorized.
+          '404':
+            description: Database does not exist.
+          '406':
+            description: Format of the request is not valid.
+
+    /database/{$databaseName}/record/{$recordId}:
+      put:
+        tags:
+          - record
+        description: Update a record.
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        parameters:
+          - in: header
+            name: authorization
+            type: string
+            example: Bearer MY_ACCESS_TOKEN
+            required: true
+          - in: path
+            name: databaseName
+            description: >
+              Name of the database where the record will be stored.
+            schema:
+              type: string
+            required: true
+          - in: path
+            name: recordId
+            description: ID of the record to update.
+            schema:
+              $ref: '#/definitions/RecordId'
+            required: true
+          - in: body
+            name: content
+            description: |
+              New content of the record.
+              Metadata about update datetime etc. will be updated automatically.
+            schema:
+              $ref: '#/definitions/RecordContent'
+            required: true
+        responses:
+          '200':
+            description: RecordId of the updated record.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/definitions/RecordId'
+          '400':
+            description: Unknown error.
+          '401':
+            description: Not authorized.
+          '404':
+            description: Database or record does not exist.
+          '406':
+            description: Format of the request is not valid.
+
+      delete:
+        tags:
+          - record
+        description: Delete a record.
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        parameters:
+          - in: header
+            name: authorization
+            type: string
+            example: Bearer MY_ACCESS_TOKEN
+            required: true
+          - in: path
+            name: databaseName
+            description: >
+              Name of the database where the record is stored.
+            schema:
+              type: string
+            required: true
+          - in: path
+            name: recordId
+            description: "ID of the record which is to be deleted."
+            schema:
+              $ref: '#/definitions/RecordId'
+            required: true
+        responses:
+          '200':
+            description: RecordId of the deleted record.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/definitions/RecordId'
+          '400':
+            description: Unknown error.
+          '401':
+            description: Not authorized.
+          '403':
+            description: Record cannot be deleted.
+          '404':
+            description: Database or record does not exist.
+          '406':
+            description: Format of the request is not valid.
+
+      get:
+        tags:
+          - record
+        description: Get a record.
+        security:
+          - keycloakOpenId:
+            - record_read
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        parameters:
+          - in: header
+            name: authorization
+            type: string
+            example: Bearer MY_ACCESS_TOKEN
+            required: true
+          - in: path
+            name: databaseName
+            description: >
+              Name of the database where the record is stored.
+            schema:
+              type: string
+            required: true
+          - in: path
+            name: recordId
+            description: >
+              ID of the record to get.
+            schema:
+              $ref: '#/definitions/RecordId'
+            required: true
+        responses:
+          '200':
+            description: Information about a single record.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/definitions/Record'
+          '400':
+            description: Unknown error.
+          '401':
+            description: Not authorized.
+          '404':
+            description: Database or record does not exist.
+          '406':
+            description: Format of the request is not valid.
+
+    ##
+
+    /database/{$databaseName}/records:
+      post:
+        tags:
+          - record
+        description: >
+          Get a list of record based on a search query.
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        parameters:
+          - in: path
+            name: databaseName
+            description: >
+              Name of the database where the records are stored.
+            schema:
+              type: string
+            required: true
+          - in: body
+            name: query
+            description: >
+              MongoDB-like search query.
+            type: object
+            example: {
+              "class": "Actors.Persons",
+              "content.GivenName": "Thomas"
+            }
+            required: true
+        responses:
+          '200':
+            description: List of records found.
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/definitions/Record'
+          '400':
+            description: Unknown error.
+          '401':
+            description: Not authorized.
+          '404':
+            description: Database does not exist.
+          '406':
+            description: Format of the request is not valid.
+
+  ####################################################
+  # message
+
+  # https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow
+  # https://auth0.com/docs/api/authentication?http#client-credentials-flow
+  # Flow: Client Credentials
+
+    # /message:
+    #   post:
+    #     tags:
+    #       - message
+    #     description: >
+    #       Send a message to another client
+
+####################################################
+# DEFINITIONS
+
+definitions:
+  DatabaseInfo:
+    type: object
+    properties:
+      name:
+        type: string
+        example: testDatabase
+      created:
+        type: string
+        format: date-time
+  RecordId:
+    description: MongoDB-like unique record ID.
+    type: string
+    format: uuid
+    example: HslFTT2WwXj91DxSWx5
+  RecordClass:
+    description: |
+      Class to which the record is categorized. Affects the structure of record's content.
+      Each class name in a path starts with a capital letter. Class names are separated by dots.
+    type: string
+    example: Assets.Tangibles.Parts
+  RecordContent:
+    type: object
+    description: |
+      Any related to a record.
+      The structure of the content is determined by the class to which the data is categorized.
+    example:
+      {
+        "Name": "Cutting pipe",
+        "Number": "Task.1234",
+        "Start": "2022-03-28T09:37:51",
+        "Duration": 18,
+        "TeamId": "HslFTT2WwXj91DxSWx5",
+        "ApplicationId": "HslFTT2WwXj91DxSWx5",
+        "WorkplaceId": "HslFTT2WwXj91DxSWx5",
+        "MethodIds": ["1W_HslFTT2WwXj91DxSWx5", "3A5j_91DxSHslFTT2WwXWa"],
+      }
+  # ObjectId:
+  #   description: IFC GUID of an object.
+  #   type: string
+  #   format: uuid
+  #   example: cc36938b-6681-441b-b04c-e0091e1f2c91
+  Record:
+    type: object
+    properties:
+      recordId:
+        $ref: '#/definitions/RecordId'
+        description: Unique ID of the record. Assigned automatically by the MongoDB.
+      content:
+        $ref: '#/definitions/RecordContent'
+  # AccessToken:
+  #   type: object
+  #   properties:
+  #     access_token:
+  #       type: string
+  #       example: eyJz93a...k4laUWw
+  #     token_type:
+  #       type: string
+  #       example: Bearer
+  #     expires_in:
+  #       type: string
+  #       example: 86400
+  # User:
+  #   type: object
+  #   properties:
+  #     login:
+  #       type: string
+  #     firstName:
+  #       type: string
+  #     lastName:
+  #       type: string
+  #     email:
+  #       type: string
+  #     role:
+  #       type: string
+  #     group:
+  #       type: string
+  #     permissions:
+  #       type: object

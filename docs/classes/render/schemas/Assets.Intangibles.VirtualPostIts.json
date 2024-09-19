@@ -1,0 +1,41 @@
+{
+    "definitions": {
+        "title": "Assets.Intangibles.VirtualPostIts",
+        "properties": {
+            "UserId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Actors.Persons"
+                }
+            },
+            "Type": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "AssetBundleDocumentId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Assets.Intangibles.Documents"
+                }
+            },
+            "IFCModelDocumentId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Assets.Intangibles.Documents"
+                }
+            },
+            "Notes": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "format": "textarea"
+                }
+            }
+        }
+    }
+}

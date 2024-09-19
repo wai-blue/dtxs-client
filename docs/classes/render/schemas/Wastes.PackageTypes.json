@@ -1,0 +1,63 @@
+{
+    "definitions": {
+        "title": "Wastes.PackageTypes",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "Mass": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "Volume": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "AdmissibleMass": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "AdmissibleVolume": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "UnitCostFactors": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Wastes.PackageTypes": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            },
+            "Costs": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Wastes.PackageTypes": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

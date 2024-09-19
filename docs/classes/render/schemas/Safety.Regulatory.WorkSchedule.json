@@ -1,0 +1,19 @@
+{
+    "definitions": {
+        "title": "Safety.Regulatory.WorkSchedule",
+        "properties": {
+            "HoursPerDay": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Number"
+                }
+            },
+            "DaysPerWeek": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Number"
+                }
+            }
+        }
+    }
+}

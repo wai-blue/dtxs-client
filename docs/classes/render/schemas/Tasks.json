@@ -1,0 +1,179 @@
+{
+    "definitions": {
+        "title": "Tasks",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "Number": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "Definition": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "ParentTaskId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "RecordId",
+                    "ReferencedClass": "Tasks"
+                }
+            },
+            "DependendsOnTaskIds": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "_SONDIX": {
+                        "ReferencedClass": "Tasks"
+                    }
+                }
+            },
+            "Start": {
+                "type": "string",
+                "format": "datetime-local",
+                "_SONDIX": {
+                    "Type": "DateTime"
+                }
+            },
+            "Duration": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "EstimatedDuration": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "TeamId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Actors.Teams"
+                }
+            },
+            "ApplicationId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Applications"
+                }
+            },
+            "WorkplaceId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Workplaces"
+                }
+            },
+            "InputAssetIds": {
+                "type": "array",
+                "format": "table",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "Class": {
+                            "type": "string"
+                        },
+                        "RecordId": {
+                            "type": "string",
+                            "_SONDIX": {
+                                "Type": "RecordId"
+                            }
+                        }
+                    }
+                }
+            },
+            "OutputAssetIds": {
+                "type": "array",
+                "format": "table",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "Class": {
+                            "type": "string"
+                        },
+                        "RecordId": {
+                            "type": "string",
+                            "_SONDIX": {
+                                "Type": "RecordId"
+                            }
+                        }
+                    }
+                }
+            },
+            "MethodIds": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "_SONDIX": {
+                        "ReferencedClass": "Methods"
+                    }
+                }
+            },
+            "DocumentIds": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "_SONDIX": {
+                        "ReferencedClass": "Assets.Intangibles.Documents"
+                    }
+                }
+            },
+            "RiskIds": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "_SONDIX": {
+                        "ReferencedClass": "Safety.Risks.Register"
+                    }
+                }
+            },
+            "EventIds": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "_SONDIX": {
+                        "ReferencedClass": "Events"
+                    }
+                }
+            },
+            "UnitCostFactors": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Tasks": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            },
+            "Costs": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Tasks": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

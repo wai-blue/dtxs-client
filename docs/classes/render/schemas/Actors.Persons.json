@@ -1,0 +1,54 @@
+{
+    "definitions": {
+        "title": "Actors.Persons",
+        "properties": {
+            "GivenName": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "FamilyName": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "AvailableRoleIds": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "_SONDIX": {
+                        "ReferencedClass": "Actors.Roles"
+                    }
+                }
+            },
+            "UnitCostFactors": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Actors.Persons": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            },
+            "Costs": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Actors.Persons": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

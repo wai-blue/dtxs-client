@@ -1,0 +1,32 @@
+{
+    "definitions": {
+        "title": "PlantData.Space.Cartesian",
+        "properties": {
+            "SpatialContextDocumentId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Assets.Intangibles.Documents"
+                }
+            },
+            "DimensionCount": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Number"
+                }
+            },
+            "Units": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "Description": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,64 @@
+{
+    "definitions": {
+        "title": "Safety.Risks.Register",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "Description": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "Type": {
+                "type": "string",
+                "enum": [
+                    "Safety",
+                    "Project",
+                    "Security"
+                ],
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "DocumentIds": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "_SONDIX": {
+                        "ReferencedClass": "Assets.Intangibles.Documents"
+                    }
+                }
+            },
+            "Parameters": {
+                "type": "string",
+                "format": "textarea",
+                "_SONDIX": {
+                    "Type": "Object"
+                }
+            },
+            "Severity": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Number"
+                }
+            },
+            "Probability": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Number"
+                }
+            },
+            "RiskLevel": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Number"
+                }
+            }
+        }
+    }
+}

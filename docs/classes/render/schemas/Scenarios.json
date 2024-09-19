@@ -1,0 +1,35 @@
+{
+    "definitions": {
+        "title": "Scenarios",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "Description": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "MethodId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Methods"
+                }
+            },
+            "DocumentIds": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "_SONDIX": {
+                        "ReferencedClass": "Assets.Intangibles.Documents"
+                    }
+                }
+            }
+        }
+    }
+}

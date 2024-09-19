@@ -1,0 +1,66 @@
+{
+    "definitions": {
+        "title": "Wastes.Sorters",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "MaterialId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Materials"
+                }
+            },
+            "ActivityLimit": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Wastes.Sorters": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            },
+            "InnerContaminationLimit": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Wastes.Sorters": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            },
+            "OuterContaminationLimit": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Wastes.Sorters": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            },
+            "ProcessingMethodId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Methods"
+                }
+            }
+        }
+    }
+}

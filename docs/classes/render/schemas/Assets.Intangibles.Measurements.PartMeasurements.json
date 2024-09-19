@@ -1,0 +1,82 @@
+{
+    "definitions": {
+        "title": "Assets.Intangibles.Measurements.PartMeasurements",
+        "properties": {
+            "MethodId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Methods"
+                }
+            },
+            "MeasuredQuantity": {
+                "type": "object",
+                "properties": {
+                    "Quantity": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "String"
+                        }
+                    },
+                    "Unit": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "String"
+                        }
+                    }
+                }
+            },
+            "Description": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "MeasurementTime": {
+                "type": "string",
+                "format": "datetime-local",
+                "_SONDIX": {
+                    "Type": "DateTime"
+                }
+            },
+            "Value": {
+                "type": "object",
+                "properties": {
+                    "Scalar": {
+                        "type": "number",
+                        "_SONDIX": {
+                            "Type": "Decimal"
+                        }
+                    },
+                    "ScalarList": {
+                        "type": "array",
+                        "_SONDIX": {
+                            "Type": "Array"
+                        }
+                    },
+                    "NuclideVector": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    },
+                    "NuclideVectorList": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    },
+                    "Activity": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

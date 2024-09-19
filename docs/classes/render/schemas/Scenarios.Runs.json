@@ -1,0 +1,34 @@
+{
+    "definitions": {
+        "title": "Scenarios.Runs",
+        "properties": {
+            "ScenarioId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Scenarios"
+                }
+            },
+            "Description": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "Inputs": {
+                "type": "string",
+                "format": "textarea",
+                "_SONDIX": {
+                    "Type": "Object"
+                }
+            },
+            "Outputs": {
+                "type": "string",
+                "format": "textarea",
+                "_SONDIX": {
+                    "Type": "Object"
+                }
+            }
+        }
+    }
+}

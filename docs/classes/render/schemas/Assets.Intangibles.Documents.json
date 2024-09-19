@@ -1,0 +1,26 @@
+{
+    "definitions": {
+        "title": "Assets.Intangibles.Documents",
+        "properties": {
+            "Type": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "File": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "FileURI"
+                }
+            },
+            "SpaceId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "PlantData.Space.Cartesian"
+                }
+            }
+        }
+    }
+}

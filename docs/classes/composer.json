@@ -1,0 +1,13 @@
+{
+    "require": {
+        "symfony/yaml": "^5.4"
+    },
+    "scripts": {
+        "render-api-classes": [
+            "php index.php -v browse -o render/api-classes.html"
+        ],
+        "render-json-schemas": [
+            "php index.php -v render-json-schemas"
+        ]
+    }
+}

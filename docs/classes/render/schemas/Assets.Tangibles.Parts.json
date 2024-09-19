@@ -1,0 +1,241 @@
+{
+    "definitions": {
+        "title": "Assets.Tangibles.Parts",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "ParentPartId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Assets.Tangibles.Parts"
+                }
+            },
+            "ParentWasteId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Assets.Tangibles.Parts"
+                }
+            },
+            "Type": {
+                "type": "string",
+                "enum": [
+                    "System",
+                    "Structure",
+                    "Component",
+                    "Fragment",
+                    "Waste",
+                    "Waste package"
+                ],
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "SiteStructureId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": [
+                        "PlantData.SiteStructure.Buildings",
+                        "PlantData.SiteStructure.Floors",
+                        "PlantData.SiteStructure.Rooms"
+                    ]
+                }
+            },
+            "IFCObject": {
+                "type": "object",
+                "properties": {
+                    "Model": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "Reference",
+                            "ReferencedClass": "Assets.Intangibles.Documents"
+                        }
+                    },
+                    "IfcGUID": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "IfcGUID"
+                        }
+                    }
+                }
+            },
+            "SafetyStateId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Safety.States"
+                }
+            },
+            "SafetyStateNotes": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "EventIds": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "_SONDIX": {
+                        "ReferencedClass": "Events"
+                    }
+                }
+            },
+            "Mass": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "Volume": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "InnerSurface": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "OuterSurface": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "MaterialId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Materials"
+                }
+            },
+            "MeasurementIds": {
+                "type": "array",
+                "format": "table",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "MeasurementType": {
+                            "type": "string",
+                            "enum": [
+                                "Assets.Intangibles.Measurements.CartesianMeasurements",
+                                "Assets.Intangibles.Measurements.CartesianMeasurementSets",
+                                "Assets.Intangibles.Measurements.PartMeasurements"
+                            ],
+                            "_SONDIX": {
+                                "Type": "String"
+                            }
+                        },
+                        "MeasurementId": {
+                            "type": "string",
+                            "_SONDIX": {
+                                "Type": "RecordId"
+                            }
+                        }
+                    }
+                }
+            },
+            "DocumentIds": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "_SONDIX": {
+                        "ReferencedClass": "Assets.Intangibles.Documents"
+                    }
+                }
+            },
+            "RiskIds": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "_SONDIX": {
+                        "ReferencedClass": "Safety.Risks.Register"
+                    }
+                }
+            },
+            "WastePackageTypeId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Wastes.PackageTypes"
+                }
+            },
+            "WasteCategoryId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Safety.Regulatory.WasteCategories"
+                }
+            },
+            "NonExistentSince": {
+                "type": "string",
+                "format": "date",
+                "_SONDIX": {
+                    "Type": "Date"
+                }
+            },
+            "History": {
+                "type": "array",
+                "format": "table",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "TaskId": {
+                            "type": "string",
+                            "_SONDIX": {
+                                "Type": "Reference",
+                                "ReferencedClass": "Tasks"
+                            }
+                        },
+                        "Event": {
+                            "type": "string",
+                            "enum": [
+                                "Created",
+                                "Modified",
+                                "Removed"
+                            ],
+                            "_SONDIX": {
+                                "Type": "String"
+                            }
+                        }
+                    }
+                }
+            },
+            "UnitCostFactors": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Assets.Tangibles.Parts": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            },
+            "Costs": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Assets.Tangibles.Parts": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

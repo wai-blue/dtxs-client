@@ -1,0 +1,56 @@
+{
+    "definitions": {
+        "title": "PlantData.SiteStructure.Rooms",
+        "properties": {
+            "FloorId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "PlantData.SiteStructure.Floors"
+                }
+            },
+            "Number": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "IFCObject": {
+                "type": "object",
+                "properties": {
+                    "Model": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "Reference",
+                            "ReferencedClass": "Assets.Intangibles.Documents"
+                        }
+                    },
+                    "IfcGUID": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "IfcGUID"
+                        }
+                    }
+                }
+            },
+            "Width": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "Height": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "Length": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            }
+        }
+    }
+}

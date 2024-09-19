@@ -1,0 +1,19 @@
+{
+    "definitions": {
+        "title": "Safety.States",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "Description": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            }
+        }
+    }
+}

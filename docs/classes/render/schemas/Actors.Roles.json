@@ -1,0 +1,19 @@
+{
+    "definitions": {
+        "title": "Actors.Roles",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "HourlySalary": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,81 @@
+{
+    "definitions": {
+        "title": "Actors.Teams",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "MemberIds": {
+                "type": "array",
+                "format": "table",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "MemberType": {
+                            "type": "string",
+                            "enum": [
+                                "Actors.Persons",
+                                "Actors.Robots",
+                                "Actors.Teams"
+                            ],
+                            "_SONDIX": {
+                                "Type": "String"
+                            }
+                        },
+                        "MemberId": {
+                            "type": "string",
+                            "_SONDIX": {
+                                "Type": "RecordId",
+                                "ReferencedClass": [
+                                    "Actors.Persons",
+                                    "Actors.Robots",
+                                    "Actors.Teams"
+                                ]
+                            }
+                        },
+                        "RoleId": {
+                            "type": "string",
+                            "_SONDIX": {
+                                "Type": "RecordId",
+                                "ReferencedClass": "Actors.Roles"
+                            }
+                        },
+                        "WorkerExposureRatio": {
+                            "type": "number",
+                            "_SONDIX": {
+                                "Type": "Decimal"
+                            }
+                        }
+                    }
+                }
+            },
+            "EfficiencyCoefficient": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "UnproductiveTime": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "EffectiveWorkdayHours": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "WorkerExposure": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "definitions": {
+        "title": "Safety.Regulatory.WasteCategories",
+        "properties": {
+            "RegulatoryFrameworkId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Safety.Regulatory.Frameworks"
+                }
+            },
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "ClearanceLimitId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Safety.Regulatory.ClearanceLimits"
+                }
+            }
+        }
+    }
+}

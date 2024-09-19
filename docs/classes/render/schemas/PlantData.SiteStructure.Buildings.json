@@ -1,0 +1,31 @@
+{
+    "definitions": {
+        "title": "PlantData.SiteStructure.Buildings",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "IFCObject": {
+                "type": "object",
+                "properties": {
+                    "Model": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "Reference",
+                            "ReferencedClass": "Assets.Intangibles.Documents"
+                        }
+                    },
+                    "IfcGUID": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "IfcGUID"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

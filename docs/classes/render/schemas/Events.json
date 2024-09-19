@@ -1,0 +1,44 @@
+{
+    "definitions": {
+        "title": "Events",
+        "properties": {
+            "DateTime": {
+                "type": "string",
+                "format": "datetime-local",
+                "_SONDIX": {
+                    "Type": "DateTime"
+                }
+            },
+            "Type": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "Message": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "RelatedRecordIds": {
+                "type": "array",
+                "format": "table",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "Class": {
+                            "type": "string"
+                        },
+                        "RecordId": {
+                            "type": "string",
+                            "_SONDIX": {
+                                "Type": "RecordId"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

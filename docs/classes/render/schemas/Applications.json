@@ -1,0 +1,13 @@
+{
+    "definitions": {
+        "title": "Applications",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            }
+        }
+    }
+}

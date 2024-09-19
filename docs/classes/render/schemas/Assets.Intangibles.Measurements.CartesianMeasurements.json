@@ -1,0 +1,102 @@
+{
+    "definitions": {
+        "title": "Assets.Intangibles.Measurements.CartesianMeasurements",
+        "properties": {
+            "MeasuredQuantity": {
+                "type": "object",
+                "properties": {
+                    "Quantity": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "String"
+                        }
+                    },
+                    "Unit": {
+                        "type": "string",
+                        "_SONDIX": {
+                            "Type": "String"
+                        }
+                    }
+                }
+            },
+            "Description": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "MeasurementTime": {
+                "type": "string",
+                "format": "datetime-local",
+                "_SONDIX": {
+                    "Type": "DateTime"
+                }
+            },
+            "SpaceId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "PlantData.Space.Cartesian"
+                }
+            },
+            "RoomId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "PlantData.SiteStructure.Rooms"
+                }
+            },
+            "MethodId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Methods"
+                }
+            },
+            "Coordinate": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "Value": {
+                "type": "object",
+                "properties": {
+                    "Scalar": {
+                        "type": "number",
+                        "_SONDIX": {
+                            "Type": "Decimal"
+                        }
+                    },
+                    "ScalarList": {
+                        "type": "array",
+                        "_SONDIX": {
+                            "Type": "Array"
+                        }
+                    },
+                    "NuclideVector": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    },
+                    "NuclideVectorList": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    },
+                    "Activity": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

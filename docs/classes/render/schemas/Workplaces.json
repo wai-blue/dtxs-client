@@ -1,0 +1,49 @@
+{
+    "definitions": {
+        "title": "Workplaces",
+        "properties": {
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "RoomId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "PlantData.SiteStructure.Rooms"
+                }
+            },
+            "ExposureType": {
+                "type": "string",
+                "enum": [
+                    "Constant",
+                    "Percentage"
+                ],
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "ExposurePercentage": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Number"
+                }
+            },
+            "ExposureConstant": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "WorkDifficultyFactors": {
+                "type": "string",
+                "format": "textarea",
+                "_SONDIX": {
+                    "Type": "Object"
+                }
+            }
+        }
+    }
+}

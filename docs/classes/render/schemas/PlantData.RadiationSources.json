@@ -1,0 +1,62 @@
+{
+    "definitions": {
+        "title": "PlantData.RadiationSources",
+        "properties": {
+            "Shape": {
+                "type": "object",
+                "properties": {
+                    "Shape": {
+                        "type": "string",
+                        "enum": [
+                            "Point",
+                            "Cube",
+                            "Cylinder"
+                        ],
+                        "_SONDIX": {
+                            "Type": "String"
+                        }
+                    },
+                    "Width": {
+                        "type": "number",
+                        "_SONDIX": {
+                            "Type": "Decimal"
+                        }
+                    },
+                    "Height": {
+                        "type": "number",
+                        "_SONDIX": {
+                            "Type": "Decimal"
+                        }
+                    },
+                    "Length": {
+                        "type": "number",
+                        "_SONDIX": {
+                            "Type": "Decimal"
+                        }
+                    },
+                    "Radius": {
+                        "type": "number",
+                        "_SONDIX": {
+                            "Type": "Decimal"
+                        }
+                    }
+                }
+            },
+            "Location": {
+                "type": "number",
+                "_SONDIX": {
+                    "Type": "Decimal"
+                }
+            },
+            "MeasurementIds": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "_SONDIX": {
+                        "ReferencedClass": "Assets.Intangibles.Measurements.CartesianMeasurements"
+                    }
+                }
+            }
+        }
+    }
+}

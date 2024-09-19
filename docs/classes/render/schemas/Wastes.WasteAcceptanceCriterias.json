@@ -1,0 +1,46 @@
+{
+    "definitions": {
+        "title": "Wastes.WasteAcceptanceCriterias",
+        "properties": {
+            "RegulatoryFrameworkId": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "Reference",
+                    "ReferencedClass": "Safety.Regulatory.Frameworks"
+                }
+            },
+            "Name": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "ActivityLimit": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Wastes.WasteAcceptanceCriterias": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            },
+            "ContaminationLimit": {
+                "type": "string",
+                "format": "textarea",
+                "properties": {
+                    "Wastes.WasteAcceptanceCriterias": {
+                        "type": "string",
+                        "format": "textarea",
+                        "_SONDIX": {
+                            "Type": "Object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

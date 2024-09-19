@@ -1,0 +1,35 @@
+{
+    "definitions": {
+        "title": "Safety.Regulatory.Frameworks",
+        "properties": {
+            "Country": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "Description": {
+                "type": "string",
+                "_SONDIX": {
+                    "Type": "String"
+                }
+            },
+            "Requirements": {
+                "type": "string",
+                "format": "textarea",
+                "_SONDIX": {
+                    "Type": "Object"
+                }
+            },
+            "DocumentIds": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "_SONDIX": {
+                        "ReferencedClass": "Assets.Intangibles.Documents"
+                    }
+                }
+            }
+        }
+    }
+}
