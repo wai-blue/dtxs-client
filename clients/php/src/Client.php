@@ -1,12 +1,12 @@
 <?php
 
 /**
- * SONDIE (Simple Open Nuclear Decommissioning Information Exchange) protocol Client for PHP
+ * SONDIX (Simple Open Nuclear Decommissioning Information Exchange) protocol Client for PHP
  * Author: Dusan Daniska, dusan.daniska@wai.sk
  * License: See LICENSE.md file in the root folder of the software package.
  */
 
-namespace SondiePhpClient;
+namespace SondixPhpClient;
 
 class Client {
 
@@ -34,7 +34,7 @@ class Client {
                                         // in the HTTP requests
   
   /**
-   * Constructs a SONDIE PHP API client object
+   * Constructs a SONDIX PHP API client object
    *
    * @param  mixed $config
    * @return void
@@ -101,7 +101,7 @@ class Client {
   }
   
   /**
-   * Send a request to the SONDIE server
+   * Send a request to the SONDIX server
    *
    * @param  mixed $method HTTP method (GET/POST/PUT/DELETE)
    * @param  mixed $command A command (API function) to call (e.g. "/database/DB_NAME/record/RECORD_ID")
@@ -131,15 +131,15 @@ class Client {
 
       return $this->lastResponse;
     } catch (\GuzzleHttp\Exception\ConnectException $e) {
-      throw new \SondiePhpClient\Exception\RequestException(
+      throw new \SondixPhpClient\Exception\RequestException(
         json_encode([
           "statusCode" => 503,
-          "reason" => "Connection to SONDIE server failed."
+          "reason" => "Connection to SONDIX server failed."
         ])
       );
     } catch (\GuzzleHttp\Exception\BadResponseException $e) {
       $this->lastResponse = $e->getResponse();
-      throw new \SondiePhpClient\Exception\RequestException(
+      throw new \SondixPhpClient\Exception\RequestException(
         json_encode([
           "statusCode" => $this->lastResponse->getStatusCode(),
           "reason" => $this->lastResponse->getReasonPhrase(),
@@ -147,7 +147,7 @@ class Client {
         ])
       );
     } catch (\GuzzleHttp\Exception\RequestException $e) {
-      throw new \SondiePhpClient\Exception\RequestException(
+      throw new \SondixPhpClient\Exception\RequestException(
         json_encode([
           "statusCode" => 500,
           "reason" => "General RequestException error."
@@ -284,7 +284,7 @@ class Client {
         \Aws\S3\Exception\S3Exception 
         | \Aws\Exception\AwsException
         $e
-    ) { throw new \SondiePhpClient\Exception\RequestException($e->getMessage()); }
+    ) { throw new \SondixPhpClient\Exception\RequestException($e->getMessage()); }
   }
 
 }

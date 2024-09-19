@@ -1,5 +1,5 @@
 {
     "require": {
-         "wai-blue/sondie-client-php": "dev-main"
+         "wai-blue/sondix-client-php": "dev-main"
     }
 }

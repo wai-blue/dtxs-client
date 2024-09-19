@@ -1,8 +1,8 @@
 <?php
 
 /**
- * SONDIE DB Browser
- * Utility to browse and manage the content of SONDIE database.
+ * SONDIX DB Browser
+ * Utility to browse and manage the content of SONDIX database.
  *
  * Author: Dusan Daniska, dusan.daniska@wai.sk
  *
@@ -62,7 +62,7 @@ try {
       $apiConfig = array_merge($clientData, $apiConfig);
 
       // initiate API client
-      $api = new \SondiePhpClient\Client\Client($apiConfig);
+      $api = new \SondixPhpClient\Client\Client($apiConfig);
 
       // get access token
       $api->getAccessToken();
@@ -71,8 +71,8 @@ try {
       setClientData($clientData);
 
       header("Location: databases.php");
-    } catch (\SondiePhpClient\Client\Exception\RequestException $e) {
-      throw new \SondiePhpClient\Client\Exception\RequestException($e->getMessage());
+    } catch (\SondixPhpClient\Client\Exception\RequestException $e) {
+      throw new \SondixPhpClient\Client\Exception\RequestException($e->getMessage());
     } catch (\GuzzleHttp\Exception\ConnectException $e) {
       echo "
         <script>
@@ -85,7 +85,7 @@ try {
       ";
     }
   }
-} catch (\SondiePhpClient\Client\Exception\RequestException $e) {
+} catch (\SondixPhpClient\Client\Exception\RequestException $e) {
   $exception = json_decode($e->getMessage(), TRUE);
 
   echo "

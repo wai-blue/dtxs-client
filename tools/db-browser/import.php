@@ -1,8 +1,8 @@
 <?php
 
 /**
- * SONDIE DB Browser
- * Utility to browse and manage the content of SONDIE database.
+ * SONDIX DB Browser
+ * Utility to browse and manage the content of SONDIX database.
  *
  * Author: Dusan Daniska, dusan.daniska@wai.sk
  *
@@ -143,7 +143,7 @@ if (empty($data)) {
     ";
   }
 } else {
-  $api = new \SondiePhpClient\Client\Client(getApiConfig());
+  $api = new \SondixPhpClient\Client\Client(getApiConfig());
   $api->getAccessToken();
   $api->setDatabase($database);
 
@@ -240,7 +240,7 @@ if (empty($data)) {
             "content" => $record['content'],
           ]
         );
-      } catch (\SondiePhpClient\Client\Exception\RequestException $e) {
+      } catch (\SondixPhpClient\Client\Exception\RequestException $e) {
         $exception = json_decode($e->getMessage(), TRUE);
 
         // If record not exists create him

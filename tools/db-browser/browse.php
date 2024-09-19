@@ -1,8 +1,8 @@
 <?php
 
 /**
- * SONDIE DB Browser
- * Utility to browse and manage the content of SONDIE database.
+ * SONDIX DB Browser
+ * Utility to browse and manage the content of SONDIX database.
  *
  * Author: Dusan Daniska, dusan.daniska@wai.sk
  *
@@ -26,7 +26,7 @@ $pageLength = $_GET['page-length'] ?? 10;
 
 try {
   // initiate API client
-  $api = new \SondiePhpClient\Client\Client(getApiConfig());
+  $api = new \SondixPhpClient\Client\Client(getApiConfig());
 
   // get access token
   $api->getAccessToken();
@@ -195,7 +195,7 @@ try {
       }
     </script>
   ";
-} catch (\SondiePhpClient\Client\Exception\RequestException $e) {
+} catch (\SondixPhpClient\Client\Exception\RequestException $e) {
   $exception = json_decode($e->getMessage(), TRUE);
 
   echo "

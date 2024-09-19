@@ -9,7 +9,7 @@ checkIfClientIsLogged();
 
 if (!empty($database) && !empty($recordId)) {
   try {
-    $api = new \SondiePhpClient\Client\Client(getApiConfig());
+    $api = new \SondixPhpClient\Client\Client(getApiConfig());
     $api->getAccessToken();
     $api->setDatabase($database);
 
@@ -32,7 +32,7 @@ if (!empty($database) && !empty($recordId)) {
         <pre>".formatRecordContentToHtml($tmpContent, $database, $api, "record.php", TRUE, $allRecords)."</pre>
       </div>
     ";
-  } catch (\SondiePhpClient\Client\Exception\RequestException $e) {
+  } catch (\SondixPhpClient\Client\Exception\RequestException $e) {
     $exception = json_decode($e->getMessage(), TRUE);
 
     echo "ERROR: ".$exception;

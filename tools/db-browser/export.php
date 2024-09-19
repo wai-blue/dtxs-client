@@ -1,8 +1,8 @@
 <?php
 
 /**
- * SONDIE DB Browser
- * Utility to browse and manage the content of SONDIE database.
+ * SONDIX DB Browser
+ * Utility to browse and manage the content of SONDIX database.
  *
  * Author: Dusan Daniska, dusan.daniska@wai.sk
  *
@@ -54,7 +54,7 @@ if ($exportMethod == null) {
 }
 
 try {
-  $api = new \SondiePhpClient\Client\Client(getApiConfig());
+  $api = new \SondixPhpClient\Client\Client(getApiConfig());
 
   $api->getAccessToken();
 
@@ -68,7 +68,7 @@ try {
 
   if ($exportMethod == 'file') header("Content-disposition: attachment; filename={$databaseToImport}_{$date}.json");
   echo json_encode($allRecords);
-} catch (\SondiePhpClient\Client\Exception\RequestException $e) {
+} catch (\SondixPhpClient\Client\Exception\RequestException $e) {
   var_dump($e->getMessage());
 } catch (\GuzzleHttp\Exception\ConnectException $e) {
   echo "

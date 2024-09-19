@@ -1,8 +1,8 @@
 <?php
 
 /**
- * SONDIE DB Browser
- * Utility to browse and manage the content of SONDIE database.
+ * SONDIX DB Browser
+ * Utility to browse and manage the content of SONDIX database.
  *
  * Author: Dusan Daniska, dusan.daniska@wai.sk
  *
@@ -17,7 +17,7 @@ checkIfClientIsLogged();
 echo "
   <html>
   <head>
-    <title>SONDIE DB Browser</title>
+    <title>SONDIX DB Browser</title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css'>
     <link rel='stylesheet' href='https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css'>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css'/>
@@ -30,7 +30,7 @@ echo "
   <body>
   <div class='row mb-5'>
     <div class='col-9'>
-      <img src='files/logo.png' alt='sondie-logo'/>
+      <img src='files/logo.png' alt='sondix-logo'/>
     </div>
     ".(!empty(getClientData()) ? "
       <div class='col-3 text-right pt-2'>
@@ -56,7 +56,7 @@ echo "
     </nav>
   </header>
   <div class='container text-center'>
-    <h1>SONDIE DB browser</h1>
+    <h1>SONDIX DB browser</h1>
     <h3 class='mt-1'>Version 1.1.0</h3>
   </div>
 ";

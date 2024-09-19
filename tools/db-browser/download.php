@@ -1,8 +1,8 @@
 <?php
 
 /**
- * SONDIE DB Browser
- * Utility to browse and manage the content of SONDIE database.
+ * SONDIX DB Browser
+ * Utility to browse and manage the content of SONDIX database.
  *
  * Author: Dusan Daniska, dusan.daniska@wai.sk
  *
@@ -18,7 +18,7 @@ $f = ($_GET['f'] ?? "");
 
 if (empty($f)) exit("No file to download specified.");
 
-$api = new \SondiePhpClient\Client\Client(getApiConfig());
+$api = new \SondixPhpClient\Client\Client(getApiConfig());
 
 $fileContents = $api->downloadFile($f);
 
@@ -38,7 +38,7 @@ $f = ($_GET['f'] ?? "");
 
 if (empty($f)) exit("No file to download specified.");
 
-$api = new \SondiePhpClient\Client\Client(getApiConfig());
+$api = new \SondixPhpClient\Client\Client(getApiConfig());
 
 // $fileContents = $api->downloadFile($f);
 

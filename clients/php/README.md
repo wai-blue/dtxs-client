@@ -1,13 +1,13 @@
-# SONDIE PHP API Client
+# SONDIX PHP API Client
 
-Library for accessing SONDIE API.
+Library for accessing SONDIX API.
 
 Requires PHP 7.4 and above.
 
 ## Basic usage examples
 
 ```php
-$api = new \SondiePhpClient\Client([
+$api = new \SondixPhpClient\Client([
   "clientId" => "", // your app's client ID
   "clientSecret" => "", // your app's client secret
   "userName" => "", // name of the user to authenticate

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * SONDIE DB Browser
- * Utility to browse and manage the content of SONDIE database.
+ * SONDIX DB Browser
+ * Utility to browse and manage the content of SONDIX database.
  *
  * Author: Dusan Daniska, dusan.daniska@wai.sk
  *
@@ -13,10 +13,10 @@ global $addEnumsToSchema_allRecordsByClass;
 $addEnumsToSchema_allRecordsByClass = NULL;
 
 /**
- * Converts SONDIE-specific JSON schema properties to enuv values in
+ * Converts SONDIX-specific JSON schema properties to enuv values in
  * the JSON editor.
  *
- * @param  object $api SONDIE API client object
+ * @param  object $api SONDIX API client object
  * @param  array $schema Schema to be extended by enum values
  * @return array Extended schema
  */
@@ -42,14 +42,14 @@ function addEnumsToSchema($api, $schema) {
     }
   }
 
-  if (!empty($schema["_SONDIE"]["ReferencedClass"])) {
+  if (!empty($schema["_SONDIX"]["ReferencedClass"])) {
 
     $referencedClasses = [];
 
-    if (is_string($schema["_SONDIE"]["ReferencedClass"])) {
-      $referencedClasses = [$schema["_SONDIE"]["ReferencedClass"]];
-    } else if (is_array($schema["_SONDIE"]["ReferencedClass"])) {
-      $referencedClasses = $schema["_SONDIE"]["ReferencedClass"];
+    if (is_string($schema["_SONDIX"]["ReferencedClass"])) {
+      $referencedClasses = [$schema["_SONDIX"]["ReferencedClass"]];
+    } else if (is_array($schema["_SONDIX"]["ReferencedClass"])) {
+      $referencedClasses = $schema["_SONDIX"]["ReferencedClass"];
     }
 
     $schema["enum"] = [""];
@@ -168,7 +168,7 @@ function formatRecordContentToHtml($content, $database, $api, $referenceDetailUr
           ,
           $contentHtml
         );
-      } catch (\SondiePhpClient\Client\Exception\RequestException $e) {
+      } catch (\SondixPhpClient\Client\Exception\RequestException $e) {
         //$exception = json_decode($e->getMessage(), TRUE);
       }
     }

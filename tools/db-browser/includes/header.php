@@ -1,8 +1,8 @@
 <?php
 
 /**
- * SONDIE DB Browser
- * Utility to browse and manage the content of SONDIE database.
+ * SONDIX DB Browser
+ * Utility to browse and manage the content of SONDIX database.
  *
  * Author: Dusan Daniska, dusan.daniska@wai.sk
  *
@@ -12,7 +12,7 @@
 echo "
   <html>
   <head>
-    <title>SONDIE DB Browser</title>
+    <title>SONDIX DB Browser</title>
     <script src='https://code.jquery.com/jquery-3.5.1.js'></script>
     <script src='https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js'></script>
     <script src='https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js'></script>
@@ -34,7 +34,7 @@ echo "
   <body>
     <div class='row mb-5'>
       <div class='col-9'>
-        <h3>SONDIE DB browser</h3>
+        <h3>SONDIX DB browser</h3>
         <div class='muted mt-2'>Version 1.1.0</div>
       </div>
       ".(!empty(getClientData()) ? "
