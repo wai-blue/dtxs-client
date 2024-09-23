@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "A simple setup of Swagger UI with Webpack",
   "scripts": {
-    "build": "webpack",
-    "start": "webpack-dev-server --open --port 8090"
+    "build": "npx webpack",
+    "start": "npx webpack-dev-server --open --port 8090"
   },
   "author": "Shaun Luttin",
   "license": "Apache-2.0",
