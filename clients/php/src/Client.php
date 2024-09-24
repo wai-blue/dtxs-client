@@ -16,7 +16,8 @@ class Client {
   public string $userPassword;          // USER_PASSWORD defined in the IAM (Keycloak)
 
   public string $iamTokenEndpoint;      // OAuth compatible endpoint of the IAM
-  public string $apiEndpoint;           // API endpoint
+  public string $sondixEndpoint;        // SONDIX endpoint
+  // public string $s3Endpoint;            // Endpoint for S3 server
 
   // HTTP client
   public object $guzzle;                // 3rd-party HTTP library
@@ -24,7 +25,7 @@ class Client {
   public string $debugFile;             // Path to the HTTP debug file
 
   // S3 client
-  public object $s3Client;              // 3rd-party S3 client library
+  // public object $s3Client;              // 3rd-party S3 client library
 
   // IAM client
   public string $accessToken;           // Access token received from IAM
@@ -49,24 +50,24 @@ class Client {
     $this->debugFile = $config['debugFile'] ?? "";
 
     $this->iamTokenEndpoint = $config['iamTokenEndpoint'] ?? "";
-    $this->apiEndpoint = $config['apiEndpoint'] ?? "";
-    $this->s3Endpoint = $config['s3Endpoint'] ?? "";
+    $this->sondixEndpoint = $config['sondixEndpoint'] ?? "";
+    // $this->s3Endpoint = $config['s3Endpoint'] ?? "";
 
     // initiate HTTP client
     $this->guzzle = new \GuzzleHttp\Client(['verify' => false]);
 
-    // initiate S3 client
-    $this->s3Client = new \Aws\S3\S3Client([
-      'version' => 'latest',
-      'region'  => 'us-east-1',
-      'endpoint' => $this->s3Endpoint,
-      'use_path_style_endpoint' => true,
-      'credentials' => [
-        'key'    => $this->userName,
-        'secret' => $this->userPassword,
-      ],
-      'http' => ['verify' => FALSE],
-    ]);
+    // // initiate S3 client
+    // $this->s3Client = new \Aws\S3\S3Client([
+    //   'version' => 'latest',
+    //   'region'  => 'us-east-1',
+    //   'endpoint' => $this->s3Endpoint,
+    //   'use_path_style_endpoint' => true,
+    //   'credentials' => [
+    //     'key'    => $this->userName,
+    //     'secret' => $this->userPassword,
+    //   ],
+    //   'http' => ['verify' => FALSE],
+    // ]);
 
   }
   
@@ -125,7 +126,7 @@ class Client {
 
       $this->lastResponse = $this->guzzle->request(
         $method,
-        $this->apiEndpoint.$command,
+        $this->sondixEndpoint.$command,
         $options
       );
 
@@ -262,29 +263,29 @@ class Client {
     return (string) $res->getBody();
   }
 
-  public function downloadFile(string $url) : string {
-    $tmpPos = strpos($url, "/");
-    if ($tmpPos === FALSE) {
-      $bucketName = "";
-      $fileName = $url;
-    } else {
-      $bucketName = substr($url, 0, $tmpPos);
-      $fileName = substr($url, $tmpPos + 1);
-    }
+  // public function downloadFile(string $url) : string {
+  //   $tmpPos = strpos($url, "/");
+  //   if ($tmpPos === FALSE) {
+  //     $bucketName = "";
+  //     $fileName = $url;
+  //   } else {
+  //     $bucketName = substr($url, 0, $tmpPos);
+  //     $fileName = substr($url, $tmpPos + 1);
+  //   }
 
-    try {
-      // Download the contents of the object.
-      $object = $this->s3Client->getObject([
-        'Bucket' => $bucketName,
-        'Key'    => $fileName,
-      ]);
+  //   try {
+  //     // Download the contents of the object.
+  //     $object = $this->s3Client->getObject([
+  //       'Bucket' => $bucketName,
+  //       'Key'    => $fileName,
+  //     ]);
 
-      return (string) $object['Body'];
-    } catch(
-        \Aws\S3\Exception\S3Exception 
-        | \Aws\Exception\AwsException
-        $e
-    ) { throw new \SondixPhpClient\Exception\RequestException($e->getMessage()); }
-  }
+  //     return (string) $object['Body'];
+  //   } catch(
+  //       \Aws\S3\Exception\S3Exception 
+  //       | \Aws\Exception\AwsException
+  //       $e
+  //   ) { throw new \SondixPhpClient\Exception\RequestException($e->getMessage()); }
+  // }
 
 }
