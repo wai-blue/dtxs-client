@@ -119,10 +119,7 @@ class Client {
         'body' => json_encode($body),
       ];
 
-      if (!empty($this->debugFile)) {
-        //$options['debug'] = fopen($this->debugFile, 'w');
-      }
-      // $options['debug'] = TRUE;
+      if (!empty($this->debugFile)) $options['debug'] = fopen($this->debugFile, 'w');
 
       $this->lastResponse = $this->guzzle->request(
         $method,
@@ -134,6 +131,7 @@ class Client {
     } catch (\GuzzleHttp\Exception\ConnectException $e) {
       throw new \SondixPhpClient\Exception\RequestException(
         json_encode([
+          "request" => $e->getRequest(),
           "statusCode" => 503,
           "reason" => "Connection to SONDIX server failed."
         ])
@@ -142,6 +140,7 @@ class Client {
       $this->lastResponse = $e->getResponse();
       throw new \SondixPhpClient\Exception\RequestException(
         json_encode([
+          "request" => $e->getRequest(),
           "statusCode" => $this->lastResponse->getStatusCode(),
           "reason" => $this->lastResponse->getReasonPhrase(),
           "responseBody" => @json_decode($this->lastResponse->getBody(true))
@@ -150,6 +149,7 @@ class Client {
     } catch (\GuzzleHttp\Exception\RequestException $e) {
       throw new \SondixPhpClient\Exception\RequestException(
         json_encode([
+          "request" => $e->getRequest(),
           "statusCode" => 500,
           "reason" => "General RequestException error."
         ])
