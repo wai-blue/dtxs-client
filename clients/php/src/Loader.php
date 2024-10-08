@@ -8,7 +8,7 @@
 
 namespace SondixPhpClient;
 
-class Client {
+class Loader {
 
   public string $clientId;              // CLIENT_ID defined in the IAM (Keycloak)
   public string $clientSecret;          // CLIENT_SECRET defined in the IAM (Keycloak)
@@ -155,6 +155,26 @@ class Client {
         ])
       );
     } 
+  }
+
+  public function sendJsonRequest(string $jsonRequest) {
+    try {
+      $request = json_decode($jsonRequest, true);
+
+      $method = $request['method'] ?? '';
+      $command = $request['command'] ?? '';
+      $body = $request['body'] ?? [];
+
+      return $this->sendRequest($method, $command, $body);
+    } catch (\Exception $e) {
+      throw new \SondixPhpClient\Exception\RequestException(
+        json_encode([
+          "request" => $e->getRequest(),
+          "statusCode" => 500,
+          "reason" => "General RequestException error."
+        ])
+      );
+    }
   }
   
   /**
