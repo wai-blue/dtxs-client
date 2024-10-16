@@ -40,7 +40,8 @@ class Loader {
    * @param  mixed $config
    * @return void
    */
-  public function __construct(array $config) {
+  public function __construct(array $config)
+  {
 
     // load configuration
     $this->clientId = $config['clientId'] ?? "";
@@ -76,7 +77,8 @@ class Loader {
    *
    * @return string Access token received from the IAM (Keycloak)
    */
-  public function getAccessToken() : string {
+  public function getAccessToken(): string
+  {
     $response = $this->guzzle->request(
       "POST",
       $this->iamTokenEndpoint."/token",
@@ -96,9 +98,14 @@ class Loader {
 
     $responseJson = @json_decode((string) $response->getBody(), TRUE);
 
-    $this->accessToken = $responseJson['access_token'] ?? "";
+    $this->setAccessToken($responseJson['access_token'] ?? "");
 
     return $this->accessToken;
+  }
+
+  public function setAccessToken(string $accessToken)
+  {
+    $this->accessToken = $accessToken;
   }
   
   /**
@@ -109,7 +116,8 @@ class Loader {
    * @param  mixed $body Array of request's body parameters.
    * @return object Guzzle's HTTP response object.
    */
-  public function sendRequest(string $method, string $command, array $body = []) {
+  public function sendRequest(string $method, string $command, array $body = [])
+  {
     try {
       $options = [
         'headers' => [
@@ -157,7 +165,8 @@ class Loader {
     } 
   }
 
-  public function sendJsonRequest(string $jsonRequest) {
+  public function sendJsonRequest(string $jsonRequest)
+  {
     try {
       $request = json_decode($jsonRequest, true);
 
@@ -178,23 +187,37 @@ class Loader {
   }
   
   /**
+   * Checks permissions for a given operation.
+   *
+   * @param  string $operation
+   * @return string Response body
+   */
+  public function checkPermissions(string $operation)
+  {
+    $res = $this->sendRequest("GET", "/checkPermissions/{$operation}");
+    return (string) $res->getBody();
+  }
+  
+  /**
    * Creates a database.
    *
-   * @param  mixed $database
-   * @return void
+   * @param  string $database
+   * @return string Response body.
    */
-  public function createDatabase(string $database) {
+  public function createDatabase(string $database): string
+  {
     $res = $this->sendRequest("POST", "/database/{$database}");
     return (string) $res->getBody();
   }
   
   /**
-   * Sets a database to be used in the request shortcuts.
+   * Sets a database to be used in the requests.
    *
-   * @param  mixed $database
+   * @param  string $database
    * @return void
    */
-  public function setDatabase(string $database) {
+  public function setDatabase(string $database)
+  {
     $this->database = $database;
   }
   
@@ -204,7 +227,8 @@ class Loader {
    * @param  mixed $recordContent Content of the new record.
    * @return string RecordId in case of 200 success. Otherwise exception is thrown.
    */
-  public function createRecord(array $recordContent) : string {
+  public function createRecord(array $recordContent): string
+  {
     $res = $this->sendRequest("POST", "/database/{$this->database}/record", $recordContent);
     return (string) $res->getBody();
   }
@@ -216,7 +240,8 @@ class Loader {
    * @param  mixed $recordContent New record's content.
    * @return string RecordId in case of 200 success. Otherwise exception is thrown.
    */
-  public function updateRecord(string $recordId, array $recordContent) : string {
+  public function updateRecord(string $recordId, array $recordContent): string
+  {
     $res = $this->sendRequest("PUT", "/database/{$this->database}/record/{$recordId}", $recordContent);
     return (string) $res->getBody();
   }
@@ -227,7 +252,8 @@ class Loader {
    * @param  mixed $recordId ID of the record to get.
    * @return array Data of the requested record. Otherwise exception is thrown.
    */
-  public function getRecord(string $recordId) : array {
+  public function getRecord(string $recordId): array
+  {
     $res = $this->sendRequest("GET", "/database/{$this->database}/record/{$recordId}");
     return (array) json_decode((string) $res->getBody(), TRUE);
   }
@@ -238,7 +264,8 @@ class Loader {
    * @param  mixed $recordId ID of the record to delete.
    * @return string RecordId in case of 200 success. Otherwise exception is thrown.
    */
-  public function deleteRecord(string $recordId) : string {
+  public function deleteRecord(string $recordId): string
+  {
     $res = $this->sendRequest("DELETE", "/database/{$this->database}/record/{$recordId}");
     return (string) $res->getBody();
   }
@@ -249,7 +276,8 @@ class Loader {
    * @param  mixed $query A MongoDB-like search query.
    * @return array List of records matching the query.
    */
-  public function getRecords($query = NULL, $fields = NULL, $methods = NULL) : array {
+  public function getRecords($query = NULL, $fields = NULL, $methods = NULL): array
+  {
     $res = $this->sendRequest(
       "POST", 
       "/database/{$this->database}/records", 
@@ -268,7 +296,8 @@ class Loader {
    *
    * @return array List of available databases..
    */
-  public function getDatabases() : array {
+  public function getDatabases(): array
+  {
     $res = $this->sendRequest("GET", "/databases");
     return json_decode((string) $res->getBody(), TRUE);
   }
@@ -278,7 +307,8 @@ class Loader {
    *
    * @return string $databaseName of 200 success. Otherwise exception is thrown.
    */
-  public function deleteDatabase() : string {
+  public function deleteDatabase(): string
+  {
     $res = $this->sendRequest("DELETE", "/database/{$this->database}");
     return (string) $res->getBody();
   }
