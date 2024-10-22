@@ -227,9 +227,9 @@ class Loader {
    * @param  mixed $recordContent Content of the new record.
    * @return string RecordId in case of 200 success. Otherwise exception is thrown.
    */
-  public function createRecord(array $recordContent): string
+  public function createRecord(array $record): string
   {
-    $res = $this->sendRequest("POST", "/database/{$this->database}/record", $recordContent);
+    $res = $this->sendRequest("POST", "/database/{$this->database}/record", $record);
     return (string) $res->getBody();
   }
   
@@ -313,29 +313,17 @@ class Loader {
     return (string) $res->getBody();
   }
 
-  // public function downloadFile(string $url) : string {
-  //   $tmpPos = strpos($url, "/");
-  //   if ($tmpPos === FALSE) {
-  //     $bucketName = "";
-  //     $fileName = $url;
-  //   } else {
-  //     $bucketName = substr($url, 0, $tmpPos);
-  //     $fileName = substr($url, $tmpPos + 1);
-  //   }
-
-  //   try {
-  //     // Download the contents of the object.
-  //     $object = $this->s3Client->getObject([
-  //       'Bucket' => $bucketName,
-  //       'Key'    => $fileName,
-  //     ]);
-
-  //     return (string) $object['Body'];
-  //   } catch(
-  //       \Aws\S3\Exception\S3Exception 
-  //       | \Aws\Exception\AwsException
-  //       $e
-  //   ) { throw new \SondixPhpClient\Exception\RequestException($e->getMessage()); }
-  // }
+  /**
+   * Shortcut to create a document.
+   *
+   * @param  mixed $document Content of the new document.
+   * @return string RecordId in case of 200 success. Otherwise exception is thrown.
+   */
+  public function createDocument(array $document): string
+  {
+    $res = $this->sendRequest("POST", "/database/{$this->database}/document", $document);
+    return (string) $res->getBody();
+  }
+  
 
 }
