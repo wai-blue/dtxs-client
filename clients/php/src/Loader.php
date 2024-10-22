@@ -17,15 +17,11 @@ class Loader {
 
   public string $iamTokenEndpoint;      // OAuth compatible endpoint of the IAM
   public string $sondixEndpoint;        // SONDIX endpoint
-  // public string $s3Endpoint;            // Endpoint for S3 server
 
   // HTTP client
   public object $guzzle;                // 3rd-party HTTP library
   public object $lastResponse;          // Calue of the last HTTP response
   public string $debugFile;             // Path to the HTTP debug file
-
-  // S3 client
-  // public object $s3Client;              // 3rd-party S3 client library
 
   // IAM client
   public string $accessToken;           // Access token received from IAM
@@ -52,23 +48,9 @@ class Loader {
 
     $this->iamTokenEndpoint = $config['iamTokenEndpoint'] ?? "";
     $this->sondixEndpoint = $config['sondixEndpoint'] ?? "";
-    // $this->s3Endpoint = $config['s3Endpoint'] ?? "";
 
     // initiate HTTP client
     $this->guzzle = new \GuzzleHttp\Client(['verify' => false]);
-
-    // // initiate S3 client
-    // $this->s3Client = new \Aws\S3\S3Client([
-    //   'version' => 'latest',
-    //   'region'  => 'us-east-1',
-    //   'endpoint' => $this->s3Endpoint,
-    //   'use_path_style_endpoint' => true,
-    //   'credentials' => [
-    //     'key'    => $this->userName,
-    //     'secret' => $this->userPassword,
-    //   ],
-    //   'http' => ['verify' => FALSE],
-    // ]);
 
   }
   
@@ -220,12 +202,34 @@ class Loader {
   {
     $this->database = $database;
   }
-  
+
+  /**
+   * Shortcut to get list of available databases.
+   *
+   * @return array List of available databases..
+   */
+  public function getDatabases(): array
+  {
+    $res = $this->sendRequest("GET", "/databases");
+    return json_decode((string) $res->getBody(), TRUE);
+  }
+
+  /**
+   * Shortcut to delete a database
+   *
+   * @return string $databaseName of 200 success. Otherwise exception is thrown.
+   */
+  public function deleteDatabase(): string
+  {
+    $res = $this->sendRequest("DELETE", "/database/{$this->database}");
+    return (string) $res->getBody();
+  }
+
   /**
    * Shortcut to create a record.
    *
    * @param  mixed $recordContent Content of the new record.
-   * @return string RecordId in case of 200 success. Otherwise exception is thrown.
+   * @return string RecordUid in case of 200 success. Otherwise exception is thrown.
    */
   public function createRecord(array $record): string
   {
@@ -236,37 +240,37 @@ class Loader {
   /**
    * Shortcut to update a record
    *
-   * @param  mixed $recordId ID of the record to update.
-   * @param  mixed $recordContent New record's content.
-   * @return string RecordId in case of 200 success. Otherwise exception is thrown.
+   * @param  mixed $recordUid UID of the record to update.
+   * @param  mixed $newContent New record's content.
+   * @return string RecordUid in case of 200 success. Otherwise exception is thrown.
    */
-  public function updateRecord(string $recordId, array $recordContent): string
+  public function updateRecord(string $recordUid, array $newContent): string
   {
-    $res = $this->sendRequest("PUT", "/database/{$this->database}/record/{$recordId}", $recordContent);
+    $res = $this->sendRequest("PUT", "/database/{$this->database}/record/{$recordUid}", $newContent);
     return (string) $res->getBody();
   }
   
   /**
    * Shortcut to get a record.
    *
-   * @param  mixed $recordId ID of the record to get.
+   * @param  mixed $recordUid UID of the record to get.
    * @return array Data of the requested record. Otherwise exception is thrown.
    */
-  public function getRecord(string $recordId): array
+  public function getRecord(string $recordUid): array
   {
-    $res = $this->sendRequest("GET", "/database/{$this->database}/record/{$recordId}");
+    $res = $this->sendRequest("GET", "/database/{$this->database}/record/{$recordUid}");
     return (array) json_decode((string) $res->getBody(), TRUE);
   }
   
   /**
    * Shortcut to delete a record
    *
-   * @param  mixed $recordId ID of the record to delete.
-   * @return string RecordId in case of 200 success. Otherwise exception is thrown.
+   * @param  mixed $recordUid UID of the record to delete.
+   * @return string RecordUid in case of 200 success. Otherwise exception is thrown.
    */
-  public function deleteRecord(string $recordId): string
+  public function deleteRecord(string $recordUid): string
   {
-    $res = $this->sendRequest("DELETE", "/database/{$this->database}/record/{$recordId}");
+    $res = $this->sendRequest("DELETE", "/database/{$this->database}/record/{$recordUid}");
     return (string) $res->getBody();
   }
   
@@ -292,38 +296,48 @@ class Loader {
   }
 
   /**
-   * Shortcut to get list of available databases.
-   *
-   * @return array List of available databases..
-   */
-  public function getDatabases(): array
-  {
-    $res = $this->sendRequest("GET", "/databases");
-    return json_decode((string) $res->getBody(), TRUE);
-  }
-
-  /**
-   * Shortcut to delete a database
-   *
-   * @return string $databaseName of 200 success. Otherwise exception is thrown.
-   */
-  public function deleteDatabase(): string
-  {
-    $res = $this->sendRequest("DELETE", "/database/{$this->database}");
-    return (string) $res->getBody();
-  }
-
-  /**
    * Shortcut to create a document.
    *
    * @param  mixed $document Content of the new document.
-   * @return string RecordId in case of 200 success. Otherwise exception is thrown.
+   * @return string DocumentUid in case of 200 success. Otherwise exception is thrown.
    */
   public function createDocument(array $document): string
   {
     $res = $this->sendRequest("POST", "/database/{$this->database}/document", $document);
     return (string) $res->getBody();
   }
-  
 
+  /**
+   * Shortcut to update a document
+   *
+   * @param  mixed $documentUid UID of the document to update.
+   * @param  mixed $newContent New documents's content.
+   * @return string DocumentUid in case of 200 success. Otherwise exception is thrown.
+   */
+  public function updateDocument(string $documentUid, string $newContent): string
+  {
+    $res = $this->sendRequest("PUT", "/database/{$this->database}/document/{$documentUid}", ['newContent' => $newContent]);
+    return (string) $res->getBody();
+  }
+
+  /**
+   * Shortcut to get documents by a query.
+   *
+   * @param  mixed $query A MongoDB-like search query.
+   * @return array List of records matching the query.
+   */
+  public function getDocuments($query = NULL, $fields = NULL, $methods = NULL): array
+  {
+    $res = $this->sendRequest(
+      "POST", 
+      "/database/{$this->database}/documents", 
+      [
+        "query" => $query,
+        "flieds" => $fields,
+        "methods" => $methods
+      ]
+    );
+
+    return (array) json_decode((string) $res->getBody(), TRUE);
+  }
 }
