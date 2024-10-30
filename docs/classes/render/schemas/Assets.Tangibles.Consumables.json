@@ -4,7 +4,7 @@
         "properties": {
             "Name": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
@@ -15,7 +15,7 @@
                     "Assets.Tangibles.Consumables": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }
@@ -28,7 +28,7 @@
                     "Assets.Tangibles.Consumables": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }

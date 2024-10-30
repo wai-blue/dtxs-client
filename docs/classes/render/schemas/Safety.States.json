@@ -4,13 +4,13 @@
         "properties": {
             "Name": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "Description": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             }

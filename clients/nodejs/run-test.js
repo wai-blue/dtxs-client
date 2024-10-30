@@ -1,5 +1,5 @@
 /**
- * SONDIX API client test runner
+ * DTXS API client test runner
  * Author: Dusan Daniska, dusan.daniska@wai.sk
  * License: See LICENSE.md file in the root folder of the software package.
  */

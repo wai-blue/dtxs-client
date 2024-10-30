@@ -4,13 +4,13 @@
         "properties": {
             "Name": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "MaterialId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Materials"
                 }
@@ -22,7 +22,7 @@
                     "Wastes.Sorters": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }
@@ -35,7 +35,7 @@
                     "Wastes.Sorters": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }
@@ -48,7 +48,7 @@
                     "Wastes.Sorters": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }
@@ -56,7 +56,7 @@
             },
             "ProcessingMethodId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Methods"
                 }

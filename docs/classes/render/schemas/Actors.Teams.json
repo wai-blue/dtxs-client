@@ -4,7 +4,7 @@
         "properties": {
             "Name": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
@@ -21,13 +21,13 @@
                                 "Actors.Robots",
                                 "Actors.Teams"
                             ],
-                            "_SONDIX": {
+                            "_DTXS": {
                                 "Type": "String"
                             }
                         },
                         "MemberId": {
                             "type": "string",
-                            "_SONDIX": {
+                            "_DTXS": {
                                 "Type": "RecordId",
                                 "ReferencedClass": [
                                     "Actors.Persons",
@@ -38,14 +38,14 @@
                         },
                         "RoleId": {
                             "type": "string",
-                            "_SONDIX": {
+                            "_DTXS": {
                                 "Type": "RecordId",
                                 "ReferencedClass": "Actors.Roles"
                             }
                         },
                         "WorkerExposureRatio": {
                             "type": "number",
-                            "_SONDIX": {
+                            "_DTXS": {
                                 "Type": "Decimal"
                             }
                         }
@@ -54,25 +54,25 @@
             },
             "EfficiencyCoefficient": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
             "UnproductiveTime": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
             "EffectiveWorkdayHours": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
             "WorkerExposure": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             }

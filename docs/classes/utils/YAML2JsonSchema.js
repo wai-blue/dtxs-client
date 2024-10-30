@@ -10,7 +10,7 @@ let fs = require("fs"),
 	text = {encoding: "utf8"},
 	folderPath = __dirname + "\\",
 	inputFileName = "../api-classes.yml",
-	outputFileName = "../render/sondix.schema.json";
+	outputFileName = "../render/dtxs.schema.json";
 
 // Global variables to handle the parsing process
 let fileData = "",

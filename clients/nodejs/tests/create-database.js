@@ -1,11 +1,11 @@
 // load config
 require('dotenv').config();
 
-// load the SondixApiClient class
-const SondixApiClient = require("../client/client");
+// load the DtxsApiClient class
+const DtxsApiClient = require("../client/client");
 
-// create the SondixApiClient object
-client = new SondixApiClient(
+// create the DtxsApiClient object
+client = new DtxsApiClient(
   process.env.API_HOST,
   process.env.API_PORT,
   process.env.API_VERSION

@@ -4,14 +4,14 @@
         "properties": {
             "FloorId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "PlantData.SiteStructure.Floors"
                 }
             },
             "Number": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
@@ -20,14 +20,14 @@
                 "properties": {
                     "Model": {
                         "type": "string",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Reference",
                             "ReferencedClass": "Assets.Intangibles.Documents"
                         }
                     },
                     "IfcGUID": {
                         "type": "string",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "IfcGUID"
                         }
                     }
@@ -35,19 +35,19 @@
             },
             "Width": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
             "Height": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
             "Length": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             }

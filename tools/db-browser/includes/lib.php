@@ -42,14 +42,14 @@ function addEnumsToSchema($api, $schema) {
     }
   }
 
-  if (!empty($schema["_SONDIX"]["ReferencedClass"])) {
+  if (!empty($schema["_DTXS"]["ReferencedClass"])) {
 
     $referencedClasses = [];
 
-    if (is_string($schema["_SONDIX"]["ReferencedClass"])) {
-      $referencedClasses = [$schema["_SONDIX"]["ReferencedClass"]];
-    } else if (is_array($schema["_SONDIX"]["ReferencedClass"])) {
-      $referencedClasses = $schema["_SONDIX"]["ReferencedClass"];
+    if (is_string($schema["_DTXS"]["ReferencedClass"])) {
+      $referencedClasses = [$schema["_DTXS"]["ReferencedClass"]];
+    } else if (is_array($schema["_DTXS"]["ReferencedClass"])) {
+      $referencedClasses = $schema["_DTXS"]["ReferencedClass"];
     }
 
     $schema["enum"] = [""];
@@ -168,7 +168,7 @@ function formatRecordContentToHtml($content, $database, $api, $referenceDetailUr
           ,
           $contentHtml
         );
-      } catch (\SondixPhpClient\Client\Exception\RequestException $e) {
+      } catch (\DtxsPhpClient\Client\Exception\RequestException $e) {
         //$exception = json_decode($e->getMessage(), TRUE);
       }
     }

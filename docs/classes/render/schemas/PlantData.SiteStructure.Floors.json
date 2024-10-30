@@ -4,14 +4,14 @@
         "properties": {
             "BuildingId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "PlantData.SiteStructure.Buildings"
                 }
             },
             "Number": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
@@ -20,14 +20,14 @@
                 "properties": {
                     "Model": {
                         "type": "string",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Reference",
                             "ReferencedClass": "Assets.Intangibles.Documents"
                         }
                     },
                     "IfcGUID": {
                         "type": "string",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "IfcGUID"
                         }
                     }
@@ -35,7 +35,7 @@
             },
             "Elevation": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             }

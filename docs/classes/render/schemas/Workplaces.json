@@ -4,13 +4,13 @@
         "properties": {
             "Name": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "RoomId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "PlantData.SiteStructure.Rooms"
                 }
@@ -21,26 +21,26 @@
                     "Constant",
                     "Percentage"
                 ],
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "ExposurePercentage": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Number"
                 }
             },
             "ExposureConstant": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
             "WorkDifficultyFactors": {
                 "type": "string",
                 "format": "textarea",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Object"
                 }
             }

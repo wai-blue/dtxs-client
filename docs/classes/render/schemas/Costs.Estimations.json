@@ -10,7 +10,7 @@
                     },
                     "RecordId": {
                         "type": "string",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "RecordId"
                         }
                     }
@@ -18,31 +18,31 @@
             },
             "ISDCNumber": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "Labour": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
             "Investments": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
             "Expenses": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
             "Contingency": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             }

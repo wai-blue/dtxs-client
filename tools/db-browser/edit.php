@@ -39,7 +39,7 @@ $pageLength = $_GET['page-length'] ?? 10;
 
 try {
   // initiate API client
-  $api = new \SondixPhpClient\Client\Client(getApiConfig());
+  $api = new \DtxsPhpClient\Client\Client(getApiConfig());
 
   $api->getAccessToken();
 
@@ -159,7 +159,7 @@ try {
       }
     </script>
   ";
-} catch (\SondixPhpClient\Client\Exception\RequestException $e) {
+} catch (\DtxsPhpClient\Client\Exception\RequestException $e) {
   $exception = json_decode($e->getMessage(), TRUE);
   $type = "question";
 

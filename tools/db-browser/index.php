@@ -30,7 +30,7 @@ echo "
   <body>
   <div class='row mb-5'>
     <div class='col-9'>
-      <img src='files/logo.png' alt='sondix-logo'/>
+      <img src='files/logo.png' alt='dtxs-logo'/>
     </div>
     ".(!empty(getClientData()) ? "
       <div class='col-3 text-right pt-2'>

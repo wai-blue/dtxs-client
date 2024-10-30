@@ -20,7 +20,7 @@ function getOrderBy($order): array {
 
 checkIfClientIsLogged();
 
-$api = new \SondixPhpClient\Client\Client(getApiConfig());
+$api = new \DtxsPhpClient\Client\Client(getApiConfig());
 $api->getAccessToken();
 
 $params = $_GET;

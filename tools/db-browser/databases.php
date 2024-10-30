@@ -39,7 +39,7 @@ echo "
 
 try {
   // Initiate API client
-  $api = new \SondixPhpClient\Client\Client(getApiConfig());
+  $api = new \DtxsPhpClient\Client\Client(getApiConfig());
 
   // Get access token
   $api->getAccessToken();
@@ -49,7 +49,7 @@ try {
     try {
       $api->createDatabase($databaseToCreate);
       header("Location: browse.php?db={$databaseToCreate}");
-    } catch (\SondixPhpClient\Client\Exception\RequestException $e) {
+    } catch (\DtxsPhpClient\Client\Exception\RequestException $e) {
       $exception = json_decode($e->getMessage(), TRUE);
 
       echo "
@@ -250,7 +250,7 @@ try {
 
     
   ";
-} catch (\SondixPhpClient\Client\Exception\RequestException $e) {
+} catch (\DtxsPhpClient\Client\Exception\RequestException $e) {
   $exception = json_decode($e->getMessage(), TRUE);
 
   echo "

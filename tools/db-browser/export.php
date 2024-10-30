@@ -54,7 +54,7 @@ if ($exportMethod == null) {
 }
 
 try {
-  $api = new \SondixPhpClient\Client\Client(getApiConfig());
+  $api = new \DtxsPhpClient\Client\Client(getApiConfig());
 
   $api->getAccessToken();
 
@@ -68,7 +68,7 @@ try {
 
   if ($exportMethod == 'file') header("Content-disposition: attachment; filename={$databaseToImport}_{$date}.json");
   echo json_encode($allRecords);
-} catch (\SondixPhpClient\Client\Exception\RequestException $e) {
+} catch (\DtxsPhpClient\Client\Exception\RequestException $e) {
   var_dump($e->getMessage());
 } catch (\GuzzleHttp\Exception\ConnectException $e) {
   echo "

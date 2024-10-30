@@ -4,14 +4,14 @@
         "properties": {
             "TaskId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Tasks"
                 }
             },
             "ActorId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": [
                         "Actors.Persons",
@@ -25,13 +25,13 @@
                 "properties": {
                     "Quantity": {
                         "type": "string",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "String"
                         }
                     },
                     "Unit": {
                         "type": "string",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "String"
                         }
                     }
@@ -39,7 +39,7 @@
             },
             "Value": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },

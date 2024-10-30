@@ -1,13 +1,13 @@
-# SONDIX PHP API Client
+# DTXS PHP API Client
 
-Library for accessing SONDIX API.
+Library for accessing DTXS API.
 
 Requires PHP 7.4 and above.
 
 ## Basic usage examples
 
 ```php
-$api = new \SondixPhpClient\Client([
+$api = new \DtxsPhpClient\Client([
   "clientId" => "", // your app's client ID
   "clientSecret" => "", // your app's client secret
   "userName" => "", // name of the user to authenticate

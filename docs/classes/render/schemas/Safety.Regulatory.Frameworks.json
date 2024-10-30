@@ -4,20 +4,20 @@
         "properties": {
             "Country": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "Description": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "Requirements": {
                 "type": "string",
                 "format": "textarea",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Object"
                 }
             },
@@ -25,7 +25,7 @@
                 "type": "array",
                 "items": {
                     "type": "string",
-                    "_SONDIX": {
+                    "_DTXS": {
                         "ReferencedClass": "Assets.Intangibles.Documents"
                     }
                 }

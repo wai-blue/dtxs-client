@@ -12,31 +12,31 @@
                             "Cube",
                             "Cylinder"
                         ],
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "String"
                         }
                     },
                     "Width": {
                         "type": "number",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Decimal"
                         }
                     },
                     "Height": {
                         "type": "number",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Decimal"
                         }
                     },
                     "Length": {
                         "type": "number",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Decimal"
                         }
                     },
                     "Radius": {
                         "type": "number",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Decimal"
                         }
                     }
@@ -44,7 +44,7 @@
             },
             "Location": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
@@ -52,7 +52,7 @@
                 "type": "array",
                 "items": {
                     "type": "string",
-                    "_SONDIX": {
+                    "_DTXS": {
                         "ReferencedClass": "Assets.Intangibles.Measurements.CartesianMeasurements"
                     }
                 }

@@ -4,31 +4,31 @@
         "properties": {
             "Name": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "Mass": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
             "Volume": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
             "AdmissibleMass": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
             "AdmissibleVolume": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
@@ -39,7 +39,7 @@
                     "Wastes.PackageTypes": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }
@@ -52,7 +52,7 @@
                     "Wastes.PackageTypes": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }

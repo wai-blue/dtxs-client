@@ -1,4 +1,4 @@
-# SONDIX API Classes
+# DTXS API Classes
 
 ## How to
 

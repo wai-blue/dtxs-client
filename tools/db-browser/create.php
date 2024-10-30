@@ -39,7 +39,7 @@ echo "
 ";
 
 try {
-  $api = new \SondixPhpClient\Client\Client(getApiConfig());
+  $api = new \DtxsDtxsPhpClient\Client\Client(getApiConfig());
 
   // get access token
   $api->getAccessToken();
@@ -54,8 +54,8 @@ try {
       ]);
 
       header("Location: browse.php?db={$databaseToCreateRecord}");
-    } catch (\SondixPhpClient\Client\Exception\RequestException $e) {
-      throw new \SondixPhpClient\Client\Exception\RequestException($e->getMessage());
+    } catch (\DtxsPhpClient\Client\Exception\RequestException $e) {
+      throw new \DtxsPhpClient\Client\Exception\RequestException($e->getMessage());
     }
   } else {
 
@@ -146,7 +146,7 @@ try {
       </script>
     ";
   }
-} catch (\SondixPhpClient\Client\Exception\RequestException $e) {
+} catch (\DtxsPhpClient\Client\Exception\RequestException $e) {
   $exception = json_decode($e->getMessage(), TRUE);
 
   echo "

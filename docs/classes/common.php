@@ -5,7 +5,7 @@ class Common {
     return "
       <html>
       <head>
-        <title>SONDIX API Classes</title>
+        <title>DTXS API Classes</title>
         <link
           rel='stylesheet'
           href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css'
@@ -25,7 +25,7 @@ class Common {
       </head>
       <body ".($outputFormat == "pdf" ? "onload='window.print();'" : "").">
         <h1>{$title}</h1>
-        <h4 class='text-secondary'>SONDIX API Classes</h4>
+        <h4 class='text-secondary'>DTXS API Classes</h4>
         
     ";
   }

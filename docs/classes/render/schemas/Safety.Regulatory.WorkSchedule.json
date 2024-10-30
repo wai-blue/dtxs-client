@@ -4,13 +4,13 @@
         "properties": {
             "HoursPerDay": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Number"
                 }
             },
             "DaysPerWeek": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Number"
                 }
             }

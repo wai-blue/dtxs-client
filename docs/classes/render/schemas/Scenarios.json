@@ -4,19 +4,19 @@
         "properties": {
             "Name": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "Description": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "MethodId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Methods"
                 }
@@ -25,7 +25,7 @@
                 "type": "array",
                 "items": {
                     "type": "string",
-                    "_SONDIX": {
+                    "_DTXS": {
                         "ReferencedClass": "Assets.Intangibles.Documents"
                     }
                 }

@@ -62,7 +62,7 @@ try {
       $apiConfig = array_merge($clientData, $apiConfig);
 
       // initiate API client
-      $api = new \SondixPhpClient\Client\Client($apiConfig);
+      $api = new \DtxsPhpClient\Client\Client($apiConfig);
 
       // get access token
       $api->getAccessToken();
@@ -71,8 +71,8 @@ try {
       setClientData($clientData);
 
       header("Location: databases.php");
-    } catch (\SondixPhpClient\Client\Exception\RequestException $e) {
-      throw new \SondixPhpClient\Client\Exception\RequestException($e->getMessage());
+    } catch (\DtxsPhpClient\Client\Exception\RequestException $e) {
+      throw new \DtxsPhpClient\Client\Exception\RequestException($e->getMessage());
     } catch (\GuzzleHttp\Exception\ConnectException $e) {
       echo "
         <script>
@@ -85,7 +85,7 @@ try {
       ";
     }
   }
-} catch (\SondixPhpClient\Client\Exception\RequestException $e) {
+} catch (\DtxsPhpClient\Client\Exception\RequestException $e) {
   $exception = json_decode($e->getMessage(), TRUE);
 
   echo "

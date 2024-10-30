@@ -1,6 +1,6 @@
 {
     "require": {
-         "wai-blue/sondix-client-php": "@dev"
+         "wai-blue/dtxs-client-php": "@dev"
     },
     "repositories": [
         {

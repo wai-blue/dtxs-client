@@ -1,12 +1,12 @@
 /**
- * SONDIX client
+ * DTXS client
  * Author: Dusan Daniska, dusan.daniska@wai.sk
  * License: See LICENSE.md file in the root folder of the software package.
  */
 
 const axios = require('axios');
 
-module.exports = class SondixApiClient {
+module.exports = class DtxsApiClient {
   endpoint = '';
   port = '';
   version = '';
@@ -46,7 +46,7 @@ module.exports = class SondixApiClient {
   }
 
   buildUrl(path) {
-    return 'http://' + this.endpoint + ':' + this.port + '/sondix/api/' + this.version + path + '/';
+    return 'http://' + this.endpoint + ':' + this.port + '/dtxs/api/' + this.version + path + '/';
   }
 
   setToken(token) {

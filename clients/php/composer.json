@@ -1,6 +1,6 @@
 {
-    "name": "wai-blue/sondix-client-php",
-    "description": "PHP library for SONDIX protocol",
+    "name": "wai-blue/dtxs-client-php",
+    "description": "PHP library for DTXS protocol",
     "type": "library",
     "require": {
         "php": ">=7.3",
@@ -14,7 +14,7 @@
     "license": "Apache 2.0",
     "autoload": {
         "psr-4": {
-            "SondixPhpClient\\": "src/"
+            "DtxsPhpClient\\": "src/"
         }
     },
     "authors": [

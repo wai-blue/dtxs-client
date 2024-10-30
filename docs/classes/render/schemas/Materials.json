@@ -4,20 +4,20 @@
         "properties": {
             "Name": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "VolumicMass": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
             "ChemicalComposition": {
                 "type": "string",
                 "format": "textarea",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Object"
                 }
             }

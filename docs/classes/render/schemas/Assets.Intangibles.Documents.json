@@ -4,19 +4,19 @@
         "properties": {
             "Type": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "File": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "FileURI"
                 }
             },
             "SpaceId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "PlantData.Space.Cartesian"
                 }

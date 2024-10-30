@@ -18,7 +18,7 @@ $f = ($_GET['f'] ?? "");
 
 if (empty($f)) exit("No file to download specified.");
 
-$api = new \SondixPhpClient\Client\Client(getApiConfig());
+$api = new \DtxsPhpClient\Client\Client(getApiConfig());
 
 $fileContents = $api->downloadFile($f);
 
@@ -38,7 +38,7 @@ $f = ($_GET['f'] ?? "");
 
 if (empty($f)) exit("No file to download specified.");
 
-$api = new \SondixPhpClient\Client\Client(getApiConfig());
+$api = new \DtxsPhpClient\Client\Client(getApiConfig());
 
 // $fileContents = $api->downloadFile($f);
 

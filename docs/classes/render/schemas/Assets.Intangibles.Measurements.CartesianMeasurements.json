@@ -7,13 +7,13 @@
                 "properties": {
                     "Quantity": {
                         "type": "string",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "String"
                         }
                     },
                     "Unit": {
                         "type": "string",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "String"
                         }
                     }
@@ -21,41 +21,41 @@
             },
             "Description": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "MeasurementTime": {
                 "type": "string",
                 "format": "datetime-local",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "DateTime"
                 }
             },
             "SpaceId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "PlantData.Space.Cartesian"
                 }
             },
             "RoomId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "PlantData.SiteStructure.Rooms"
                 }
             },
             "MethodId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Methods"
                 }
             },
             "Coordinate": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
@@ -64,34 +64,34 @@
                 "properties": {
                     "Scalar": {
                         "type": "number",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Decimal"
                         }
                     },
                     "ScalarList": {
                         "type": "array",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Array"
                         }
                     },
                     "NuclideVector": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     },
                     "NuclideVectorList": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     },
                     "Activity": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }

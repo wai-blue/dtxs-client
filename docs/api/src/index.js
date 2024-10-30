@@ -1,7 +1,7 @@
 import SwaggerUI from 'swagger-ui'
 import 'swagger-ui/dist/swagger-ui.css';
 
-const spec = require('../sondix-api-specification.yaml');
+const spec = require('../dtxs-api-specification.yaml');
 
 const ui = SwaggerUI({
   spec,

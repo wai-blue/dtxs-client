@@ -4,25 +4,25 @@
         "properties": {
             "Name": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "Number": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "Definition": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "ParentTaskId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "RecordId",
                     "ReferencedClass": "Tasks"
                 }
@@ -31,7 +31,7 @@
                 "type": "array",
                 "items": {
                     "type": "string",
-                    "_SONDIX": {
+                    "_DTXS": {
                         "ReferencedClass": "Tasks"
                     }
                 }
@@ -39,39 +39,39 @@
             "Start": {
                 "type": "string",
                 "format": "datetime-local",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "DateTime"
                 }
             },
             "Duration": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
             "EstimatedDuration": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Decimal"
                 }
             },
             "TeamId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Actors.Teams"
                 }
             },
             "ApplicationId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Applications"
                 }
             },
             "WorkplaceId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Workplaces"
                 }
@@ -87,7 +87,7 @@
                         },
                         "RecordId": {
                             "type": "string",
-                            "_SONDIX": {
+                            "_DTXS": {
                                 "Type": "RecordId"
                             }
                         }
@@ -105,7 +105,7 @@
                         },
                         "RecordId": {
                             "type": "string",
-                            "_SONDIX": {
+                            "_DTXS": {
                                 "Type": "RecordId"
                             }
                         }
@@ -116,7 +116,7 @@
                 "type": "array",
                 "items": {
                     "type": "string",
-                    "_SONDIX": {
+                    "_DTXS": {
                         "ReferencedClass": "Methods"
                     }
                 }
@@ -125,7 +125,7 @@
                 "type": "array",
                 "items": {
                     "type": "string",
-                    "_SONDIX": {
+                    "_DTXS": {
                         "ReferencedClass": "Assets.Intangibles.Documents"
                     }
                 }
@@ -134,7 +134,7 @@
                 "type": "array",
                 "items": {
                     "type": "string",
-                    "_SONDIX": {
+                    "_DTXS": {
                         "ReferencedClass": "Safety.Risks.Register"
                     }
                 }
@@ -143,7 +143,7 @@
                 "type": "array",
                 "items": {
                     "type": "string",
-                    "_SONDIX": {
+                    "_DTXS": {
                         "ReferencedClass": "Events"
                     }
                 }
@@ -155,7 +155,7 @@
                     "Tasks": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }
@@ -168,7 +168,7 @@
                     "Tasks": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }

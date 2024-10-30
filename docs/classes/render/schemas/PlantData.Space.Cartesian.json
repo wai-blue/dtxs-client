@@ -4,26 +4,26 @@
         "properties": {
             "SpatialContextDocumentId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Assets.Intangibles.Documents"
                 }
             },
             "DimensionCount": {
                 "type": "number",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Number"
                 }
             },
             "Units": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "Description": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             }

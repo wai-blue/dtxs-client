@@ -1,28 +1,28 @@
 openapi: 3.0.0
 info:
-  title: SONDIX API
+  title: DTXS API
   version: '0.04'
-  description: Specification of the SONDIX API.
-host: sondix.devel
+  description: Specification of the DTXS API.
+host: dtxs.devel
 basePath: /v0.04
 schemes:
   - https
 servers:
-  - url: https://localhost:9090/sondix/api/v0.04
+  - url: https://localhost:9090/dtxs/api/v0.04
     description: Development server
 components:
   securitySchemes:
     keycloakOpenId:
       # type: openIdConnect
-      # openIdConnectUrl: http://localhost:8080/auth/realms/SONDIX/.well-known/openid-configuration
+      # openIdConnectUrl: http://localhost:8080/auth/realms/DTXS/.well-known/openid-configuration
 
       # type: http
-      # openIdConnectUrl: http://localhost:8080/auth/realms/SONDIX/.well-known/openid-configuration
+      # openIdConnectUrl: http://localhost:8080/auth/realms/DTXS/.well-known/openid-configuration
       # scheme: bearer
       type: oauth2
       flows:
         implicit:
-          authorizationUrl: http://localhost:8080/auth/realms/SONDIX/protocol/openid-connect/auth
+          authorizationUrl: http://localhost:8080/auth/realms/DTXS/protocol/openid-connect/auth
           scopes: {}
 
 security:
@@ -49,7 +49,7 @@ tags:
       Used for creating and activating databases.
   - name: record
     description: >
-      A general-purpose <b>record compatible with SONDIX API Classes</b>. Each
+      A general-purpose <b>record compatible with DTXS API Classes</b>. Each
       record is identified by its <b>Class</b> and database where it is stored.<br/>
       <br/>
       Content of a record is represented by certain attributes and their

@@ -34,7 +34,7 @@ try {
   $apiConfig = getApiConfig();
 
   // initiate API client
-  $api = new \SondixPhpClient\Client\Client($apiConfig);
+  $api = new \DtxsPhpClient\Client\Client($apiConfig);
 
   // get access token
   $api->getAccessToken();

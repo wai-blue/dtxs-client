@@ -4,20 +4,20 @@
         "properties": {
             "RegulatoryFrameworkId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Safety.Regulatory.Frameworks"
                 }
             },
             "Name": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "WasteCategoryId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Safety.Regulatory.WasteCategories"
                 }
@@ -29,7 +29,7 @@
                     "Safety.Regulatory.ClearanceLimits": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }
@@ -42,7 +42,7 @@
                     "Safety.Regulatory.ClearanceLimits": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }

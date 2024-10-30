@@ -143,7 +143,7 @@ if (empty($data)) {
     ";
   }
 } else {
-  $api = new \SondixPhpClient\Client\Client(getApiConfig());
+  $api = new \DtxsPhpClient\Client\Client(getApiConfig());
   $api->getAccessToken();
   $api->setDatabase($database);
 
@@ -240,7 +240,7 @@ if (empty($data)) {
             "content" => $record['content'],
           ]
         );
-      } catch (\SondixPhpClient\Client\Exception\RequestException $e) {
+      } catch (\DtxsPhpClient\Client\Exception\RequestException $e) {
         $exception = json_decode($e->getMessage(), TRUE);
 
         // If record not exists create him

@@ -4,20 +4,20 @@
         "properties": {
             "RegulatoryFrameworkId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Safety.Regulatory.Frameworks"
                 }
             },
             "Name": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "ClearanceLimitId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Safety.Regulatory.ClearanceLimits"
                 }

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * SONDIX (Simple Open Nuclear Decommissioning Information Exchange) protocol Client for PHP
+ * DTXS (Simple Open Nuclear Decommissioning Information Exchange) protocol Client for PHP
  * Author: Dusan Daniska, dusan.daniska@wai.sk
  * License: See LICENSE.md file in the root folder of the software package.
  */
 
-namespace SondixPhpClient;
+namespace DtxsPhpClient;
 
 class Loader {
 
@@ -16,7 +16,7 @@ class Loader {
   public string $userPassword;          // USER_PASSWORD defined in the IAM (Keycloak)
 
   public string $iamTokenEndpoint;      // OAuth compatible endpoint of the IAM
-  public string $sondixEndpoint;        // SONDIX endpoint
+  public string $dtxsEndpoint;          // DTXS endpoint
 
   // HTTP client
   public object $guzzle;                // 3rd-party HTTP library
@@ -31,7 +31,7 @@ class Loader {
                                         // in the HTTP requests
   
   /**
-   * Constructs a SONDIX PHP API client object
+   * Constructs a DTXS PHP API client object
    *
    * @param  mixed $config
    * @return void
@@ -47,7 +47,7 @@ class Loader {
     $this->debugFile = $config['debugFile'] ?? "";
 
     $this->iamTokenEndpoint = $config['iamTokenEndpoint'] ?? "";
-    $this->sondixEndpoint = $config['sondixEndpoint'] ?? "";
+    $this->dtxsEndpoint = $config['dtxsEndpoint'] ?? "";
 
     // initiate HTTP client
     $this->guzzle = new \GuzzleHttp\Client(['verify' => false]);
@@ -91,7 +91,7 @@ class Loader {
   }
   
   /**
-   * Send a request to the SONDIX server
+   * Send a request to the DTXS server
    *
    * @param  mixed $method HTTP method (GET/POST/PUT/DELETE)
    * @param  mixed $command A command (API function) to call (e.g. "/database/DB_NAME/record/RECORD_ID")
@@ -113,22 +113,22 @@ class Loader {
 
       $this->lastResponse = $this->guzzle->request(
         $method,
-        $this->sondixEndpoint.$command,
+        $this->dtxsEndpoint.$command,
         $options
       );
 
       return $this->lastResponse;
     } catch (\GuzzleHttp\Exception\ConnectException $e) {
-      throw new \SondixPhpClient\Exception\RequestException(
+      throw new \DtxsPhpClient\Exception\RequestException(
         json_encode([
           "request" => $e->getRequest(),
           "statusCode" => 503,
-          "reason" => "Connection to SONDIX server failed."
+          "reason" => "Connection to DTXS server failed."
         ])
       );
     } catch (\GuzzleHttp\Exception\BadResponseException $e) {
       $this->lastResponse = $e->getResponse();
-      throw new \SondixPhpClient\Exception\RequestException(
+      throw new \DtxsPhpClient\Exception\RequestException(
         json_encode([
           "request" => $e->getRequest(),
           "statusCode" => $this->lastResponse->getStatusCode(),
@@ -137,7 +137,7 @@ class Loader {
         ])
       );
     } catch (\GuzzleHttp\Exception\RequestException $e) {
-      throw new \SondixPhpClient\Exception\RequestException(
+      throw new \DtxsPhpClient\Exception\RequestException(
         json_encode([
           "request" => $e->getRequest(),
           "statusCode" => 500,
@@ -158,7 +158,7 @@ class Loader {
 
       return $this->sendRequest($method, $command, $body);
     } catch (\Exception $e) {
-      throw new \SondixPhpClient\Exception\RequestException(
+      throw new \DtxsPhpClient\Exception\RequestException(
         json_encode([
           "request" => $e->getRequest(),
           "statusCode" => 500,

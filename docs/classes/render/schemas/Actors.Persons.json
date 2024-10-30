@@ -4,13 +4,13 @@
         "properties": {
             "GivenName": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "FamilyName": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
@@ -18,7 +18,7 @@
                 "type": "array",
                 "items": {
                     "type": "string",
-                    "_SONDIX": {
+                    "_DTXS": {
                         "ReferencedClass": "Actors.Roles"
                     }
                 }
@@ -30,7 +30,7 @@
                     "Actors.Persons": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }
@@ -43,7 +43,7 @@
                     "Actors.Persons": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }

@@ -4,7 +4,7 @@
         "properties": {
             "Name": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
@@ -13,14 +13,14 @@
                 "properties": {
                     "Model": {
                         "type": "string",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Reference",
                             "ReferencedClass": "Assets.Intangibles.Documents"
                         }
                     },
                     "IfcGUID": {
                         "type": "string",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "IfcGUID"
                         }
                     }

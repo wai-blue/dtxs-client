@@ -4,13 +4,13 @@
         "properties": {
             "Name": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "RegulatoryFrameworkId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Safety.Regulatory.Frameworks"
                 }
@@ -19,14 +19,14 @@
                 "type": "array",
                 "items": {
                     "type": "string",
-                    "_SONDIX": {
+                    "_DTXS": {
                         "ReferencedClass": "Tasks"
                     }
                 }
             },
             "WasteAcceptanceCriteriaId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Safety.Regulatory.ClearanceLimits"
                 }
@@ -38,7 +38,7 @@
                     "Wastes.ManagementProcesses": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }
@@ -51,7 +51,7 @@
                     "Wastes.ManagementProcesses": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }

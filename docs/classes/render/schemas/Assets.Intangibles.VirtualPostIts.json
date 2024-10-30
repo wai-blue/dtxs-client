@@ -4,27 +4,27 @@
         "properties": {
             "UserId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Actors.Persons"
                 }
             },
             "Type": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "AssetBundleDocumentId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Assets.Intangibles.Documents"
                 }
             },
             "IFCModelDocumentId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Assets.Intangibles.Documents"
                 }

@@ -4,19 +4,19 @@
         "properties": {
             "Name": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "ManufacturerName": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "URDFKinematicDocumentId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Assets.Intangibles.Documents"
                 }
@@ -26,14 +26,14 @@
                 "properties": {
                     "Model": {
                         "type": "string",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Reference",
                             "ReferencedClass": "Assets.Intangibles.Documents"
                         }
                     },
                     "IfcGUID": {
                         "type": "string",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "IfcGUID"
                         }
                     }
@@ -46,7 +46,7 @@
                     "Assets.Tangibles.Tools": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }
@@ -59,7 +59,7 @@
                     "Assets.Tangibles.Tools": {
                         "type": "string",
                         "format": "textarea",
-                        "_SONDIX": {
+                        "_DTXS": {
                             "Type": "Object"
                         }
                     }

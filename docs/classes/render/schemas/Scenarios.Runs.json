@@ -4,28 +4,28 @@
         "properties": {
             "ScenarioId": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Reference",
                     "ReferencedClass": "Scenarios"
                 }
             },
             "Description": {
                 "type": "string",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "String"
                 }
             },
             "Inputs": {
                 "type": "string",
                 "format": "textarea",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Object"
                 }
             },
             "Outputs": {
                 "type": "string",
                 "format": "textarea",
-                "_SONDIX": {
+                "_DTXS": {
                     "Type": "Object"
                 }
             }
