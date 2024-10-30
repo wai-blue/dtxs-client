@@ -1,9 +1,9 @@
 <?php
 
 /* 
-  * SONDIX API Classes Visualiser
+  * DTXS API Classes Visualiser
   *
-  * Tool for streamlining the collaboration in developing the SONDIX
+  * Tool for streamlining the collaboration in developing the DTXS
   * API Classes structure and properties.
   *
   * Author: Dusan Daniska, dusan.daniska@wai.sk 
@@ -92,7 +92,7 @@ function getJsonSchemaProperties($className, $classData, $flatClassesList) {
           }
 
           if (!empty($propData['ReferencedClass'])) {
-            $properties[$propName]['items']['_SONDIX']['ReferencedClass'] = $propData['ReferencedClass'];
+            $properties[$propName]['items']['_DTXS']['ReferencedClass'] = $propData['ReferencedClass'];
           }
         }
       } else if ($typeConverted == "Def") {
@@ -116,7 +116,7 @@ function getJsonSchemaProperties($className, $classData, $flatClassesList) {
               "type" => "number",
             ];
 
-            $properties[$propName]['_SONDIX']['Type'] = "Decimal";
+            $properties[$propName]['_DTXS']['Type'] = "Decimal";
           break;
           default:
             $properties[$propName] = [
@@ -145,10 +145,10 @@ function getJsonSchemaProperties($className, $classData, $flatClassesList) {
           $properties[$propName]["enum"] = $propData['ValidValues'];
         }
 
-        $properties[$propName]['_SONDIX']['Type'] = $type;
+        $properties[$propName]['_DTXS']['Type'] = $type;
 
         if (!empty($propData['ReferencedClass'])) {
-          $properties[$propName]['_SONDIX']['ReferencedClass'] = $propData['ReferencedClass'];
+          $properties[$propName]['_DTXS']['ReferencedClass'] = $propData['ReferencedClass'];
         }
       }
     }

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * SONDIX DB Browser
- * Utility to browse and manage the content of SONDIX database.
+ * DTXS DB Browser
+ * Utility to browse and manage the content of DTXS database.
  *
  * Author: Dusan Daniska, dusan.daniska@wai.sk
  *

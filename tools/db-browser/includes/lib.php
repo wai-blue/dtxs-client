@@ -1,8 +1,8 @@
 <?php
 
 /**
- * SONDIX DB Browser
- * Utility to browse and manage the content of SONDIX database.
+ * DTXS DB Browser
+ * Utility to browse and manage the content of DTXS database.
  *
  * Author: Dusan Daniska, dusan.daniska@wai.sk
  *
@@ -13,10 +13,10 @@ global $addEnumsToSchema_allRecordsByClass;
 $addEnumsToSchema_allRecordsByClass = NULL;
 
 /**
- * Converts SONDIX-specific JSON schema properties to enuv values in
+ * Converts DTXS-specific JSON schema properties to enuv values in
  * the JSON editor.
  *
- * @param  object $api SONDIX API client object
+ * @param  object $api DTXS API client object
  * @param  array $schema Schema to be extended by enum values
  * @return array Extended schema
  */

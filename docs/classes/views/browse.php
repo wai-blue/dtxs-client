@@ -1,9 +1,9 @@
 <?php
 
 /* 
-  * SONDIX API Classes Visualiser
+  * DTXS API Classes Visualiser
   *
-  * Tool for streamlining the collaboration in developing the SONDIX
+  * Tool for streamlining the collaboration in developing the DTXS
   * API Classes structure and properties.
   *
   * Author: Dusan Daniska, dusan.daniska@wai.sk 

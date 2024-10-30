@@ -21,7 +21,7 @@ let fileData = "",
 // The initial structure of the JSON  Schema
 let jsonSchema = {
 	$schema: "http://json-schema.org/draft-07/schema",
-	$comment: "The SONDIX taxonomy bundled into a JSON Schema file.",
+	$comment: "The DTXS taxonomy bundled into a JSON Schema file.",
 	definitions: {},
 	properties: {}
 };
