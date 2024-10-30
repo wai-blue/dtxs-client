@@ -1,3 +1,2 @@
-# DTXS
-
+# DTXS client implementations
 
