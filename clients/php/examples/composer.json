@@ -1,5 +1,0 @@
-{
-    "require": {
-         "wai-blue/dtxs-client-php": "dev-main"
-    }
-}

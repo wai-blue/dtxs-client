@@ -1,6 +1,6 @@
 {
-    "name": "wai-blue/dtxs-client-php",
-    "description": "PHP library for DTXS protocol",
+    "name": "wai-blue/dtxs-client",
+    "description": "DTXS client implementations",
     "type": "library",
     "require": {
         "php": ">=7.3",
