@@ -11,9 +11,9 @@ trait Folders
    * @param  mixed $folderName Name of the new folder.
    * @return string FolderUid in case of 200 success. Otherwise exception is thrown.
    */
-  public function createFolder(string $folderName): string
+  public function createFolder(array $folder): string
   {
-    $res = $this->sendRequest("POST", "/database/{$this->database}/folder", ["FolderName" => $folderName]);
+    $res = $this->sendRequest("POST", "/database/{$this->database}/folder", $folder);
     return (string) $res->getBody();
   }
 
@@ -31,13 +31,13 @@ trait Folders
   }
 
   /**
-   * Shortcut to get folders by a query.
+   * Shortcut to get metadata content of the folder (both sub-folders and documents).
    *
-   * @return array List of folders matching the query.
+   * @return array Metadata and folder content.
    */
-  public function getFolders(): array
+  public function getFolderContent(string $folderUid): array
   {
-    $res = $this->sendRequest("POST", "/database/{$this->database}/folders");
+    $res = $this->sendRequest("GET", "/database/{$this->database}/folder/{$folderUid}");
 
     return (array) json_decode((string) $res->getBody(), TRUE);
   }
