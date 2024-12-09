@@ -43,9 +43,9 @@ trait Databases
    *
    * @return string $databaseName of 200 success. Otherwise exception is thrown.
    */
-  public function deleteDatabase(): string
+  public function deleteDatabase($database): string
   {
-    $res = $this->sendRequest("DELETE", "/database/{$this->database}");
+    $res = $this->sendRequest("DELETE", "/database/{$database}");
     return (string) $res->getBody();
   }
 }

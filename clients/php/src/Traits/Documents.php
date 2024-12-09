@@ -61,22 +61,16 @@ trait Documents
   // /**
   //  * Shortcut to get documents by a query.
   //  *
-  //  * @param  mixed $query A MongoDB-like search query.
   //  * @return array List of records matching the query.
   //  */
-  // public function getDocuments($query = NULL, $fields = NULL, $methods = NULL): array
-  // {
-  //   $res = $this->sendRequest(
-  //     "POST", 
-  //     "/database/{$this->database}/documents", 
-  //     [
-  //       "query" => $query,
-  //       "flieds" => $fields,
-  //       "methods" => $methods
-  //     ]
-  //   );
+  public function getDocuments(): array
+  {
+    $res = $this->sendRequest(
+      "POST",
+      "/database/{$this->database}/documents"
+    );
 
-  //   return (array) json_decode((string) $res->getBody(), TRUE);
-  // }
+    return (array) json_decode((string) $res->getBody(), TRUE);
+  }
 
 }

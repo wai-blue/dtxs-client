@@ -21,7 +21,7 @@ $api = new \DtxsPhpClient\Client([
   "clientSecret" => "", // your app's client secret
   "userName" => "", // name of the user to authenticate
   "userPassword" => "", // password of the user to authenticate
-  "iamTokenEndpoint" => "", // OIDC endpoint address of IAM server
+  "oauthEndpoint" => "", // OIDC endpoint address of IAM server
   "apiEndpoint" => "", // API server endpoint address
   "debugFile" => "guzzle_debug.log", // log file
 ]);

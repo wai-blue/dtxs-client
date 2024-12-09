@@ -15,7 +15,7 @@ class Loader {
   public string $userName;              // USER_NAME defined in the IAM (Keycloak)
   public string $userPassword;          // USER_PASSWORD defined in the IAM (Keycloak)
 
-  public string $iamTokenEndpoint;      // OAuth compatible endpoint of the IAM
+  public string $oauthEndpoint;         // OAuth compatible endpoint of the IAM
   public string $dtxsEndpoint;          // DTXS endpoint
 
   // HTTP client
@@ -29,7 +29,7 @@ class Loader {
   // Miscelaneous
   public string $database;              // Name of the database which will be used
                                         // in the HTTP requests
-  
+
   /**
    * Constructs a DTXS PHP API client object
    *
@@ -46,14 +46,16 @@ class Loader {
     $this->userPassword = $config['userPassword'] ?? "";
     $this->debugFile = $config['debugFile'] ?? "";
 
-    $this->iamTokenEndpoint = $config['iamTokenEndpoint'] ?? "";
+    $this->oauthEndpoint = $config['oauthEndpoint'] ?? "";
     $this->dtxsEndpoint = $config['dtxsEndpoint'] ?? "";
+
+    $this->database = '';
 
     // initiate HTTP client
     $this->guzzle = new \GuzzleHttp\Client(['verify' => false]);
 
   }
-  
+
   /**
    * Fetches access token from the IAM (Keycloak)
    *
@@ -63,7 +65,7 @@ class Loader {
   {
     $response = $this->guzzle->request(
       "POST",
-      $this->iamTokenEndpoint."/token",
+      $this->oauthEndpoint."/token",
       [
         'headers' => [
           'content-type' => 'application/x-www-form-urlencoded',
