@@ -4,11 +4,6 @@
     "type": "library",
     "require": {
         "php": ">=7.3",
-        "aws/aws-sdk-php": "^3.212",
-        "guzzlehttp/guzzle": "7.4.x"
-    },
-    "require-dev": {
-        "aws/aws-sdk-php": "^3.212",
         "guzzlehttp/guzzle": "7.4.x"
     },
     "license": "Apache-2.0",
@@ -19,8 +14,7 @@
     },
     "authors": [
         {
-            "name": "Dusan Daniska",
-            "email": "dusan.daniska@wai.sk"
+            "name": "Dusan Daniska"
         }
     ],
     "minimum-stability": "dev"

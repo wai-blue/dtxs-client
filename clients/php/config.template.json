@@ -1,0 +1,10 @@
+{
+  "dtxsClient": {
+    "clientId": "",
+    "clientSecret": "",
+    "userName": "",
+    "userPassword": "",
+    "oauthEndpoint": "",
+    "dtxsEndpoint": ""
+  }
+}

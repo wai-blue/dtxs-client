@@ -2,4 +2,4 @@
 
 ## PHP
 
-See [docs](docs/php.md).
+See [docs](clients/php/how-to-use.md).

@@ -30,6 +30,8 @@ class Loader {
   public string $database;              // Name of the database which will be used
                                         // in the HTTP requests
 
+  public array $lastRequest = [];       // info about last request sent
+
   /**
    * Constructs a DTXS PHP API client object
    *
@@ -112,6 +114,13 @@ class Loader {
       ];
 
       if (!empty($this->debugFile)) $options['debug'] = fopen($this->debugFile, 'w');
+
+      $this->lastRequest = [
+        'method' => strtoupper($method),
+        'endpoint' => $this->dtxsEndpoint.$command,
+        'body' => $body
+      ];
+
       $this->lastResponse = $this->guzzle->request(
         $method,
         $this->dtxsEndpoint.$command,
