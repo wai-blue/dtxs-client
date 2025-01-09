@@ -2,3 +2,4 @@ composer.lock
 vendor
 *.json
 !clients/php/config.template.json
+*.log
