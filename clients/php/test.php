@@ -93,13 +93,12 @@ $exit = false;
 
 while (!$exit) {
   settermcolor('yellow');
-  echo "What do you want to do? (Use 'help'' or 'h' for help) ".(empty($activeDatabase) ? "(no database is activated)" : "(active database is '{$activeDatabase}')").": ";
+  echo "What do you want to do? (Use 'help' or 'h' for help) ".(empty($activeDatabase) ? "(no database is activated)" : "(active database is '{$activeDatabase}')").": ";
   $input = trim(fgets($clih));
 
   if (strpos($input, ' ') !== false) {
-    list($action, $argument) = explode(' ', $input);
-    $action = trim($action);
-    $argument = trim($argument);
+    $action = trim(substr($input, 0, strpos($input, ' ')));
+    $argument = trim(substr($input, strlen($action)));
   } else {
     $action = trim($input);
     $argument = '';
@@ -118,6 +117,7 @@ while (!$exit) {
         echo "  'rec-list' or 'rl' = list all records\n";
         echo "  'rec-create-random' or 'rcr' = create random record\n";
         echo "  'rec-update' or 'ru' = update record\n";
+        echo "  'doc-create-random' or 'dcr' = create random document\n";
         echo "  'doc-list' or 'dl' = list all documents\n";
         echo "  'doc-get' or 'dg' = get document info\n";
         echo "  'doc-download' or 'dd' = download document\n";
@@ -317,8 +317,19 @@ while (!$exit) {
           settermcolor('yellow');
           echo "Select a class of the new document: ";
           $classIndex = (int) fgets($clih);
+
+
+          settermcolor('yellow');
+          echo "What should be the size of the document (in bytes)? ";
+          $fileSize = (int) fgets($clih);
+
+        } else if (strpos($argument, ' ') !== false) {
+          list($classIndex, $fileSize) = explode(' ', $argument);
+          $classIndex = (int) $classIndex;
+          $fileSize = (int) $fileSize;
         } else {
           $classIndex = (int) $argument;
+          $fileSize = 1024;
         }
 
         if (isset($classes[$classIndex])) {
@@ -326,7 +337,7 @@ while (!$exit) {
           $confidentiality = rand(0, 9);
 
           settermcolor('green');
-          echo "Creating random document of class '{$class}' in the root folder and randomly chosen confidentiality {$confidentiality}.\n";
+          echo "Creating random document of class '{$class}', size {$fileSize} B and randomly chosen confidentiality {$confidentiality}.\n";
 
           $tmpRand = rand(1000, 9999);
 
@@ -334,7 +345,7 @@ while (!$exit) {
             'class' => $class,
             'confidentiality' => $confidentiality,
             'name' => 'rand-' . $tmpRand . '.txt',
-            'content' => str_repeat('Hello world, random is ' . $tmpRand . '. ', rand(10, 20)),
+            'content' => 'Hello world, random is ' . str_repeat($tmpRand . '. ', round($fileSize / 6)),
           ]);
           loglastrequest($api->lastRequest);
 
