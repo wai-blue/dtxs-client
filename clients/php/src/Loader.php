@@ -2,7 +2,7 @@
 
 /**
  * DTXS (Simple Open Nuclear Decommissioning Information Exchange) protocol Client for PHP
- * Author: Dusan Daniska, dusan.daniska@wai.sk
+ * Author: Dusan Daniska, dusan.daniska@wai.blue
  * License: See LICENSE.md file in the root folder of the software package.
  */
 
