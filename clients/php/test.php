@@ -49,9 +49,11 @@ function loglastrequest(array $request) {
   settermcolor('cyan');
   echo "\n";
 
+  $bodyStr = json_encode($request['body']);
+  if (strlen($bodyStr) > 300) $bodyStr = substr($bodyStr, 0, 300) . '... (' . strlen($bodyStr) . ' bytes)';
   echo "-> ";
   settermcolor('bg-cyan');
-  echo "Body: " . json_encode($request['body']);
+  echo "Body: " . $bodyStr;
   settermcolor('bg-default');
   echo "\n";
 }
@@ -326,7 +328,11 @@ while (!$exit) {
         } else if (strpos($argument, ' ') !== false) {
           list($classIndex, $fileSize) = explode(' ', $argument);
           $classIndex = (int) $classIndex;
-          $fileSize = (int) $fileSize;
+
+          $fileSize = strtolower(str_replace(' ', '', (str_replace(',', '.', $fileSize))));
+          if (substr($fileSize, -2) == 'gb') $fileSize = (float) $fileSize * 1024 * 1024 * 1024;
+          elseif (substr($fileSize, -2) == 'mb') $fileSize = (float) $fileSize * 1024 * 1024;
+          elseif (substr($fileSize, -2) == 'kb') $fileSize = (float) $fileSize * 1024;
         } else {
           $classIndex = (int) $argument;
           $fileSize = 1024;
@@ -425,11 +431,21 @@ while (!$exit) {
 
         settermcolor('green');
         echo "Downloading document '{$documentUid}'.\n";
+        $documentInfo = $api->getDocument('root', $documentUid);
+        loglastrequest($api->lastRequest);
         $document = $api->downloadDocument('root', $documentUid);
         loglastrequest($api->lastRequest);
 
-        settermcolor('cyan');
-        echo $document . "\n";
+        if (is_dir($config['documentRoot'])) {
+          $fileName = $config['documentRoot'] . '/'. $documentInfo['name'];
+          file_put_contents($fileName, $document);
+
+          settermcolor('green');
+          echo "Document was saved to '{$fileName}' (size: " . strlen($document) . ").\n";
+        } else {
+          settermcolor('red');
+          echo "Document was downloaded (size: " . strlen($document) . ") but not saved. Check 'documentRoot' configuration parameter.\n";
+        }
       break;
 
       // doc-update
