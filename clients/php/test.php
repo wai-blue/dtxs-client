@@ -118,6 +118,7 @@ while (!$exit) {
     switch ($action) {
       case 'help': case 'h':
         white("  'help' or 'h' = this help\n");
+        white("  'classes' = list available classes\n");
         white("  'db-list' or 'dbl' = list all databases\n");
         white("  'db-create' or 'dbc' [db-name] = create new database\n");
         white("  'db-delete' or 'dbd' = delete database\n");
@@ -132,6 +133,21 @@ while (!$exit) {
         white("  'doc-download' or 'dd' = download document\n");
         white("  'doc-update' or 'du' = update document\n");
         white("  'exit' or 'x' = exit\n");
+      break;
+
+      // classes
+      case 'classes':
+        green("Getting list of available classes.\n");
+        $classes = $api->getClasses();
+        loglastrequest($api->lastRequest);
+
+        if (is_array($classes['classes'])) {
+          foreach ($classes['classes'] as $class) {
+            cyan("  " . $class. "\n");
+          }
+        } else {
+          cyan('No available classes found.');
+        }
       break;
 
       // db-list

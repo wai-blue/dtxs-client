@@ -190,6 +190,18 @@ class Loader {
     return (string) $res->getBody();
   }
   
+
+  /* Shortcut to get list of available classes.
+   *
+   * @return array List of available classes.
+   */
+  public function getClasses(): array
+  {
+    $res = $this->sendRequest("GET", "/classes");
+    return json_decode((string) $res->getBody(), TRUE);
+  }
+
+
   use Traits\Databases;
   use Traits\Records;
   use Traits\Folders;
