@@ -36,9 +36,9 @@ trait Records
    * @param  mixed $recordUid UID of the record to get.
    * @return array Data of the requested record. Otherwise exception is thrown.
    */
-  public function getRecord(string $recordUid): array
+  public function getRecord(string $recordUid, int $version = 0): array
   {
-    $res = $this->sendRequest("GET", "/database/{$this->database}/record/{$recordUid}");
+    $res = $this->sendRequest("GET", "/database/{$this->database}/record/{$recordUid}", ["version" => $version]);
     return (array) json_decode((string) $res->getBody(), TRUE);
   }
   

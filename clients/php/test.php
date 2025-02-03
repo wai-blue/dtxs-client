@@ -125,6 +125,7 @@ while (!$exit) {
         white("  'db-activate' or 'dba' = activate database\n");
         white("  'import-pleiades' or 'ip' = import from PLEIADES JSON file\n");
         white("  'rec-list' or 'rl' = list all records\n");
+        white("  'rec-get' or 'rg' = get a record\n");
         white("  'rec-create-random' or 'rcr' = create random record\n");
         white("  'rec-update' or 'ru' = update record\n");
         white("  'doc-create-random' or 'dcr' = create random document\n");
@@ -248,6 +249,34 @@ while (!$exit) {
           cyan(" | " . normstrlen(json_encode($record['content']), 100));
           cyan(" |\n");
         }
+      break;
+
+      // rec-get
+      case 'rec-get': case 'rg':
+        if (count($arguments) == 0) {
+          yellow("Enter UID of record to get: ");
+          $recordUid = trim(fgets($clih));
+          yellow("Enter version of record to get (empty or 0 for the latest version): ");
+          $version = (int) trim(fgets($clih));
+        } else {
+          $recordUid = $arguments[0];
+          $version = (int) $arguments[1];
+        }
+
+        green("Getting record info '{$recordUid}' ver. {$version}.\n");
+        $record = $api->getRecord($recordUid, $version);
+        loglastrequest($api->lastRequest);
+
+        cyan("  UID = " . $record['uid'] . "\n");
+        cyan("  Version = " . $record['version'] . "\n");
+        cyan("  CreateTime = " . $record['createTime'] . "\n");
+        cyan("  Author = " . $record['author'] . "\n");
+        cyan("  Owner = " . $record['owner'] . "\n");
+        cyan("  Class = " . $record['class'] . "\n");
+        cyan("  Confidentiality = " . $record['confidentiality'] . "\n");
+        cyan("  IfcModel = " . $record['ifcModel'] . "\n");
+        cyan("  IfcGuid = " . $record['ifcGuid'] . "\n");
+        cyan("  Content = " . json_encode($record['content']) . "\n");
       break;
 
       // case rec-create-random
