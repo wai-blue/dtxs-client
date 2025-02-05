@@ -190,6 +190,15 @@ class Loader {
     return (string) $res->getBody();
   }
   
+  /* Shortcut to get information about the server
+   *
+   * @return array Information about the server
+   */
+  public function getServerInfo(): array
+  {
+    $res = $this->sendRequest("GET", "/server-info");
+    return json_decode((string) $res->getBody(), TRUE);
+  }
 
   /* Shortcut to get list of available classes.
    *

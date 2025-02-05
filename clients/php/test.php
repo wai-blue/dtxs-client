@@ -93,434 +93,449 @@ yellow("userName: {$config['dtxsClient']['userName']}\n");
 yellow("\n");
 
 green("Authorizing...\n");
-$api->getAccessToken();
-cyan("Received access token received for the client '{$config['dtxsClient']['clientId']}'. Length: " . strlen($api->accessToken) . "\n");
 
-$clih = fopen("php://stdin", "r");
+try {
+  $api->getAccessToken();
+  cyan("Received access token received for the client '{$config['dtxsClient']['clientId']}'. Length: " . strlen($api->accessToken) . "\n");
 
-$action = '';
-$activeDatabase = '';
-$exit = false;
+  $clih = fopen("php://stdin", "r");
 
-while (!$exit) {
-  yellow("What do you want to do? (Use 'help' or 'h' for help) ".(empty($activeDatabase) ? "(no database is activated)" : "(active database is '{$activeDatabase}')").": ");
-  $input = trim(fgets($clih));
+  $action = '';
+  $activeDatabase = '';
+  $exit = false;
 
-  if (strpos($input, ' ') !== false) {
-    $action = trim(substr($input, 0, strpos($input, ' ')));
-    $arguments = parsearg(trim(substr($input, strlen($action))));
-  } else {
-    $action = trim($input);
-    $arguments = [];
-  }
+  while (!$exit) {
+    yellow("What do you want to do? (Use 'help' or 'h' for help) ".(empty($activeDatabase) ? "(no database is activated)" : "(active database is '{$activeDatabase}')").": ");
+    $input = trim(fgets($clih));
 
-  try {
-    switch ($action) {
-      case 'help': case 'h':
-        white("  'help' or 'h' = this help\n");
-        white("  'classes' = list available classes\n");
-        white("  'db-list' or 'dbl' = list all databases\n");
-        white("  'db-create' or 'dbc' [db-name] = create new database\n");
-        white("  'db-delete' or 'dbd' = delete database\n");
-        white("  'db-activate' or 'dba' = activate database\n");
-        white("  'import-pleiades' or 'ip' = import from PLEIADES JSON file\n");
-        white("  'rec-list' or 'rl' = list all records\n");
-        white("  'rec-get' or 'rg' = get a record\n");
-        white("  'rec-create-random' or 'rcr' = create random record\n");
-        white("  'rec-update' or 'ru' = update record\n");
-        white("  'doc-create-random' or 'dcr' = create random document\n");
-        white("  'doc-list' or 'dl' = list all documents\n");
-        white("  'doc-get' or 'dg' = get document info\n");
-        white("  'doc-download' or 'dd' = download document\n");
-        white("  'doc-update' or 'du' = update document\n");
-        white("  'exit' or 'x' = exit\n");
-      break;
+    if (strpos($input, ' ') !== false) {
+      $action = trim(substr($input, 0, strpos($input, ' ')));
+      $arguments = parsearg(trim(substr($input, strlen($action))));
+    } else {
+      $action = trim($input);
+      $arguments = [];
+    }
 
-      // classes
-      case 'classes':
-        green("Getting list of available classes.\n");
-        $classes = $api->getClasses();
-        loglastrequest($api->lastRequest);
+    try {
+      switch ($action) {
+        case 'help': case 'h':
+          white("  'help' or 'h' = this help\n");
+          white("  'server-info' or 'i' = about the server\n");
+          white("  'classes' = list available classes\n");
+          white("  'db-list' or 'dbl' = list all databases\n");
+          white("  'db-create' or 'dbc' [db-name] = create new database\n");
+          white("  'db-delete' or 'dbd' = delete database\n");
+          white("  'db-activate' or 'dba' = activate database\n");
+          white("  'import-pleiades' or 'ip' = import from PLEIADES JSON file\n");
+          white("  'rec-list' or 'rl' = list all records\n");
+          white("  'rec-get' or 'rg' = get a record\n");
+          white("  'rec-create-random' or 'rcr' = create random record\n");
+          white("  'rec-update' or 'ru' = update record\n");
+          white("  'doc-create-random' or 'dcr' = create random document\n");
+          white("  'doc-list' or 'dl' = list all documents\n");
+          white("  'doc-get' or 'dg' = get document info\n");
+          white("  'doc-download' or 'dd' = download document\n");
+          white("  'doc-update' or 'du' = update document\n");
+          white("  'exit' or 'x' = exit\n");
+        break;
 
-        if (is_array($classes['classes'])) {
-          foreach ($classes['classes'] as $class) {
-            cyan("  " . $class. "\n");
+        // about-server
+        case 'server-info': case 'i':
+          green("Getting server info.\n");
+          $serverInfo = $api->getServerInfo();
+          loglastrequest($api->lastRequest);
+
+          cyan('Server info: ' . json_encode($serverInfo) . "\n");
+        break;
+
+        // classes
+        case 'classes':
+          green("Getting list of available classes.\n");
+          $classes = $api->getClasses();
+          loglastrequest($api->lastRequest);
+
+          if (is_array($classes['classes'])) {
+            foreach ($classes['classes'] as $class) {
+              cyan("  " . $class. "\n");
+            }
+          } else {
+            cyan('No available classes found.');
           }
-        } else {
-          cyan('No available classes found.');
-        }
-      break;
+        break;
 
-      // db-list
-      case 'db-list': case 'dbl':
-        green("Getting list of databases.\n");
-        $databases = $api->getDatabases();
-        loglastrequest($api->lastRequest);
-
-        cyan("| Database                            |\n");
-        foreach ($databases as $key => $value) {
-          cyan("| " . normstrlen($value['name'], 36));
-          cyan("|\n");
-        }
-      break;
-
-      // db-create
-      case 'db-create': case 'dbc':
-        if (count($arguments) == 0) {
-          yellow("Enter name of a new database: ");
-          $dbName = trim(fgets($clih));
-        } else {
-          $dbName = $arguments[0];
-        }
-
-        green("Creating database '{$dbName}'.\n");
-        $api->createDatabase($dbName);
-        loglastrequest($api->lastRequest);
-      break;
-
-      // db-delete
-      case 'db-delete': case 'dbd':
-        if (count($arguments) == 0) {
-          yellow("Enter name of database to delete: ");
-          $dbName = trim(fgets($clih));
-        } else {
-          $dbName = $arguments[0];
-        }
-
-        green("Deleting database '{$dbName}'.\n");
-        $api->deleteDatabase($dbName);
-        loglastrequest($api->lastRequest);
-      break;
-
-      // db-act
-      case 'db-activate': case 'dba':
-        if (count($arguments) == 0) {
+        // db-list
+        case 'db-list': case 'dbl':
+          green("Getting list of databases.\n");
           $databases = $api->getDatabases();
           loglastrequest($api->lastRequest);
 
-          yellow("Enter name of the database to activate: ");
-          $activeDatabase = trim(fgets($clih));
-        } else {
-          $activeDatabase = $arguments[0];
-        }
+          cyan("| Database                            |\n");
+          foreach ($databases as $key => $value) {
+            cyan("| " . normstrlen($value['name'], 36));
+            cyan("|\n");
+          }
+        break;
 
-        green("Activating database '{$activeDatabase}'.\n");
-        $api->setDatabase($activeDatabase);
-      break;
-
-      // db-act
-      case 'import-pleiades': case 'ip':
-        $database = $arguments[0] ?? '';
-        $file = $arguments[1] ?? '';
-        
-        if (empty($database) || empty($file)) {
-          red("Usage: import-pleiades '<input-json-file>' '<database-where-to-import>'.\n");
-        } else if (!is_file($file)) {
-          red("'{$file}' not found.\n");
-        } else {
-          green("Importing '{$file}' to database '{$database}'.\n");
-          $importer = new \DtxsPhpClient\ImportPleiades($api);
-          $importer->saveRecords($database, $importer->loadRecordsFromJson($file));
-        }
-      break;
-
-      // rec-list
-      case 'rec-list': case 'rl':
-        green("Getting list of records.\n");
-        $records = $api->getRecords();
-        loglastrequest($api->lastRequest);
-
-        cyan("| UID                                 ");
-        cyan(" | Version");
-        cyan(" | Confidentiality");
-        cyan(" | Class           ");
-        cyan(" | IFC model       ");
-        cyan(" | IFC GUID        ");
-        cyan(" | Content                                                                                             ");
-        cyan(" |\n");
-
-        foreach ($records as $record) {
-          cyan("| " . normstrlen($record['uid'], 36));
-          cyan(" | " . normstrlen($record['version'], 7));
-          cyan(" | " . normstrlen($record['confidentiality'], 15));
-          cyan(" | " . normstrlen($record['class'], 16));
-          cyan(" | " . normstrlen($record['ifcModel'], 16));
-          cyan(" | " . normstrlen($record['ifcGuid'], 16));
-          cyan(" | " . normstrlen(json_encode($record['content']), 100));
-          cyan(" |\n");
-        }
-      break;
-
-      // rec-get
-      case 'rec-get': case 'rg':
-        if (count($arguments) == 0) {
-          yellow("Enter UID of record to get: ");
-          $recordUid = trim(fgets($clih));
-          yellow("Enter version of record to get (empty or 0 for the latest version): ");
-          $version = (int) trim(fgets($clih));
-        } else {
-          $recordUid = $arguments[0];
-          $version = (int) $arguments[1];
-        }
-
-        green("Getting record info '{$recordUid}' ver. {$version}.\n");
-        $record = $api->getRecord($recordUid, $version);
-        loglastrequest($api->lastRequest);
-
-        cyan("  UID = " . $record['uid'] . "\n");
-        cyan("  Version = " . $record['version'] . "\n");
-        cyan("  CreateTime = " . $record['createTime'] . "\n");
-        cyan("  Author = " . $record['author'] . "\n");
-        cyan("  Owner = " . $record['owner'] . "\n");
-        cyan("  Class = " . $record['class'] . "\n");
-        cyan("  Confidentiality = " . $record['confidentiality'] . "\n");
-        cyan("  IfcModel = " . $record['ifcModel'] . "\n");
-        cyan("  IfcGuid = " . $record['ifcGuid'] . "\n");
-        cyan("  Content = " . json_encode($record['content']) . "\n");
-      break;
-
-      // case rec-create-random
-      case 'rec-create-random': case 'rcr':
-        $classes = [
-          1 => "Actors.Persons",
-          2 => "Actors.Teams",
-          3 => "Assets.Tangibles.Parts",
-          // "Assets.Tangibles.Tools",
-          // "Safety.Regulatory.WasteCategories",
-          // "Tasks",
-        ];
-
-        if (count($arguments) == 0) {
-          foreach ($classes as $key => $class) {
-            white("  {$key} = {$class}\n");
+        // db-create
+        case 'db-create': case 'dbc':
+          if (count($arguments) == 0) {
+            yellow("Enter name of a new database: ");
+            $dbName = trim(fgets($clih));
+          } else {
+            $dbName = $arguments[0];
           }
 
-          yellow("Select a class of the new record: ");
-          $classIndex = (int) fgets($clih);
-        } else {
-          $classIndex = (int) $arguments[0];
-        }
+          green("Creating database '{$dbName}'.\n");
+          $api->createDatabase($dbName);
+          loglastrequest($api->lastRequest);
+        break;
 
-        if (isset($classes[$classIndex])) {
-          $class = $classes[$classIndex];
-          $confidentiality = rand(0, 9);
+        // db-delete
+        case 'db-delete': case 'dbd':
+          if (count($arguments) == 0) {
+            yellow("Enter name of database to delete: ");
+            $dbName = trim(fgets($clih));
+          } else {
+            $dbName = $arguments[0];
+          }
+
+          green("Deleting database '{$dbName}'.\n");
+          $api->deleteDatabase($dbName);
+          loglastrequest($api->lastRequest);
+        break;
+
+        // db-act
+        case 'db-activate': case 'dba':
+          if (count($arguments) == 0) {
+            $databases = $api->getDatabases();
+            loglastrequest($api->lastRequest);
+
+            yellow("Enter name of the database to activate: ");
+            $activeDatabase = trim(fgets($clih));
+          } else {
+            $activeDatabase = $arguments[0];
+          }
+
+          green("Activating database '{$activeDatabase}'.\n");
+          $api->setDatabase($activeDatabase);
+        break;
+
+        // db-act
+        case 'import-pleiades': case 'ip':
+          $database = $arguments[0] ?? '';
+          $file = $arguments[1] ?? '';
           
-          green("Creating random record of class '{$class}' and randomly chosen confidentiality {$confidentiality}.\n");
+          if (empty($database) || empty($file)) {
+            red("Usage: import-pleiades '<input-json-file>' '<database-where-to-import>'.\n");
+          } else if (!is_file($file)) {
+            red("'{$file}' not found.\n");
+          } else {
+            green("Importing '{$file}' to database '{$database}'.\n");
+            $importer = new \DtxsPhpClient\ImportPleiades($api);
+            $importer->saveRecords($database, $importer->loadRecordsFromJson($file));
+          }
+        break;
+
+        // rec-list
+        case 'rec-list': case 'rl':
+          green("Getting list of records.\n");
+          $records = $api->getRecords();
+          loglastrequest($api->lastRequest);
+
+          cyan("| UID                                 ");
+          cyan(" | Version");
+          cyan(" | Confidentiality");
+          cyan(" | Class           ");
+          cyan(" | IFC model       ");
+          cyan(" | IFC GUID        ");
+          cyan(" | Content                                                                                             ");
+          cyan(" |\n");
+
+          foreach ($records as $record) {
+            cyan("| " . normstrlen($record['uid'], 36));
+            cyan(" | " . normstrlen($record['version'], 7));
+            cyan(" | " . normstrlen($record['confidentiality'], 15));
+            cyan(" | " . normstrlen($record['class'], 16));
+            cyan(" | " . normstrlen($record['ifcModel'], 16));
+            cyan(" | " . normstrlen($record['ifcGuid'], 16));
+            cyan(" | " . normstrlen(json_encode($record['content']), 100));
+            cyan(" |\n");
+          }
+        break;
+
+        // rec-get
+        case 'rec-get': case 'rg':
+          if (count($arguments) == 0) {
+            yellow("Enter UID of record to get: ");
+            $recordUid = trim(fgets($clih));
+            yellow("Enter version of record to get (empty or 0 for the latest version): ");
+            $version = (int) trim(fgets($clih));
+          } else {
+            $recordUid = $arguments[0];
+            $version = (int) $arguments[1];
+          }
+
+          green("Getting record info '{$recordUid}' ver. {$version}.\n");
+          $record = $api->getRecord($recordUid, $version);
+          loglastrequest($api->lastRequest);
+
+          cyan("  UID = " . $record['uid'] . "\n");
+          cyan("  Version = " . $record['version'] . "\n");
+          cyan("  CreateTime = " . $record['createTime'] . "\n");
+          cyan("  Author = " . $record['author'] . "\n");
+          cyan("  Owner = " . $record['owner'] . "\n");
+          cyan("  Class = " . $record['class'] . "\n");
+          cyan("  Confidentiality = " . $record['confidentiality'] . "\n");
+          cyan("  IfcModel = " . $record['ifcModel'] . "\n");
+          cyan("  IfcGuid = " . $record['ifcGuid'] . "\n");
+          cyan("  Content = " . json_encode($record['content']) . "\n");
+        break;
+
+        // case rec-create-random
+        case 'rec-create-random': case 'rcr':
+          $classes = [
+            1 => "Actors.Persons",
+            2 => "Actors.Teams",
+            3 => "Assets.Tangibles.Parts",
+            // "Assets.Tangibles.Tools",
+            // "Safety.Regulatory.WasteCategories",
+            // "Tasks",
+          ];
+
+          if (count($arguments) == 0) {
+            foreach ($classes as $key => $class) {
+              white("  {$key} = {$class}\n");
+            }
+
+            yellow("Select a class of the new record: ");
+            $classIndex = (int) fgets($clih);
+          } else {
+            $classIndex = (int) $arguments[0];
+          }
+
+          if (isset($classes[$classIndex])) {
+            $class = $classes[$classIndex];
+            $confidentiality = rand(0, 9);
+            
+            green("Creating random record of class '{$class}' and randomly chosen confidentiality {$confidentiality}.\n");
+
+            $recordsCntrl = new \AquilaTwinlabApp\Controllers\App\Database\Records($app);
+
+            $api->createRecord([
+              'class' => $class,
+              'confidentiality' => $confidentiality,
+              'content' => $recordsCntrl->renderRandomContent($class, rand(3, 5)),
+            ]);
+            loglastrequest($api->lastRequest);
+
+          } else {
+            red("Unknown class.\n");
+          }
+
+        break;
+
+        // doc-list
+        case 'doc-list': case 'dl':
+          green("Getting list of documents.\n");
+          $documents = $api->getDocuments();
+          loglastrequest($api->lastRequest);
+
+          cyan("| UID                                 ");
+          cyan(" | Version");
+          cyan(" | Author              ");
+          cyan(" | Owner               ");
+          cyan(" | Confidentiality");
+          cyan(" | Class                         ");
+          cyan(" | Folder UID                          ");
+          cyan(" | Name                ");
+          cyan(" | Size        ");
+          cyan(" |\n");
+
+          foreach ($documents as $document) {
+            cyan("| " . normstrlen($document['uid'], 36));
+            cyan(" | " . normstrlen($document['version'], 7));
+            cyan(" | " . normstrlen($document['author'], 20));
+            cyan(" | " . normstrlen($document['owner'], 20));
+            cyan(" | " . normstrlen($document['confidentiality'], 15));
+            cyan(" | " . normstrlen($document['class'], 30));
+            cyan(" | " . normstrlen($document['folderUid'], 36));
+            cyan(" | " . normstrlen($document['name'], 20));
+            cyan(" | " . normstrlen(number_format($document['size'] / 1024, 2, ".", " ") . ' kB', 12));
+            cyan(" |\n");
+          }
+        break;
+
+        // case doc-create-random
+        case 'doc-create-random': case 'dcr':
+          $classes = [
+            1 => "Actors.Persons",
+            2 => "Actors.Teams",
+            3 => "Assets.Tangibles.Parts",
+          ];
+
+          if (count($arguments) == 0) {
+            foreach ($classes as $key => $class) {
+              white("  {$key} = {$class}\n");
+            }
+
+            yellow("Select a class of the new document: ");
+            $classIndex = (int) fgets($clih);
+
+            yellow("What should be the size of the document (in bytes)? ");
+            $fileSize = (int) fgets($clih);
+
+          } else {
+            $classIndex = (int) $arguments[0];
+
+            $fileSize = strtolower(str_replace(' ', '', (str_replace(',', '.', $arguments[1] ?? '1024'))));
+            if (substr($fileSize, -2) == 'gb') $fileSize = (float) $fileSize * 1024 * 1024 * 1024;
+            elseif (substr($fileSize, -2) == 'mb') $fileSize = (float) $fileSize * 1024 * 1024;
+            elseif (substr($fileSize, -2) == 'kb') $fileSize = (float) $fileSize * 1024;
+          }
+
+          if (isset($classes[$classIndex])) {
+            $class = $classes[$classIndex];
+            $confidentiality = rand(0, 9);
+
+            green("Creating random document of class '{$class}', size {$fileSize} B and randomly chosen confidentiality {$confidentiality}.\n");
+
+            $tmpRand = rand(1000, 9999);
+
+            $api->createDocument('root', [
+              'class' => $class,
+              'confidentiality' => $confidentiality,
+              'name' => 'rand-' . $tmpRand . '.txt',
+              'content' => 'Hello world, random is ' . str_repeat($tmpRand . '. ', round($fileSize / 6)),
+            ]);
+            loglastrequest($api->lastRequest);
+
+          } else {
+            red("Unknown class.\n");
+          }
+
+        break;
+
+        // rec-update
+        case 'rec-download': case 'ru':
+          if (count($arguments) == 0) {
+            yellow("Enter UID of record to update: ");
+            $recordUid = trim(fgets($clih));
+          } else {
+            $recordUid = $arguments[0];
+          }
+
+          green("Downloading original record content '{$recordUid}'.\n");
+          $record = $api->getRecord($recordUid);
+          loglastrequest($api->lastRequest);
+
+          green("Randomly modifying record content.\n");
 
           $recordsCntrl = new \AquilaTwinlabApp\Controllers\App\Database\Records($app);
+          $content = $recordsCntrl->renderRandomContent($record['class']);
 
-          $api->createRecord([
-            'class' => $class,
-            'confidentiality' => $confidentiality,
-            'content' => $recordsCntrl->renderRandomContent($class, rand(3, 5)),
-          ]);
+          green("Updating record.\n");
+          $updatedRecord = $api->updateRecord($recordUid, $content);
           loglastrequest($api->lastRequest);
 
-        } else {
-          red("Unknown class.\n");
-        }
+          // $tmp = json_decode($updatedDocument, true);
+          // cyan("New version of the updated record is {$tmp['version']}.\n");
+          var_dump($updatedRecord);
+        break;
 
-      break;
-
-      // doc-list
-      case 'doc-list': case 'dl':
-        green("Getting list of documents.\n");
-        $documents = $api->getDocuments();
-        loglastrequest($api->lastRequest);
-
-        cyan("| UID                                 ");
-        cyan(" | Version");
-        cyan(" | Author              ");
-        cyan(" | Owner               ");
-        cyan(" | Confidentiality");
-        cyan(" | Class                         ");
-        cyan(" | Folder UID                          ");
-        cyan(" | Name                ");
-        cyan(" | Size        ");
-        cyan(" |\n");
-
-        foreach ($documents as $document) {
-          cyan("| " . normstrlen($document['uid'], 36));
-          cyan(" | " . normstrlen($document['version'], 7));
-          cyan(" | " . normstrlen($document['author'], 20));
-          cyan(" | " . normstrlen($document['owner'], 20));
-          cyan(" | " . normstrlen($document['confidentiality'], 15));
-          cyan(" | " . normstrlen($document['class'], 30));
-          cyan(" | " . normstrlen($document['folderUid'], 36));
-          cyan(" | " . normstrlen($document['name'], 20));
-          cyan(" | " . normstrlen(number_format($document['size'] / 1024, 2, ".", " ") . ' kB', 12));
-          cyan(" |\n");
-        }
-      break;
-
-      // case doc-create-random
-      case 'doc-create-random': case 'dcr':
-        $classes = [
-          1 => "Actors.Persons",
-          2 => "Actors.Teams",
-          3 => "Assets.Tangibles.Parts",
-        ];
-
-        if (count($arguments) == 0) {
-          foreach ($classes as $key => $class) {
-            white("  {$key} = {$class}\n");
+        // doc-get
+        case 'doc-get': case 'dg':
+          if (count($arguments) == 0) {
+            yellow("Enter UID of document to download: ");
+            $documentUid = trim(fgets($clih));
+          } else {
+            $documentUid = $arguments[0];
           }
 
-          yellow("Select a class of the new document: ");
-          $classIndex = (int) fgets($clih);
-
-          yellow("What should be the size of the document (in bytes)? ");
-          $fileSize = (int) fgets($clih);
-
-        } else {
-          $classIndex = (int) $arguments[0];
-
-          $fileSize = strtolower(str_replace(' ', '', (str_replace(',', '.', $arguments[1] ?? '1024'))));
-          if (substr($fileSize, -2) == 'gb') $fileSize = (float) $fileSize * 1024 * 1024 * 1024;
-          elseif (substr($fileSize, -2) == 'mb') $fileSize = (float) $fileSize * 1024 * 1024;
-          elseif (substr($fileSize, -2) == 'kb') $fileSize = (float) $fileSize * 1024;
-        }
-
-        if (isset($classes[$classIndex])) {
-          $class = $classes[$classIndex];
-          $confidentiality = rand(0, 9);
-
-          green("Creating random document of class '{$class}', size {$fileSize} B and randomly chosen confidentiality {$confidentiality}.\n");
-
-          $tmpRand = rand(1000, 9999);
-
-          $api->createDocument('root', [
-            'class' => $class,
-            'confidentiality' => $confidentiality,
-            'name' => 'rand-' . $tmpRand . '.txt',
-            'content' => 'Hello world, random is ' . str_repeat($tmpRand . '. ', round($fileSize / 6)),
-          ]);
+          green("Getting document info '{$documentUid}'.\n");
+          $document = $api->getDocument('root', $documentUid);
           loglastrequest($api->lastRequest);
 
-        } else {
-          red("Unknown class.\n");
-        }
+          cyan("  UID = " . $document['uid'] . "\n");
+          cyan("  Version = " . $document['version'] . "\n");
+          cyan("  CreateTime = " . $document['createTime'] . "\n");
+          cyan("  Author = " . $document['author'] . "\n");
+          cyan("  Owner = " . $document['owner'] . "\n");
+          cyan("  Class = " . $document['class'] . "\n");
+          cyan("  Confidentiality = " . $document['confidentiality'] . "\n");
+          cyan("  Folder UID = " . $document['folderUid'] . "\n");
+          cyan("  Name = " . $document['name'] . "\n");
+          cyan("  Size = " . $document['size'] . "\n");
+        break;
 
-      break;
+        // doc-download
+        case 'doc-download': case 'dd':
+          if (count($arguments) == 0) {
+            yellow("Enter UID of document to download: ");
+            $documentUid = trim(fgets($clih));
+          } else {
+            $documentUid = $arguments[0];
+          }
 
-      // rec-update
-      case 'rec-download': case 'ru':
-        if (count($arguments) == 0) {
-          yellow("Enter UID of record to update: ");
-          $recordUid = trim(fgets($clih));
-        } else {
-          $recordUid = $arguments[0];
-        }
+          green("Downloading document '{$documentUid}'.\n");
+          $documentInfo = $api->getDocument('root', $documentUid);
+          loglastrequest($api->lastRequest);
+          $document = $api->downloadDocument('root', $documentUid);
+          loglastrequest($api->lastRequest);
 
-        green("Downloading original record content '{$recordUid}'.\n");
-        $record = $api->getRecord($recordUid);
-        loglastrequest($api->lastRequest);
+          if (is_dir($config['documentRoot'])) {
+            $fileName = $config['documentRoot'] . '/'. $documentInfo['name'];
+            file_put_contents($fileName, $document);
 
-        green("Randomly modifying record content.\n");
+            green("Document was saved to '{$fileName}' (size: " . strlen($document) . ").\n");
+          } else {
+            red("Document was downloaded (size: " . strlen($document) . ") but not saved. Check 'documentRoot' configuration parameter.\n");
+          }
+        break;
 
-        $recordsCntrl = new \AquilaTwinlabApp\Controllers\App\Database\Records($app);
-        $content = $recordsCntrl->renderRandomContent($record['class']);
+        // doc-update
+        case 'doc-download': case 'du':
+          if (count($arguments) == 0) {
+            yellow("Enter UID of document to update: ");
+            $documentUid = trim(fgets($clih));
+          } else {
+            $documentUid = $arguments[0];
+          }
 
-        green("Updating record.\n");
-        $updatedRecord = $api->updateRecord($recordUid, $content);
-        loglastrequest($api->lastRequest);
+          green("Downloading original document content '{$documentUid}'.\n");
+          $content = $api->downloadDocument('root', $documentUid);
+          loglastrequest($api->lastRequest);
+          green("Randomly modifying document content.\n");
 
-        // $tmp = json_decode($updatedDocument, true);
-        // cyan("New version of the updated record is {$tmp['version']}.\n");
-        var_dump($updatedRecord);
-      break;
+          $content = 'Update @ ' . date('Y-m-d H:i:s') . "\n" . $content;
 
-      // doc-get
-      case 'doc-get': case 'dg':
-        if (count($arguments) == 0) {
-          yellow("Enter UID of document to download: ");
-          $documentUid = trim(fgets($clih));
-        } else {
-          $documentUid = $arguments[0];
-        }
+          green("Updating document.\n");
+          $updatedDocument = $api->updateDocument('root', $documentUid, $content);
+          loglastrequest($api->lastRequest);
 
-        green("Getting document info '{$documentUid}'.\n");
-        $document = $api->getDocument('root', $documentUid);
-        loglastrequest($api->lastRequest);
+          $tmp = json_decode($updatedDocument, true);
+          cyan("New version of the updated document is {$tmp['version']}.\n");
+        break;
 
-        cyan("  UID = " . $document['uid'] . "\n");
-        cyan("  Version = " . $document['version'] . "\n");
-        cyan("  CreateTime = " . $document['createTime'] . "\n");
-        cyan("  Author = " . $document['author'] . "\n");
-        cyan("  Owner = " . $document['owner'] . "\n");
-        cyan("  Class = " . $document['class'] . "\n");
-        cyan("  Confidentiality = " . $document['confidentiality'] . "\n");
-        cyan("  Folder UID = " . $document['folderUid'] . "\n");
-        cyan("  Name = " . $document['name'] . "\n");
-        cyan("  Size = " . $document['size'] . "\n");
-      break;
+        // case exit
+        case 'exit': case 'x':
+          $exit = true;
+        break;
 
-      // doc-download
-      case 'doc-download': case 'dd':
-        if (count($arguments) == 0) {
-          yellow("Enter UID of document to download: ");
-          $documentUid = trim(fgets($clih));
-        } else {
-          $documentUid = $arguments[0];
-        }
-
-        green("Downloading document '{$documentUid}'.\n");
-        $documentInfo = $api->getDocument('root', $documentUid);
-        loglastrequest($api->lastRequest);
-        $document = $api->downloadDocument('root', $documentUid);
-        loglastrequest($api->lastRequest);
-
-        if (is_dir($config['documentRoot'])) {
-          $fileName = $config['documentRoot'] . '/'. $documentInfo['name'];
-          file_put_contents($fileName, $document);
-
-          green("Document was saved to '{$fileName}' (size: " . strlen($document) . ").\n");
-        } else {
-          red("Document was downloaded (size: " . strlen($document) . ") but not saved. Check 'documentRoot' configuration parameter.\n");
-        }
-      break;
-
-      // doc-update
-      case 'doc-download': case 'du':
-        if (count($arguments) == 0) {
-          yellow("Enter UID of document to update: ");
-          $documentUid = trim(fgets($clih));
-        } else {
-          $documentUid = $arguments[0];
-        }
-
-        green("Downloading original document content '{$documentUid}'.\n");
-        $content = $api->downloadDocument('root', $documentUid);
-        loglastrequest($api->lastRequest);
-        green("Randomly modifying document content.\n");
-
-        $content = 'Update @ ' . date('Y-m-d H:i:s') . "\n" . $content;
-
-        green("Updating document.\n");
-        $updatedDocument = $api->updateDocument('root', $documentUid, $content);
-        loglastrequest($api->lastRequest);
-
-        $tmp = json_decode($updatedDocument, true);
-        cyan("New version of the updated document is {$tmp['version']}.\n");
-      break;
-
-      // case exit
-      case 'exit': case 'x':
-        $exit = true;
-      break;
-
-      // default
-      default:
-        red("Don't know what to do.\n");
-      break;
-    }
-  } catch (\Exception $e) {
-    $error = @json_decode($e->getMessage(), true);
-    red("!!! ERROR. Code: {$error['statusCode']}. Reason: {$error['reason']}\n");
-    if (isset($error['responseBody']['error'])) {
-      red("!!! {$error['responseBody']['error']}\n");
+        // default
+        default:
+          red("Don't know what to do.\n");
+        break;
+      }
+    } catch (\Exception $e) {
+      $error = @json_decode($e->getMessage(), true);
+      red("!!! ERROR. Code: {$error['statusCode']}. Reason: {$error['reason']}\n");
+      if (isset($error['responseBody']['error'])) {
+        red("!!! {$error['responseBody']['error']}\n");
+      }
     }
   }
+} catch (\Exception $e) {
+  red("!!! ERROR. {$e->getMessage()}\n");
 }
 
 white("\n");

@@ -1,0 +1,1 @@
+php ./clients/php/test.php config.production.ife.json
