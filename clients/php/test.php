@@ -529,8 +529,10 @@ try {
     } catch (\Exception $e) {
       $error = @json_decode($e->getMessage(), true);
       red("!!! ERROR. Code: {$error['statusCode']}. Reason: {$error['reason']}\n");
-      if (is_string($error['responseBody'])) red("!!! {$error['responseBody']}\n");
-      else if (isset($error['responseBody']['error'])) red("!!! {$error['responseBody']['error']}\n");
+      if (isset($error['responseBody'])) {
+        if (is_string($error['responseBody'])) red("!!! {$error['responseBody']}\n");
+        else if (isset($error['responseBody']['error'])) red("!!! {$error['responseBody']['error']}\n");
+      }
     }
   }
 } catch (\Exception $e) {
