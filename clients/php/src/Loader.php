@@ -102,7 +102,7 @@ class Loader {
    * @param  mixed $body Array of request's body parameters.
    * @return object Guzzle's HTTP response object.
    */
-  public function sendRequest(string $method, string $command, array $body = [])
+  public function sendRequest(string $method, string $command, array $body = [], bool $debug = false)
   {
     try {
       $options = [

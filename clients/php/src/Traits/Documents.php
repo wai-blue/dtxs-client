@@ -14,7 +14,8 @@ trait Documents
    */
   public function createDocument(string $folderUid, array $document): string
   {
-    $res = $this->sendRequest("POST", "/database/{$this->database}/folder/{$folderUid}/document", $document);
+    $document['content'] = base64_encode($document['content'] ?? '');
+    $res = $this->sendRequest("POST", "/database/{$this->database}/folder/{$folderUid}/document", $document, true);
     return (string) $res->getBody();
   }
 
@@ -28,7 +29,7 @@ trait Documents
    */
   public function updateDocument(string $folderUid, string $documentUid, string $newContent): string
   {
-    $res = $this->sendRequest("PUT", "/database/{$this->database}/folder/{$folderUid}/document/{$documentUid}", ['newContent' => $newContent]);
+    $res = $this->sendRequest("PUT", "/database/{$this->database}/folder/{$folderUid}/document/{$documentUid}", ['newContent' => base64_encode($newContent)]);
     return (string) $res->getBody();
   }
 
