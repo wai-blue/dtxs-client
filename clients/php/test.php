@@ -129,6 +129,7 @@ try {
           white("  'import-pleiades' or 'ip' = import from PLEIADES JSON file\n");
           white("  'rec-list' or 'rl' = list all records\n");
           white("  'rec-get' or 'rg' = get a record\n");
+          white("  'rec-get-history' or 'rgh' = get record history\n");
           white("  'rec-create-random' or 'rcr' = create random record\n");
           white("  'rec-update' or 'ru' = update record\n");
           white("  'doc-create-random' or 'dcr' = create random document\n");
@@ -289,6 +290,22 @@ try {
           cyan("  IfcModel = " . $record['ifcModel'] . "\n");
           cyan("  IfcGuid = " . $record['ifcGuid'] . "\n");
           cyan("  Content = " . json_encode($record['content']) . "\n");
+        break;
+
+        // rec-get
+        case 'rec-get-history': case 'rgh':
+          if (count($arguments) == 0) {
+            yellow("Enter UID of record to get: ");
+            $recordUid = trim(fgets($clih));
+          } else {
+            $recordUid = $arguments[0];
+          }
+
+          green("Getting record history for '{$recordUid}'.\n");
+          $recordHistory = $api->getRecordHistory($recordUid);
+          loglastrequest($api->lastRequest);
+
+          cyan(json_encode($recordHistory) . "\n");
         break;
 
         // case rec-create-random

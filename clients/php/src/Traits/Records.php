@@ -21,12 +21,12 @@ trait Records
    * Shortcut to update a record
    *
    * @param  mixed $recordUid UID of the record to update.
-   * @param  mixed $newContent New record's content.
+   * @param  mixed $newRecordData New record's data.
    * @return string RecordUid in case of 200 success. Otherwise exception is thrown.
    */
-  public function updateRecord(string $recordUid, array $newContent): string
+  public function updateRecord(string $recordUid, array $newRecordData): string
   {
-    $res = $this->sendRequest("PUT", "/database/{$this->database}/record/{$recordUid}", $newContent);
+    $res = $this->sendRequest("PUT", "/database/{$this->database}/record/{$recordUid}", $newRecordData);
     return (string) $res->getBody();
   }
   
@@ -39,6 +39,18 @@ trait Records
   public function getRecord(string $recordUid, int $version = 0): array
   {
     $res = $this->sendRequest("GET", "/database/{$this->database}/record/{$recordUid}", ["version" => $version]);
+    return (array) json_decode((string) $res->getBody(), TRUE);
+  }
+  
+  /**
+   * Shortcut to get record history
+   *
+   * @param  mixed $recordUid UID of the record to get.
+   * @return array Data of the requested record. Otherwise exception is thrown.
+   */
+  public function getRecordHistory(string $recordUid): array
+  {
+    $res = $this->sendRequest("GET", "/database/{$this->database}/record/{$recordUid}/history");
     return (array) json_decode((string) $res->getBody(), TRUE);
   }
   
