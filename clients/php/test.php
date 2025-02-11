@@ -130,7 +130,7 @@ try {
           white("  'rec-list' or 'rl' = list all records\n");
           white("  'rec-get' or 'rg' = get a record\n");
           white("  'rec-get-history' or 'rgh' = get record history\n");
-          white("  'rec-create-random' or 'rcr' = create random record\n");
+          white("  'rec-create' or 'rc' = create record\n");
           white("  'rec-update' or 'ru' = update record\n");
           white("  'doc-create-random' or 'dcr' = create random document\n");
           white("  'doc-list' or 'dl' = list all documents\n");
@@ -225,7 +225,7 @@ try {
         case 'import-pleiades': case 'ip':
           $database = $arguments[0] ?? '';
           $file = $arguments[1] ?? '';
-          
+
           if (empty($database) || empty($file)) {
             red("Usage: import-pleiades '<input-json-file>' '<database-where-to-import>'.\n");
           } else if (!is_file($file)) {
@@ -309,7 +309,7 @@ try {
         break;
 
         // case rec-create-random
-        case 'rec-create-random': case 'rcr':
+        case 'rec-create': case 'rc':
           $classes = [
             1 => "Actors.Persons",
             2 => "Actors.Teams",
@@ -333,18 +333,23 @@ try {
           if (isset($classes[$classIndex])) {
             $class = $classes[$classIndex];
             $confidentiality = rand(0, 9);
-            
-            green("Creating random record of class '{$class}' and randomly chosen confidentiality {$confidentiality}.\n");
 
-            $recordsCntrl = new \AquilaTwinlabApp\Controllers\App\Database\Records($app);
+            green("Creating class '{$class}' and randomly chosen confidentiality {$confidentiality}.\n");
 
-            $api->createRecord([
-              'class' => $class,
-              'confidentiality' => $confidentiality,
-              'content' => $recordsCntrl->renderRandomContent($class, rand(3, 5)),
-            ]);
-            loglastrequest($api->lastRequest);
+            yellow("Write a JSON string for the content for the new record: ");
+            $jsonString = (string) fgets($clih);
+            $content = json_decode(trim($jsonString), true);
 
+            if (isset($content)) {
+              $api->createRecord([
+                'class' => $class,
+                'confidentiality' => $confidentiality,
+                'content' => $content
+              ]);
+              loglastrequest($api->lastRequest);
+            } else {
+              red("The content was empty or was not a valid JSON string.\n");
+            }
           } else {
             red("Unknown class.\n");
           }
@@ -433,7 +438,15 @@ try {
         break;
 
         // rec-update
-        case 'rec-download': case 'ru':
+        case 'rec-update': case 'ru':
+          $classes = [
+            1 => "Actors.Persons",
+            2 => "Actors.Teams",
+            3 => "Assets.Tangibles.Parts",
+          ];
+
+          $confidentiality = rand(0, 9);
+
           if (count($arguments) == 0) {
             yellow("Enter UID of record to update: ");
             $recordUid = trim(fgets($clih));
@@ -445,18 +458,43 @@ try {
           $record = $api->getRecord($recordUid);
           loglastrequest($api->lastRequest);
 
-          green("Randomly modifying record content.\n");
+          // Show available classes
+          foreach ($classes as $key => $class) {
+            white("  {$key} = {$class}\n");
+          }
 
-          $recordsCntrl = new \AquilaTwinlabApp\Controllers\App\Database\Records($app);
-          $content = $recordsCntrl->renderRandomContent($record['class']);
+          yellow("Select a class to update the record with: ");
+          $classIndex = (int) fgets($clih);
 
-          green("Updating record.\n");
-          $updatedRecord = $api->updateRecord($recordUid, $content);
-          loglastrequest($api->lastRequest);
+          if (isset($classes[$classIndex])) {
+            $class = $classes[$classIndex];
 
-          // $tmp = json_decode($updatedDocument, true);
-          // cyan("New version of the updated record is {$tmp['version']}.\n");
-          var_dump($updatedRecord);
+            // Content creation
+            yellow("Write a JSON string for the content to update the record with: ");
+            $jsonString = (string) fgets($clih);
+            $content = json_decode(trim($jsonString), true);
+
+            if (isset($content)) {
+              $newContent = [
+                "class" => $class,
+                "content" => $content,
+                "confidentiality" => $confidentiality
+              ];
+
+              green("Updating record with random confidentiality {$confidentiality}.\n");
+              $updatedRecord = $api->updateRecord($recordUid, $newContent);
+              loglastrequest($api->lastRequest);
+
+              // $tmp = json_decode($updatedDocument, true);
+              // cyan("New version of the updated record is {$tmp['version']}.\n");
+              var_dump($updatedRecord);
+            } else {
+              red("The content was empty or was not a valid JSON string.\n");
+            }
+          } else {
+            red("Unknown class.\n");
+          }
+
         break;
 
         // doc-get
