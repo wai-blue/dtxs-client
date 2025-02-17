@@ -18,6 +18,8 @@ class Loader {
   public string $oauthEndpoint;         // OAuth compatible endpoint of the IAM
   public string $dtxsEndpoint;          // DTXS endpoint
 
+  public string $documentsStorageFolder; // Folder where documents are stored
+
   // HTTP client
   public object $guzzle;                // 3rd-party HTTP library
   public object $lastResponse;          // Calue of the last HTTP response
@@ -50,6 +52,8 @@ class Loader {
 
     $this->oauthEndpoint = $config['oauthEndpoint'] ?? "";
     $this->dtxsEndpoint = $config['dtxsEndpoint'] ?? "";
+
+    $this->documentsStorageFolder = $config['documentsStorageFolder'] ?? '';
 
     $this->database = '';
 

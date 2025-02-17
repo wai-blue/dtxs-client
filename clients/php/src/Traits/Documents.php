@@ -20,6 +20,23 @@ trait Documents
   }
 
   /**
+   * Shortcut to create a document from existing file.
+   *
+   * @param  mixed $folderUid UID of the folder where is document located.
+   * @param  mixed $uploadedFile Data about uploaded file, as it is stored in $_FILES.
+   * @return string DocumentUid in case of 200 success. Otherwise exception is thrown.
+   */
+  public function createDocumentFromUploadedFile(string $folderUid, array $document, mixed $uploadedFile): string
+  {
+    $document['name'] = $uploadedFile['name'];
+    $document['content'] = date('Y-m-d H:i:s');
+    $res = $this->sendRequest("POST", "/database/{$this->database}/folder/{$folderUid}/document", $document, true);
+    $documentUid = (string) $res->getBody();
+    move_uploaded_file($uploadedFile['tmp_name'], $this->documentsStorageFolder . '/' . $documentUid . '/1');
+    return (string) $res->getBody();
+  }
+
+  /**
    * Shortcut to update a document
    *
    * @param  mixed $folderUid UID of the folder where is document located.
