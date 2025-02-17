@@ -32,7 +32,7 @@ trait Documents
     $document['content'] = date('Y-m-d H:i:s');
     $res = $this->sendRequest("POST", "/database/{$this->database}/folder/{$folderUid}/document", $document, true);
     $documentUid = (string) $res->getBody();
-    move_uploaded_file($uploadedFile['tmp_name'], $this->documentsStorageFolder . '/' . $documentUid . '/1');
+    move_uploaded_file($uploadedFile['tmp_name'], $this->documentsStorageFolder . '/' . $documentUid . '---1');
     return (string) $res->getBody();
   }
 
