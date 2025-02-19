@@ -132,6 +132,7 @@ try {
           white("  'rec-get-history' or 'rgh' = get record history\n");
           white("  'rec-create' or 'rc' = create record\n");
           white("  'rec-update' or 'ru' = update record\n");
+          white("  'rec-delete' or 'rd' = delete record\n");
           white("  'doc-create-random' or 'dcr' = create random document\n");
           white("  'doc-list' or 'dl' = list all documents\n");
           white("  'doc-get' or 'dg' = get document info\n");
@@ -434,6 +435,27 @@ try {
               }
             } else {
               red("Unknown class.\n");
+            }
+          }
+        break;
+        case 'rec-delete': case 'rd':
+          if (empty($activeDatabase)) {
+            red("No database is activated.\n");
+          } else {
+
+            if (count($arguments) == 0) {
+              yellow("Enter the UID of a record to delete: ");
+              $recordUid = trim(fgets($clih));
+            } else {
+              $recordUid = $arguments[0];
+            }
+
+            if (isset($recordUid)) {
+              green("Deleting record with UID: '{$recordUid}'.\n");
+              $api->deleteRecord($recordUid);
+              loglastrequest($api->lastRequest);
+            } else {
+              red("The record UID has not been entered!");
             }
           }
         break;
