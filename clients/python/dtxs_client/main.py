@@ -10,8 +10,6 @@ class DtxsClient:
   oauthEndpoint = '';          # OAuth compatible endpoint of the IAM
   dtxsEndpoint = '';           # DTXS endpoint
 
-  documentsStorageFolder = ''; # Folder where documents are stored
-
   accessToken = '';            # Access token received from IAM
   database = '';               # Name of the database which will be used
   
@@ -24,8 +22,6 @@ class DtxsClient:
 
     self.oauthEndpoint = config['oauthEndpoint']
     self.dtxsEndpoint = config['dtxsEndpoint']
-
-    self.documentsStorageFolder = config['documentsStorageFolder']
 
     self.database = ''
 
@@ -65,6 +61,9 @@ class DtxsClient:
 
     if (method == 'GET'):
       response = requests.get(self.dtxsEndpoint + command, headers=headers, data=body, verify=False).json()
+
+    if (isinstance(response, str)):
+      response = {'error': response}
 
     return response
 

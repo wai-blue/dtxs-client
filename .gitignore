@@ -3,5 +3,4 @@ vendor
 *.json
 !clients/php/config.template.json
 *.log
-test.*.bat
 __pycache__
