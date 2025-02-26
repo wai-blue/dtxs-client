@@ -79,7 +79,7 @@ trait Records
       "/database/{$this->database}/records", 
       [
         "query" => $query,
-        "flieds" => $fields,
+        "fields" => $fields,
         "methods" => $methods
       ]
     );

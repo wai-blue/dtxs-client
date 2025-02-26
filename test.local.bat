@@ -1,1 +1,0 @@
-php ./clients/php/test.php config.local.json
