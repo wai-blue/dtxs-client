@@ -245,8 +245,9 @@ try {
           if (empty($activeDatabase)) {
             red("No database is activated.\n");
           } else {
-            green("Getting list of records.\n");
-            $records = $api->getRecords();
+            $query = $arguments[0] ?? '';
+            green("Getting list of records." . (empty($query) ? "" : " Query: {$query}") . "\n");
+            $records = $api->getRecords($query);
             loglastrequest($api->lastRequest);
 
             cyan("| UID                                 ");
