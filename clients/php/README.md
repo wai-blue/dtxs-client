@@ -46,7 +46,7 @@ $api->updateRecord(
 ### Delete record
 
 ```php
-$api->deleteRecord($recordId);
+$api->deleteRecord($recordId, $version);
 ```
 
 ### Get single record

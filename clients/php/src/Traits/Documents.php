@@ -76,10 +76,34 @@ trait Documents
     return (string) $res->getBody();
   }
 
+  /**
+   * Shortcut to get document history
+   *
+   * @param  mixed $documentUid UID of the document to get.
+   * @return array Data of the requested document. Otherwise exception is thrown.
+   */
+  public function getDocumentHistory(string $folderUid, string $documentUid): array
+  {
+    $res = $this->sendRequest("GET", "/database/{$this->database}/folder/{$folderUid}/document/{$documentUid}/history");
+    return (array) json_decode((string) $res->getBody(), TRUE);
+  }
+  
+  /**
+   * Shortcut to delete a document
+   *
+   * @param  mixed $documentUid UID of the document to delete.
+   * @return string DocumentUid in case of 200 success. Otherwise exception is thrown.
+   */
+  public function deleteDocument(string $folderUid, string $documentUid): string
+  {
+    $res = $this->sendRequest("DELETE", "/database/{$this->database}/folder/{$folderUid}/document/{$documentUid}");
+    return (string) $res->getBody();
+  }
+  
   // /**
   //  * Shortcut to get documents by a query.
   //  *
-  //  * @return array List of records matching the query.
+  //  * @return array List of documents matching the query.
   //  */
   public function getDocuments(): array
   {
