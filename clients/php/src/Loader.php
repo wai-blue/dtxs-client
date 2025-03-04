@@ -204,6 +204,16 @@ class Loader {
     return json_decode((string) $res->getBody(), TRUE);
   }
 
+  /* Shortcut to get list of available ontologies.
+   *
+   * @return array List of available ontologies.
+   */
+  public function getOntologies(): array
+  {
+    $res = $this->sendRequest("GET", "/ontologies");
+    return json_decode((string) $res->getBody(), TRUE);
+  }
+
   /* Shortcut to get list of available classes.
    *
    * @return array List of available classes.
