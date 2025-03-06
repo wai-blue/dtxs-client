@@ -31,6 +31,19 @@ trait Folders
   }
 
   /**
+   * Shortcut to delete a folder
+   *
+   * @param  mixed $folderUid UID of the folder to delete.
+   * @param  mixed $newFolderName New folders's name.
+   * @return string FolderUid in case of 200 success. Otherwise exception is thrown.
+   */
+  public function deleteFolder(string $folderUid): string
+  {
+    $res = $this->sendRequest("DELETE", "/database/{$this->database}/folder/{$folderUid}");
+    return (string) $res->getBody();
+  }
+
+  /**
    * Shortcut to get metadata content of the folder (both sub-folders and documents).
    *
    * @return array Metadata and folder content.
