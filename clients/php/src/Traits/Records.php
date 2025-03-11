@@ -16,20 +16,20 @@ trait Records
     $res = $this->sendRequest("POST", "/database/{$this->database}/record", $record);
     return (string) $res->getBody();
   }
-  
+
   /**
    * Shortcut to update a record
    *
    * @param  mixed $recordUid UID of the record to update.
    * @param  mixed $newRecordData New record's data.
-   * @return string RecordUid in case of 200 success. Otherwise exception is thrown.
+   * @return string Version of a record in case of 200 success. Otherwise exception is thrown.
    */
   public function updateRecord(string $recordUid, array $newRecordData): string
   {
     $res = $this->sendRequest("PUT", "/database/{$this->database}/record/{$recordUid}", $newRecordData);
     return (string) $res->getBody();
   }
-  
+
   /**
    * Shortcut to get a record.
    *
@@ -41,7 +41,7 @@ trait Records
     $res = $this->sendRequest("GET", "/database/{$this->database}/record/{$recordUid}", ["version" => $version]);
     return (array) json_decode((string) $res->getBody(), TRUE);
   }
-  
+
   /**
    * Shortcut to get record history
    *
@@ -53,7 +53,7 @@ trait Records
     $res = $this->sendRequest("GET", "/database/{$this->database}/record/{$recordUid}/history");
     return (array) json_decode((string) $res->getBody(), TRUE);
   }
-  
+
   /**
    * Shortcut to delete a record
    *
@@ -65,7 +65,7 @@ trait Records
     $res = $this->sendRequest("DELETE", "/database/{$this->database}/record/{$recordUid}");
     return (string) $res->getBody();
   }
-  
+
   /**
    * Shortcut to get records by a query.
    *
@@ -75,8 +75,8 @@ trait Records
   public function getRecords(string $query): array
   {
     $res = $this->sendRequest(
-      "POST", 
-      "/database/{$this->database}/records", 
+      "POST",
+      "/database/{$this->database}/records",
       [
         "query" => $query,
       ]

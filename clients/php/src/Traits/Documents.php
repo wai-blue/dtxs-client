@@ -42,7 +42,7 @@ trait Documents
    * @param  mixed $folderUid UID of the folder where is document located.
    * @param  mixed $documentUid UID of the document to update.
    * @param  mixed $newContent New documents's content.
-   * @return string DocumentUid in case of 200 success. Otherwise exception is thrown.
+   * @return string Documents new version number in case of 200 success. Otherwise exception is thrown.
    */
   public function updateDocument(string $folderUid, string $documentUid, string $newContent): string
   {
