@@ -6,6 +6,21 @@ trait Documents
 {
 
   /**
+   * Shortcut to upload a document.
+   *
+   */
+  public function uploadDocument(string $folderUid, string $fileName, string $chunkUid, int $chunkNumber, string $content): string
+  {
+    $res = $this->sendRequest("PATCH", "/database/{$this->database}/folder/{$folderUid}/document", [
+      'chunkUid' => $chunkUid,
+      'fileName' => $fileName,
+      'content' => base64_encode($content),
+      'chunkNumber' => $chunkNumber,
+    ], true);
+    return (string) $res->getBody();
+  }
+
+  /**
    * Shortcut to create a document.
    *
    * @param  mixed $folderUid UID of the folder where is document located.
