@@ -9,12 +9,12 @@ trait Documents
    * Shortcut to upload a document.
    *
    */
-  public function uploadDocument(string $folderUid, string $fileName, string $chunkUid, int $chunkNumber, string $content): string
+  public function uploadDocument(string $folderUid, string $fileName, string $chunkUid, int $chunkNumber, string $chunk): string
   {
     $res = $this->sendRequest("PATCH", "/database/{$this->database}/folder/{$folderUid}/document", [
       'chunkUid' => $chunkUid,
       'fileName' => $fileName,
-      'content' => base64_encode($content),
+      'chunk' => base64_encode($chunk),
       'chunkNumber' => $chunkNumber,
     ], true);
     return (string) $res->getBody();
