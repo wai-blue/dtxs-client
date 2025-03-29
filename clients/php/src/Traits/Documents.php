@@ -85,10 +85,25 @@ trait Documents
    * @param  mixed $documentUid UID of the document to update.
    * @return string Content of the document in case of 200 success. Otherwise exception is thrown.
    */
-  public function downloadDocument(string $folderUid, string $documentUid): string
+  public function downloadDocument(string $folderUid, string $documentUid, \Closure $onData): void
   {
-    $res = $this->sendRequest("GET", "/database/{$this->database}/folder/{$folderUid}/document/{$documentUid}/download");
-    return (string) $res->getBody();
+    $res = $this->sendRequest(
+      "GET",
+      "/database/{$this->database}/folder/{$folderUid}/document/{$documentUid}/download",
+      [],
+      [
+        \GuzzleHttp\RequestOptions::STREAM => true
+      ],
+    );
+
+    $stream = $res->getBody();
+
+    while (!$stream->eof()) {
+      $chunk = (string) $stream->read(1024);
+      $onData($chunk);
+    }
+
+    // return (string) $res->getBody();
   }
 
   /**

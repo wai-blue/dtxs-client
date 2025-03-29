@@ -106,16 +106,16 @@ class Loader {
    * @param  mixed $body Array of request's body parameters.
    * @return object Guzzle's HTTP response object.
    */
-  public function sendRequest(string $method, string $command, array $body = [], bool $debug = false)
+  public function sendRequest(string $method, string $command, array $body = [], array $options = [], bool $debug = false)
   {
     try {
-      $options = [
+      $options = array_merge($options, [
         'headers' => [
           'content-type' => 'application/json',
           'authorization' => "Bearer {$this->accessToken}",
         ],
         'body' => json_encode($body),
-      ];
+      ]);
 
       if (!empty($this->debugFile)) $options['debug'] = fopen($this->debugFile, 'w');
 
