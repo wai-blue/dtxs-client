@@ -16,7 +16,7 @@ trait Documents
       'fileName' => $fileName,
       'chunk' => base64_encode($chunk),
       'chunkNumber' => $chunkNumber,
-    ], true);
+    ], [], true);
     return (string) $res->getBody();
   }
 
@@ -30,7 +30,7 @@ trait Documents
   public function createDocument(string $folderUid, array $document): string
   {
     $document['content'] = base64_encode($document['content'] ?? '');
-    $res = $this->sendRequest("POST", "/database/{$this->database}/folder/{$folderUid}/document", $document, true);
+    $res = $this->sendRequest("POST", "/database/{$this->database}/folder/{$folderUid}/document", $document, [], true);
     return (string) $res->getBody();
   }
 
@@ -45,7 +45,7 @@ trait Documents
   {
     $document['name'] = $uploadedFile['name'];
     $document['content'] = date('Y-m-d H:i:s');
-    $res = $this->sendRequest("POST", "/database/{$this->database}/folder/{$folderUid}/document", $document, true);
+    $res = $this->sendRequest("POST", "/database/{$this->database}/folder/{$folderUid}/document", $document, [], true);
     $documentUid = (string) $res->getBody();
     move_uploaded_file($uploadedFile['tmp_name'], $this->documentsStorageFolder . '/' . $documentUid . '---1');
     return (string) $res->getBody();
@@ -61,7 +61,11 @@ trait Documents
    */
   public function updateDocument(string $folderUid, string $documentUid, string $newContent): string
   {
-    $res = $this->sendRequest("PUT", "/database/{$this->database}/folder/{$folderUid}/document/{$documentUid}", ['newContent' => base64_encode($newContent)]);
+    $res = $this->sendRequest(
+      "PUT",
+      "/database/{$this->database}/folder/{$folderUid}/document/{$documentUid}",
+      ['newContent' => base64_encode($newContent)]
+    );
     return (string) $res->getBody();
   }
 
@@ -92,8 +96,9 @@ trait Documents
       "/database/{$this->database}/folder/{$folderUid}/document/{$documentUid}/download",
       [],
       [
-        \GuzzleHttp\RequestOptions::STREAM => true
+        \GuzzleHttp\RequestOptions::STREAM => true,
       ],
+      true
     );
 
     $stream = $res->getBody();
