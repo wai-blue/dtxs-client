@@ -4,3 +4,4 @@ vendor
 !clients/php/config.template.json
 *.log
 __pycache__
+.vscode
