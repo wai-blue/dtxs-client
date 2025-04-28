@@ -21,13 +21,15 @@
 from dtxs_client.main import DtxsClient
 import sys
 import json
+import os
 
 if (len(sys.argv) <= 2):
   print("Usage: test.py <configFile> <command> [arg1] [arg2] ...")
-  print("Available commands:");
-  print("  list-databases             Lists available databases.")
-  print("  list-records <database>    Lists records in given database.")
-  print("  list-documents <database>  Lists documents in given database.")
+  print("Available commands:")
+  print("  list-databases                          Lists available databases.")
+  print("  list-records <database>                 Lists records in given database.")
+  print("  list-documents <database>               Lists documents in given database.")
+  print("  upload-document <database> <pathToFile> Upload a document to given database.")
   sys.exit()
 
 configFile = sys.argv[1]
@@ -98,3 +100,18 @@ match cmd:
             + " | Name = " + document['name']
             + " | Size = " + str(round(document['size'] / 1024 / 1024, 2)) + " MB"
           )
+
+  case "upload-document":
+    if (len(sys.argv) == 5):
+      database = sys.argv[3]
+      pathToFile = sys.argv[4]
+
+      client.database = database
+      client.uploadDocument(pathToFile, 'root', {
+        'class': 'Actors.Persons',
+        'confidentiality': 1,
+        'name': os.path.basename(pathToFile)
+      })
+    else:
+      print('Usage: test.py <database> <pathToFile>')
+

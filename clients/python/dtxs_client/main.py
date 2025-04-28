@@ -1,5 +1,7 @@
 import requests
 import json
+import base64
+from pprint import pprint
 
 class DtxsClient:
   clientId = '';               # CLIENT_ID defined in the IAM (Keycloak)
@@ -55,17 +57,18 @@ class DtxsClient:
     }
 
     response = {}
+    bodyStr = json.dumps(body)
 
     if (method == 'POST'):
-      response = requests.post(self.dtxsEndpoint + command, headers=headers, data=body, verify=False).json()
+      response = requests.post(self.dtxsEndpoint + command, headers=headers, data=bodyStr, verify=False)
 
     if (method == 'GET'):
-      response = requests.get(self.dtxsEndpoint + command, headers=headers, data=body, verify=False).json()
+      response = requests.get(self.dtxsEndpoint + command, headers=headers, data=bodyStr, verify=False)
 
-    if (isinstance(response, str)):
-      response = {'error': response}
+    if (method == 'PATCH'):
+      response = requests.patch(self.dtxsEndpoint + command, headers=headers, data=bodyStr, verify=False)
 
-    return response
+    return response.text
 
   def getDatabases(self):
     response = self.sendRequest('GET', '/databases', {})
@@ -86,3 +89,67 @@ class DtxsClient:
       {}
     )
     return response
+
+  def uploadDocumentChunk(self, folderUid, fileName, chunkUid, chunkNumber, chunk):
+    response = self.sendRequest(
+      "PATCH",
+      "/database/" + self.database + "/folder/" + folderUid + "/documentChunk",
+      {
+        'chunkUid': chunkUid,
+        'fileName': fileName,
+        'chunk': base64.b64encode(chunk).decode('ascii'),
+        'chunkNumber': chunkNumber,
+      }
+    )
+    return response
+
+  def createDocument(self, folderUid, document):
+    if (hasattr(document, 'content')):
+      document['content'] = base64.b64encode(document['content'].encode('utf-8'))
+
+    response = self.sendRequest(
+      "POST",
+      "/database/" + self.database + "/folder/" + folderUid + "/document",
+      document
+    )
+
+    return response
+
+  def uploadDocument(self, sourceFilePath, folderUid, document):
+    chunkSize = 1024*1024*25
+
+    # receive chunkUid
+    chunkUid = self.uploadDocumentChunk(folderUid, document['name'], '', 0, bytearray())
+    print('Received chunkUid: ' + chunkUid + '.')
+
+    # upload chunks
+    chunkNumber = 1
+    fileStats = os.stat(sourceFilePath)
+    fileSize = fileStats.st_size
+    chunkCount = ceil(fileSize / chunkSize)
+
+    f = open(sourceFilePath, mode='rb')
+
+    while True:
+      chunk = f.read(chunkSize)
+
+      if not chunk:
+        break
+
+      self.uploadDocumentChunk(folderUid, sourceFilePath, chunkUid, chunkNumber, chunk)
+      print('Uploaded chunk #' + str(chunkNumber) + ' / ' + str(chunkCount) + '.')
+
+      chunkNumber = chunkNumber + 1
+
+    f.close()
+
+    # merge chunks
+    chunkUid = self.uploadDocumentChunk(folderUid, document['name'], chunkUid, -1, bytearray())
+    print('Chunks merged.')
+
+    # create document from merged chunks
+    document['chunkUid'] = chunkUid
+    self.createDocument(folderUid, document)
+    print('Document created.')
+
+    return chunkUid
