@@ -534,13 +534,25 @@ try {
               green("Creating random document of class '{$class}', size {$fileSize} B and randomly chosen confidentiality {$confidentiality}.\n");
 
               $tmpRand = rand(1000, 9999);
+              $tmpStr = str_repeat('Hello world, random is ' . $tmpRand . '. ', 1000);
+              $tmpFileName = 'd:\rand-' . $tmpRand . '.txt';
 
-              $api->createDocument('root', [
+              $h = fopen($tmpFileName, 'w');
+              for ($i = 0; $i <= round($fileSize / strlen($tmpStr)); $i++) {
+                fwrite($h, $tmpStr);
+              }
+              fclose($h);
+
+              green("Uploading document.\n");
+
+              $api->uploadDocument($tmpFileName, 'root', [
                 'class' => $class,
                 'confidentiality' => $confidentiality,
                 'name' => 'rand-' . $tmpRand . '.txt',
-                'content' => 'Hello world, random is ' . str_repeat($tmpRand . '. ', round($fileSize / 6)),
-              ]);
+              ], function ($event) {
+                blue('-> Upload event received: ' . json_encode($event) . "\n");
+              });
+
               loglastrequest($api->lastRequest);
 
             } else {

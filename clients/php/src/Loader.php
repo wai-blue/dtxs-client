@@ -229,5 +229,6 @@ class Loader {
   use Traits\Records;
   use Traits\Folders;
   use Traits\Documents;
+  use Traits\Streams;
 
 }

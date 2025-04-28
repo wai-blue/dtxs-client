@@ -9,9 +9,56 @@ trait Documents
    * Shortcut to upload a document.
    *
    */
-  public function uploadDocument(string $folderUid, string $fileName, string $chunkUid, int $chunkNumber, string $chunk): string
+  public function uploadDocument(string $sourceFilePath, string $folderUid, array $document, \Closure $onStatusChange): string
   {
-    $res = $this->sendRequest("PATCH", "/database/{$this->database}/folder/{$folderUid}/document", [
+
+    $chunkSize = 1024*1024*25;
+
+    // get chunk number
+    $chunkUid = $this->uploadDocumentChunk($folderUid, $document['name'], '', 0, '');
+    if ($onStatusChange) {
+      $onStatusChange(['status' => 'chunkUidReceived', 'chunkUid' => $chunkUid]);
+    }
+
+    // upload chunks
+    $chunkNumber = 1;
+    $h = fopen($sourceFilePath, 'r');
+    while (!feof($h)) {
+      $chunk = fread($h, $chunkSize);
+      $this->uploadDocumentChunk($folderUid, $sourceFilePath, $chunkUid, $chunkNumber, $chunk);
+
+      if ($onStatusChange) {
+        $onStatusChange(['status' => 'chunkUploaded', 'chunkUid' => $chunkUid, 'chunkNumber' => $chunkNumber]);
+      }
+
+      $chunkNumber++;
+    }
+
+    // merge chunks
+    $chunkUid = $this->uploadDocumentChunk($folderUid, $document['name'], $chunkUid, -1, '');
+
+    if ($onStatusChange) {
+      $onStatusChange(['status' => 'chunksMerged', 'chunkUid' => $chunkUid]);
+    }
+
+    // create document from merged chunks
+    $document['chunkUid'] = $chunkUid;
+    $this->createDocument($folderUid, $document);
+
+    if ($onStatusChange) {
+      $onStatusChange(['status' => 'documentCreated', 'chunkUid' => $chunkUid]);
+    }
+
+    return $chunkUid;
+  }
+
+  /**
+   * Shortcut to upload a document chunk.
+   *
+   */
+  public function uploadDocumentChunk(string $folderUid, string $fileName, string $chunkUid, int $chunkNumber, string $chunk): string
+  {
+    $res = $this->sendRequest("PATCH", "/database/{$this->database}/folder/{$folderUid}/documentChunk", [
       'chunkUid' => $chunkUid,
       'fileName' => $fileName,
       'chunk' => base64_encode($chunk),
