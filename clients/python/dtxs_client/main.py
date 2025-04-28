@@ -1,6 +1,8 @@
+import os
 import requests
 import json
 import base64
+import math
 from pprint import pprint
 
 class DtxsClient:
@@ -120,13 +122,13 @@ class DtxsClient:
 
     # receive chunkUid
     chunkUid = self.uploadDocumentChunk(folderUid, document['name'], '', 0, bytearray())
-    print('Received chunkUid: ' + chunkUid + '.')
+    print('Received chunkUid: ' + chunkUid)
 
     # upload chunks
     chunkNumber = 1
     fileStats = os.stat(sourceFilePath)
     fileSize = fileStats.st_size
-    chunkCount = ceil(fileSize / chunkSize)
+    chunkCount = math.ceil(fileSize / chunkSize)
 
     f = open(sourceFilePath, mode='rb')
 
@@ -136,8 +138,8 @@ class DtxsClient:
       if not chunk:
         break
 
+      print('Uploading chunk #' + str(chunkNumber) + ' / ' + str(chunkCount) + '.')
       self.uploadDocumentChunk(folderUid, sourceFilePath, chunkUid, chunkNumber, chunk)
-      print('Uploaded chunk #' + str(chunkNumber) + ' / ' + str(chunkCount) + '.')
 
       chunkNumber = chunkNumber + 1
 
