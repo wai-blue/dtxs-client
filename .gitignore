@@ -1,6 +1,6 @@
 composer.lock
 vendor
-*.json
+config.*.json
 !clients/php/config.template.json
 *.log
 __pycache__

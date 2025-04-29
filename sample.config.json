@@ -1,0 +1,10 @@
+{
+  "dtxsClient": {
+    "clientId": "your_client_id",
+    "clientSecret": "your_client_secret",
+    "userName": "your_user_name",
+    "userPassword": "your_password",
+    "oauthEndpoint": "https://dtxs-server.example.url:29084/realms/YOUR_REALM/protocol/openid-connect",
+    "dtxsEndpoint": "http://dtxs-server.example.url:23741/api/v0.04"
+  }
+}
