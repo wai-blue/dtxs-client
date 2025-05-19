@@ -47,11 +47,12 @@ match cmd:
     print("Getting list of databases.")
     databases = client.getDatabases()
     if ('error' in databases):
-      print("ERROR: " + databases['error'])
+      print("ERROR: " + databases)
     else:
       print("Available databases:")
-      for i, database in enumerate(databases):
-        print(" " + database['name'])
+      dbs = json.loads(databases)
+      for i, db in enumerate(dbs):
+        print(" " + db['name'])
 
   case "list-records":
     if (len(sys.argv) == 3): database = ''
