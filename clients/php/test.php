@@ -647,7 +647,23 @@ try {
           }
         break;
 
-        // case exit
+        // stream-open
+        case 'stream-open': case 'so':
+          $streamUid = $api->openStream();
+          $stream = $api->getStreamInfo($streamUid);
+          cyan("Stream '{$stream['uid']}' ready at port {$stream['port']}.\n");
+
+          for ($i = 0; $i < rand(5, 10); $i++) {
+            $api->writeStream($streamUid, 'random ' . rand(100, 200));
+            cyan("Data sent to stream.\n");
+          }
+
+          $api->closeStream($streamUid);
+          cyan("Stream '{$stream['uid']}' closed.\n");
+          
+        break;
+
+        // exit
         case 'exit': case 'x':
           $exit = true;
         break;
