@@ -16,7 +16,7 @@ class DtxsClient:
 
   accessToken = '';            # Access token received from IAM
   database = '';               # Name of the database which will be used
-  
+
   def __init__(self, config):
     # load configuration
     self.clientId = config['clientId']
@@ -70,6 +70,12 @@ class DtxsClient:
     if (method == 'PATCH'):
       response = requests.patch(self.dtxsEndpoint + command, headers=headers, data=bodyStr, verify=False)
 
+    if (method == 'PUT'):
+      response = requests.put(self.dtxsEndpoint + command, headers=headers, data=bodyStr, verify=False)
+
+    if (method == 'DELETE'):
+      response = requests.delete(self.dtxsEndpoint + command, headers=headers, data=bodyStr, verify=False)
+
     return response.text
 
   def getDatabases(self):
@@ -78,16 +84,97 @@ class DtxsClient:
 
   def getRecords(self):
     response = self.sendRequest(
-      "POST", 
+      "POST",
       "/database/" + self.database + "/records",
+      {}
+    )
+    return response
+
+  def getRecord(self, recordUID):
+    response = self.sendRequest(
+      "GET",
+      "/database/" + self.database + "/record/" + recordUID,
+      {}
+    )
+    return response
+
+  def getRecordHistory(self, recordUID):
+    response = self.sendRequest(
+      "GET",
+      "/database/" + self.database + "/record/" + recordUID + "/history",
+      {}
+    )
+    return response
+
+  def createRecord(self, contentClass, content):
+    response = self.sendRequest(
+      "POST",
+      "/database/" + self.database + "/record",
+      {
+        "class": contentClass,
+        "content": content
+      }
+    )
+    return response
+
+  def updateRecord(self, recordUID, contentClass, content):
+    response = self.sendRequest(
+      "PUT",
+      "/database/" + self.database + "/record/" + recordUID,
+      {
+        "class": contentClass,
+        "content": content
+      }
+    )
+    return response
+
+  def deleteRecord(self, recordUID):
+    response = self.sendRequest(
+      "DELETE",
+      "/database/" + self.database + "/record/" + recordUID,
+      {}
+    )
+    return response
+
+  def createFolder(self, folderName, parentFolder):
+    response = self.sendRequest(
+      "POST",
+      "/database/" + self.database + "/folder",
+      {
+        "folderName": folderName,
+        "parentFolderUid": parentFolder
+      }
+    )
+    return response
+
+  def getFolderContents(self, folderUid):
+    response = self.sendRequest(
+      "GET",
+      "/database/" + self.database + "/folder/" + folderUid,
       {}
     )
     return response
 
   def getDocuments(self):
     response = self.sendRequest(
-      "POST", 
+      "POST",
       "/database/" + self.database + "/documents",
+      {}
+    )
+    return response
+
+  def getDocument(self, folderUid, documentUid):
+    response = self.sendRequest(
+      "GET",
+      "/database/" + self.database + "/folder/" + folderUid + "/document/" + documentUid,
+      {}
+    )
+    return response
+
+  def deleteDocument(self, folderUid, documentUid):
+    response = self.sendRequest(
+      "DELETE",
+      "/database/" + self.database + "/folder/" + folderUid + "/document/" + documentUid,
       {}
     )
     return response
@@ -152,6 +239,8 @@ class DtxsClient:
     # create document from merged chunks
     document['chunkUid'] = chunkUid
     self.createDocument(folderUid, document)
-    print('Document created.')
+    print('Document ' + document['name'] + ' created.')
+
+    return chunkUid
 
     return chunkUid
