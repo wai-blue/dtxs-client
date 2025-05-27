@@ -63,7 +63,7 @@ match cmd:
     else:
       print("Getting records from database '" + database + "'.")
       client.database = database
-      records = client.getRecords()
+      records = json.loads(client.getRecords())
 
       if ('error' in records):
         print("ERROR: " + records['error'])
@@ -87,7 +87,7 @@ match cmd:
     else:
       print("Getting records from database '" + database + "'.")
       client.database = database
-      documents = client.getDocuments()
+      documents = json.loads(client.getDocuments())
 
       if ('error' in documents):
         print("ERROR: " + documents['error'])
