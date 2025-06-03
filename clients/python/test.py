@@ -293,6 +293,7 @@ match cmd:
       })
     else:
       print('Usage: test.py upload-document <database> <pathToFile>')
+      print('Usage: test.py upload-document <database> <pathToFile> <folderUid>')
 
   case "delete-document":
     if (len(sys.argv) < 5): database = ''
