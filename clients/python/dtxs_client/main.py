@@ -76,6 +76,9 @@ class DtxsClient:
     if (method == 'DELETE'):
       response = requests.delete(self.dtxsEndpoint + command, headers=headers, data=bodyStr, verify=False)
 
+    print("  request: " + method + ", " + command + ", " + bodyStr)
+    print("  response: " + response.text)
+
     return response.text
 
   def getDatabases(self):
