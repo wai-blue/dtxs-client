@@ -109,23 +109,23 @@ class DtxsClient:
     )
     return response
 
-  def createRecord(self, contentClass, content):
+  def createRecord(self, recordClass, content):
     response = self.sendRequest(
       "POST",
       "/database/" + self.database + "/record",
       {
-        "class": contentClass,
+        "class": recordClass,
         "content": content
       }
     )
     return response
 
-  def updateRecord(self, recordUID, contentClass, content):
+  def updateRecord(self, recordUID, recordClass, content):
     response = self.sendRequest(
       "PUT",
       "/database/" + self.database + "/record/" + recordUID,
       {
-        "class": contentClass,
+        "class": recordClass,
         "content": content
       }
     )
@@ -139,13 +139,13 @@ class DtxsClient:
     )
     return response
 
-  def createFolder(self, folderName, parentFolder):
+  def createFolder(self, folderName, parentFolderUid):
     response = self.sendRequest(
       "POST",
       "/database/" + self.database + "/folder",
       {
         "folderName": folderName,
-        "parentFolderUid": parentFolder
+        "parentFolderUid": parentFolderUid
       }
     )
     return response
@@ -153,6 +153,14 @@ class DtxsClient:
   def getFolderContents(self, folderUid):
     response = self.sendRequest(
       "GET",
+      "/database/" + self.database + "/folder/" + folderUid,
+      {}
+    )
+    return response
+
+  def deleteFolder(self, folderUid):
+    response = self.sendRequest(
+      "DELETE",
       "/database/" + self.database + "/folder/" + folderUid,
       {}
     )
@@ -246,4 +254,3 @@ class DtxsClient:
 
     return chunkUid
 
-    return chunkUid

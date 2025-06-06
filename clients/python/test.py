@@ -24,12 +24,29 @@ import json
 import os
 
 if (len(sys.argv) <= 2):
-  print("Usage: test.py <configFile> <command> [arg1] [arg2] ...")
-  print("Available commands:")
-  print("  list-databases                          Lists available databases.")
-  print("  list-records <database>                 Lists records in given database.")
-  print("  list-documents <database>               Lists documents in given database.")
-  print("  upload-document <database> <pathToFile> Upload a document to given database.")
+  print("  Usage: test.py <configFile> <command> [arg1] [arg2] ...")
+  print("  Available commands:")
+  print("  --- DATABSES ---")
+  print("  list-databases  Lists available databases.")
+  print("")
+  print("  --- RECORDS ---")
+  print("  create-record <database> <recordClass> <content>              Create a new record.")
+  print("  get-record <database> <recordUID>                              Retrieve the lastest information of a record.")
+  print("  get-record-history <database> <recordUID>                      Retrieve the information of all versions of a record.")
+  print("  list-records <database>                                        List records in given database.")
+  print("  update-record <database> <recordUID> <recordClass> <content>  Update a record.")
+  print("  delete-record <database> <recordUID>                           Delete a record.")
+  print("")
+  print("  --- FOLDERS ---")
+  print("  create-folder <database> <folderName> <parentFolderUID>  Create a new folder.")
+  print("  get-folder-contents <database> <folderUid>               Retrive the information about the folder, parent folder, subforders and documents in a folder.")
+  print("  delete-folder <database> <folderUid>                     Delete a folder.")
+  print("")
+  print("  -- DOCUMENTS --")
+  print("  upload-document <database> <pathToFile>               Upload a document to given database.")
+  print("  get-document <database> <folderUid> <documentUid>     Retrieve the latest information of a document.")
+  print("  list-documents <database>                             Lists documents in given database.")
+  print("  delete-document <database> <folderUid> <documentUid>  Delete a document.")
   sys.exit()
 
 configFile = sys.argv[1]
@@ -55,7 +72,7 @@ match cmd:
         print(" " + db['name'])
 
   case "list-records":
-    if (len(sys.argv) == 3): database = ''
+    if (len(sys.argv) < 4): database = ''
     else: database = sys.argv[3]
 
     if (database == ''):
@@ -107,7 +124,7 @@ match cmd:
     else: database = sys.argv[3]
 
     if (database == ''):
-      print("Usage: test.py get-record-history <database> <record-uid>")
+      print("Usage: test.py get-record-history <database> <recorUid>")
     else:
       recordUid = sys.argv[4]
       print("Loading record history...")
@@ -127,17 +144,17 @@ match cmd:
           )
 
   case "create-record":
-    if (len(sys.argv) < 7): database = ''
+    if (len(sys.argv) < 6): database = ''
     else: database = sys.argv[3]
 
     if (database == ''):
-      print("Usage: test.py create-record <database> <content-class> <content>")
+      print("Usage: test.py create-record <database> <recordClass> <content>")
     else:
-      contentClass = sys.argv[4]
-      content = json.loads(sys.argv[5]) #  "{\"name\": \"Alice\", \"age\": 30}"
+      recordClass = sys.argv[4]
+      content = json.loads(sys.argv[5]) #  '{\"name\": \"Alice\", \"age\": 30}'
       print("Creating a new record...")
       client.database = database
-      recordUid = client.createRecord(contentClass, content)
+      recordUid = client.createRecord(recordClass, content)
       if ('error' in recordUid):
         error = json.loads(recordUid)
         print("ERROR: " + error['error'])
@@ -149,14 +166,14 @@ match cmd:
     else: database = sys.argv[3]
 
     if (database == ''):
-      print("Usage: test.py update-record <database> <record-uid> <content-class> <content>")
+      print("Usage: test.py update-record <database> <recordUid> <recordClass> <content>")
     else:
       recordUid = sys.argv[4]
-      contentClass = sys.argv[5]
-      content = json.loads(sys.argv[6]) #  "{\"name\": \"Alice\", \"age\": 30}"
+      recordClass = sys.argv[5]
+      content = json.loads(sys.argv[6]) #  '{\"name\": \"Alice\", \"age\": 30}'
       print("Updating record...")
       client.database = database
-      recordVersion = client.updateRecord(recordUid, contentClass, content)
+      recordVersion = client.updateRecord(recordUid, recordClass, content)
       if ('error' in recordVersion):
         error = json.loads(recordVersion)
         print("ERROR: " + error['error'])
@@ -168,7 +185,7 @@ match cmd:
     else: database = sys.argv[3]
 
     if (database == ''):
-      print("Usage: test.py delete-record <database> <record-uid>")
+      print("Usage: test.py delete-record <database> <recordUid>")
     else:
       recordUid = sys.argv[4]
       print("Deleting record...")
@@ -181,29 +198,29 @@ match cmd:
         print("Record " + recordUid + " was succesfully deleted.")
 
   case "create-folder":
-    if (len(sys.argv) < 5): database = ''
+    if (len(sys.argv) < 6): database = ''
     else: database = sys.argv[3]
 
     if (database == ''):
-      print("Usage: test.py list-documents <database> <folder-name> <parent-folder-name>")
+      print("Usage: test.py create-folder <database> <folderName> <parentFolderUID>")
     else:
       folderName = sys.argv[4]
-      parentFolderName = sys.argv[5]
+      parentFolderUid = sys.argv[5]
       client.database = database
       print("Creating folder...")
-      contents = client.createFolder(folderName, parentFolderName)
-      if ('error' in contents):
-        error = json.loads(contents)
+      response = client.createFolder(folderName, parentFolderUid)
+      if ('error' in response):
+        error = json.loads(response)
         print("ERROR: " + error['error'])
       else:
-        print("Folder " + folderName + " was succesfully created.")
+        print("Folder " + folderName + " " + response + " was succesfully created.")
 
   case "get-folder-contents":
     if (len(sys.argv) < 4): database = ''
     else: database = sys.argv[3]
 
     if (database == ''):
-      print("Usage: test.py get-folder-contents <database> <folder-uid>")
+      print("Usage: test.py get-folder-contents <database> <folderUid>")
     else:
       folderUid = sys.argv[4]
       client.database = database
@@ -229,8 +246,25 @@ match cmd:
           print(f"UID = {document['uid']} | Version = {document['version']} | Owner = {document['owner']} | Class = {document['class']} | Size = {document['size']} | Checksum = {document['checksum']}"
           )
 
+  case "delete-folder":
+    if (len(sys.argv) < 5): database = ''
+    else: database = sys.argv[3]
+
+    if (database == ''):
+      print("Usage: test.py delete-folder <database> <folderUid>")
+    else:
+      folderUid = sys.argv[4]
+      client.database = database
+      print("Deleting folder...")
+      response = client.deleteFolder(folderUid)
+      if ('error' in response):
+        error = json.loads(response)
+        print("ERROR: " + error['error'])
+      else:
+        print("Folder was succesfully deleted.")
+
   case "list-documents":
-    if (len(sys.argv) == 3): database = ''
+    if (len(sys.argv) < 4): database = ''
     else: database = sys.argv[3]
 
     if (database == ''):
@@ -255,11 +289,11 @@ match cmd:
 
   case "get-document":
     print(len(sys.argv))
-    if (len(sys.argv) < 5): database = ''
+    if (len(sys.argv) < 6): database = ''
     else: database = sys.argv[3]
 
     if (database == ''):
-      print("Usage: test.py get-document <database> <folder-uid> <document-uid>")
+      print("Usage: test.py get-document <database> <folderUid> <documentUid>")
     else:
       folderUid = sys.argv[4]
       documentUid = sys.argv[5]
@@ -280,7 +314,7 @@ match cmd:
           )
 
   case "upload-document":
-    if (len(sys.argv) == 6):
+    if (len(sys.argv) < 6):
       database = sys.argv[3]
       pathToFile = sys.argv[4]
       folderUid = sys.argv[5]
@@ -292,15 +326,14 @@ match cmd:
         'name': os.path.basename(pathToFile)
       })
     else:
-      print('Usage: test.py upload-document <database> <pathToFile>')
       print('Usage: test.py upload-document <database> <pathToFile> <folderUid>')
 
   case "delete-document":
-    if (len(sys.argv) < 5): database = ''
+    if (len(sys.argv) < 6): database = ''
     else: database = sys.argv[3]
 
     if (database == ''):
-      print("Usage: test.py delete-document <database> <folder-uid> <document-uid>")
+      print("Usage: test.py delete-document <database> <folderUid> <documentUid>")
     else:
       folderUid = sys.argv[4]
       documentUid = sys.argv[5]
