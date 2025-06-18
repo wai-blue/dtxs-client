@@ -17,6 +17,8 @@ class DtxsClient:
   accessToken = '';            # Access token received from IAM
   database = '';               # Name of the database which will be used
 
+  debug = False
+
   def __init__(self, config):
     # load configuration
     self.clientId = config['clientId']
@@ -28,6 +30,9 @@ class DtxsClient:
     self.dtxsEndpoint = config['dtxsEndpoint']
 
     self.database = ''
+
+    if ('debug' in config):
+      self.debug = config['debug']
 
     requests.packages.urllib3.disable_warnings()
 
@@ -76,8 +81,9 @@ class DtxsClient:
     if (method == 'DELETE'):
       response = requests.delete(self.dtxsEndpoint + command, headers=headers, data=bodyStr, verify=False)
 
-    print("  request: " + method + ", " + command + ", " + bodyStr)
-    print("  response: " + response.text)
+    if (self.debug):
+      print("  request: " + method + ", " + command + ", " + bodyStr)
+      print("  response: " + response.text)
 
     return response.text
 
@@ -220,7 +226,9 @@ class DtxsClient:
 
     # receive chunkUid
     chunkUid = self.uploadDocumentChunk(folderUid, document['name'], '', 0, bytearray())
-    print('Received chunkUid: ' + chunkUid)
+
+    if (self.debug):
+      print('Received chunkUid: ' + chunkUid)
 
     # upload chunks
     chunkNumber = 1
@@ -236,7 +244,9 @@ class DtxsClient:
       if not chunk:
         break
 
-      print('Uploading chunk #' + str(chunkNumber) + ' / ' + str(chunkCount) + '.')
+      if (self.debug):
+        print('Uploading chunk #' + str(chunkNumber) + ' / ' + str(chunkCount) + '.')
+
       self.uploadDocumentChunk(folderUid, sourceFilePath, chunkUid, chunkNumber, chunk)
 
       chunkNumber = chunkNumber + 1
@@ -245,12 +255,16 @@ class DtxsClient:
 
     # merge chunks
     chunkUid = self.uploadDocumentChunk(folderUid, document['name'], chunkUid, -1, bytearray())
-    print('Chunks merged.')
+
+    if (self.debug):
+      print('Chunks merged.')
 
     # create document from merged chunks
     document['chunkUid'] = chunkUid
-    self.createDocument(folderUid, document)
-    print('Document ' + document['name'] + ' created.')
+    documentUid = self.createDocument(folderUid, document)
 
-    return chunkUid
+    if (self.debug):
+      print('Document ' + document['name'] + ' created.')
+
+    return documentUid
 
