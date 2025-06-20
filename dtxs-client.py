@@ -25,28 +25,29 @@ import os
 
 if (len(sys.argv) <= 2):
   print("  Usage: dtxs-client.py <configFile> <command> [arg1] [arg2] ...")
+  print("")
   print("  Available commands:")
   print("  --- DATABSES ---")
   print("  list-databases  Lists available databases.")
   print("")
   print("  --- RECORDS ---")
-  print("  create-record <database> <recordClass> <content>              Create a new record.")
+  print("  create-record <database> <recordClass> <content>               Create a new record.")
   print("  get-record <database> <recordUID>                              Retrieve the lastest information of a record.")
   print("  get-record-history <database> <recordUID>                      Retrieve the information of all versions of a record.")
   print("  list-records <database>                                        List records in given database.")
-  print("  update-record <database> <recordUID> <recordClass> <content>  Update a record.")
+  print("  update-record <database> <recordUID> <recordClass> <content>   Update a record.")
   print("  delete-record <database> <recordUID>                           Delete a record.")
   print("")
   print("  --- FOLDERS ---")
-  print("  create-folder <database> <folderName> <parentFolderUID>  Create a new folder.")
-  print("  get-folder-contents <database> <folderUid>               Retrive the information about the folder, parent folder, subforders and documents in a folder.")
-  print("  delete-folder <database> <folderUid>                     Delete a folder.")
+  print("  create-folder <database> <folderName> <parentFolderUID>        Create a new folder.")
+  print("  get-folder-contents <database> <folderUid>                     Retrive the information about the folder, parent folder, subforders and documents in a folder.")
+  print("  delete-folder <database> <folderUid>                           Delete a folder.")
   print("")
   print("  -- DOCUMENTS --")
-  print("  upload-document <database> <pathToFile> <folderUid>   Upload a document to given database.")
-  print("  get-document <database> <folderUid> <documentUid>     Retrieve the latest information of a document.")
-  print("  list-documents <database>                             Lists documents in given database.")
-  print("  delete-document <database> <folderUid> <documentUid>  Delete a document.")
+  print("  upload-document <database> <pathToFile> <folderUid>            Upload a document to given database.")
+  print("  get-document <database> <folderUid> <documentUid>              Retrieve the latest information of a document.")
+  print("  list-documents <database>                                      Lists documents in given database.")
+  print("  delete-document <database> <folderUid> <documentUid>           Delete a document.")
   sys.exit()
 
 configFile = sys.argv[1]
@@ -321,8 +322,7 @@ match cmd:
 
       client.database = database
       documentUid = client.uploadDocument(pathToFile, folderUid, {
-        'class': 'Actors.Persons',
-        'confidentiality': 1,
+        'class': 'Assets.Intangibles.Documents',
         'name': os.path.basename(pathToFile)
       })
 
