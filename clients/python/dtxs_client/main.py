@@ -156,6 +156,14 @@ class DtxsClient:
     )
     return response
 
+  def getFolders(self):
+    response = self.sendRequest(
+      "GET",
+      "/database/" + self.database + "/folders",
+      {}
+    )
+    return response
+
   def getFolderContents(self, folderUid):
     response = self.sendRequest(
       "GET",
