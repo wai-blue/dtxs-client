@@ -120,6 +120,20 @@ match cmd:
             + " | Content = " + str(record['content'])
           )
 
+  case "download-record":
+    if (len(sys.argv) < 6): database = ''
+    else: database = sys.argv[3]
+
+    if (database == ''):
+      print("Usage: dtxs-client.py get-record <database> <recordUid> <outputFile>")
+    else:
+      # recordUid = sys.argv[4]
+      # client.database = database
+      # print client.getRecord(recordUid)
+
+      print("This function is not implemented yet.")
+      # TODO: Ziskat JSON pre record a ulozit do <outputFile>
+
   case "get-record-history":
     if (len(sys.argv) < 5): database = ''
     else: database = sys.argv[3]
@@ -347,3 +361,20 @@ match cmd:
         print("ERROR: " + error['error'])
       else:
         print("Document " + documentUid + " was succesfully deleted.")
+
+  case "download-document":
+    if (len(sys.argv) < 6): database = ''
+    else: database = sys.argv[3]
+
+    if (database == ''):
+      print("Usage: dtxs-client.py download-document <database> <documentUid> <outputFile>")
+    else:
+      documentUid = sys.argv[4]
+      outputFile = sys.argv[5]
+
+      # client.database = database
+      # document = json.loads(client.getDocument(folderUid, documentUid))
+
+      print("This function is not implemented yet.")
+
+      # TODO: Stiahnut dokument a ulozit ho do <outputFile>
