@@ -53,7 +53,7 @@ if (len(client.accessToken) == 0):
   prRed("    !! Did not receive access token. Exitting.")
   sys.exit()
 
-prGreen("    -> Received acces token, length: " + str(len(client.accessToken)) + " bytes")
+prGreen("    -> Received access token, length: " + str(len(client.accessToken)) + " bytes")
 
 prLightBlue("  [1.2] Configuring DTXS client")
 
@@ -100,7 +100,7 @@ teamUid = client.recordUid = client.createRecord('Actors.Teams', {
 })
 prGreen("    -> teamUid = " + teamUid)
 
-prLightBlue("  [2.6] Finaly, create the task")
+prLightBlue("  [2.6] Finally, create the task")
 taskUid = client.recordUid = client.createRecord('Actors.Tasks', {
   "Name": "Remote measurement",
   "Number": "T-001",

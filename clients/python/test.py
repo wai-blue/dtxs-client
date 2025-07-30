@@ -30,15 +30,16 @@ if (len(sys.argv) <= 2):
   print("  list-databases  Lists available databases.")
   print("")
   print("  --- RECORDS ---")
-  print("  create-record <database> <recordClass> <content>              Create a new record.")
+  print("  create-record <database> <recordClass> <content>               Create a new record.")
   print("  get-record <database> <recordUID>                              Retrieve the lastest information of a record.")
   print("  get-record-history <database> <recordUID>                      Retrieve the information of all versions of a record.")
   print("  list-records <database>                                        List records in given database.")
-  print("  update-record <database> <recordUID> <recordClass> <content>  Update a record.")
+  print("  update-record <database> <recordUID> <recordClass> <content>   Update a record.")
   print("  delete-record <database> <recordUID>                           Delete a record.")
   print("")
   print("  --- FOLDERS ---")
   print("  create-folder <database> <folderName> <parentFolderUID>  Create a new folder.")
+  print("  list-folders <database>                                  Get the list of all folders in a given databse.")
   print("  get-folder-contents <database> <folderUid>               Retrive the information about the folder, parent folder, subforders and documents in a folder.")
   print("  delete-folder <database> <folderUid>                     Delete a folder.")
   print("")
@@ -215,6 +216,29 @@ match cmd:
       else:
         print("Folder " + folderName + " " + response + " was succesfully created.")
 
+  case "list-folders":
+    if (len(sys.argv) < 4): database = ''
+    else: database = sys.argv[3]
+
+    if (database == ''):
+      print("Usage: test.py list-folders <database>")
+    else:
+      client.database = database
+      print("Listing all folders...")
+      response = json.loads(client.getFolders())
+      if ('error' in response):
+        error = json.loads(response)
+        print("ERROR: " + error['error'])
+      else:
+        for i, folder in enumerate(response):
+          print(
+            " UID = " + str(folder['uid'])
+            + " | Folder Name = " + str(folder['folderName'])
+            + " | Owner = " + folder['owner']
+            + " | Confidentiality = " + str(folder['confidentiality'])
+            + " | Parent folder UID = " + str(folder['parentFolderUid'])
+          )
+
   case "get-folder-contents":
     if (len(sys.argv) < 4): database = ''
     else: database = sys.argv[3]
@@ -314,17 +338,19 @@ match cmd:
           )
 
   case "upload-document":
-    if (len(sys.argv) < 6):
+    if (len(sys.argv) < 7):
       database = sys.argv[3]
       pathToFile = sys.argv[4]
       folderUid = sys.argv[5]
 
       client.database = database
+      print("Uploading document...")
       client.uploadDocument(pathToFile, folderUid, {
         'class': 'Actors.Persons',
         'confidentiality': 1,
         'name': os.path.basename(pathToFile)
       })
+      print("Done!")
     else:
       print('Usage: test.py upload-document <database> <pathToFile> <folderUid>')
 
