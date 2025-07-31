@@ -127,12 +127,17 @@ match cmd:
     if (database == ''):
       print("Usage: dtxs-client.py get-record <database> <recordUid> <outputFile>")
     else:
-      # recordUid = sys.argv[4]
-      # client.database = database
-      # print client.getRecord(recordUid)
+      client.database = database
+      recordUid = sys.argv[4]
+      outputFile = sys.argv[5]
+      print("Downloading record...")
 
-      print("This function is not implemented yet.")
-      # TODO: Ziskat JSON pre record a ulozit do <outputFile>
+      record = client.getRecord(recordUid)
+
+      with open(outputFile, 'w') as f:
+        f.write(record)
+
+      print("Record has been succesfully downloaded to " + outputFile)
 
   case "get-record-history":
     if (len(sys.argv) < 5): database = ''
@@ -363,18 +368,22 @@ match cmd:
         print("Document " + documentUid + " was succesfully deleted.")
 
   case "download-document":
-    if (len(sys.argv) < 6): database = ''
+    if (len(sys.argv) < 7): database = ''
     else: database = sys.argv[3]
 
     if (database == ''):
-      print("Usage: dtxs-client.py download-document <database> <documentUid> <outputFile>")
+      print("Usage: dtxs-client.py download-document <database> <folderUid> <documentUid> <outputFile>")
     else:
-      documentUid = sys.argv[4]
-      outputFile = sys.argv[5]
+      folderUid = sys.argv[4]
+      documentUid = sys.argv[5]
+      outputFile = sys.argv[6]
 
-      # client.database = database
-      # document = json.loads(client.getDocument(folderUid, documentUid))
+      client.database = database
 
-      print("This function is not implemented yet.")
+      print("Downloading document...")
+      document = client.downloadDocument(folderUid, documentUid)
 
-      # TODO: Stiahnut dokument a ulozit ho do <outputFile>
+      with open(outputFile, 'w') as f:
+          f.write(document)
+
+      print("Document was been succesfully downloaded to " + outputFile)

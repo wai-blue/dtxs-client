@@ -188,6 +188,14 @@ class DtxsClient:
     )
     return response
 
+  def downloadDocument(self, folderUid, documentUid):
+    response = self.sendRequest(
+      "GET",
+      "/database/" + self.database + "/folder/" + folderUid + "/document/" + documentUid + "/download",
+      {}
+    )
+    return response
+
   def getDocument(self, folderUid, documentUid):
     response = self.sendRequest(
       "GET",

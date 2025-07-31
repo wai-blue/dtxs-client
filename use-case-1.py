@@ -109,3 +109,70 @@ taskUid = client.recordUid = client.createRecord('Actors.Tasks', {
   "DocumentIds": [ ifcModelMetadataRecordUid ]
 })
 prGreen("    -> taskUid = " + taskUid)
+
+print("")
+
+prLightBlue("All the tasks from step 2 have been completed!")
+prLightBlue("In the next step a number of files will be downloaded to the directory of this script and a new record will be created.")
+input("Press any button to continue to the next step of the use case...")
+
+prLightBlue("[3] Identify risks")
+prLightBlue("  [3.1] Download the 3D model")
+downloadedIfcFile = client.downloadDocument("root", ifcModelDocumentUid)
+with open("sample-3d-model.ifc" , "w") as f:
+  f.write(downloadedIfcFile)
+prGreen("    Document " + ifcModelDocumentUid + " downloaded as sample-3d-model.ifc")
+
+prLightBlue("  [3.2] Download definition of the task")
+downloadedTaskDefinitionRecord = client.getRecord(taskUid)
+with open("task_definition.json" , "w") as f:
+  f.write(downloadedTaskDefinitionRecord)
+prGreen("    Record " + taskUid + " downloaded as task_definition.json")
+
+prLightBlue("  [3.2] Download other necessary data")
+downloadedIfcMetadataRecord = client.getRecord(ifcModelMetadataRecordUid)
+with open("ifc_metadata.json" , "w") as f:
+  f.write(downloadedIfcMetadataRecord)
+prGreen("    Record " + ifcModelMetadataRecordUid + " downloaded as ifc_metadata.json")
+
+downloadedWorker1Record = client.getRecord(workerJupiterUid)
+with open("worker1_definition.json" , "w") as f:
+  f.write(downloadedWorker1Record)
+prGreen("    Record " + workerJupiterUid + " downloaded as worker1_definition.json")
+
+downloadedRPORoleRecord = client.getRecord(rpoRoleUid)
+with open("rpo_role.json" , "w") as f:
+  f.write(downloadedRPORoleRecord)
+prGreen("    Record " + rpoRoleUid + " downloaded as rpo_role.json")
+
+downloadedWorker2Record = client.getRecord(workerPeterUid)
+with open("worker2_definition.json" , "w") as f:
+  f.write(downloadedWorker2Record)
+prGreen("    Record " + workerPeterUid + " downloaded as worker2_definition.json")
+
+downloadedOperatorRoleRecord = client.getRecord(operatorRoleUid)
+with open("operator_role.json" , "w") as f:
+  f.write(downloadedOperatorRoleRecord)
+prGreen("    Record " + operatorRoleUid + " downloaded as operator_role.json")
+
+downloadedRobotRecord = client.getRecord(robotHuskyUid)
+with open("robot_definition.json" , "w") as f:
+  f.write(downloadedRobotRecord)
+prGreen("    Record " + robotHuskyUid + " downloaded as robot_definition.json")
+
+downloadedTeamDefinitionRecord = client.getRecord(teamUid)
+with open("team_definition.json" , "w") as f:
+  f.write(downloadedTeamDefinitionRecord)
+prGreen("    Record " + teamUid + " downloaded as team_definition.json")
+
+prLightBlue("  [3.6] Upload risks back to the server")
+risksUid = client.createRecord("ndc:Safety.Risks.Register" , {
+  "Name": "Fall from height",
+  "Description": "A worker can fall, railing is missing.",
+  "Type": "Safety",
+  "Severity": 9,
+  "Probability": 9
+})
+prGreen("    -> risksUid = " + risksUid)
+
+prLightBlue("  All the tasks from step 3 have been completed!")
