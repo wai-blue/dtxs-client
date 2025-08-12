@@ -1,28 +1,17 @@
 # This script executes activities described in
-# use case #1 in DTXS documentaion on
-# http://localhost/wai_blue/docs/dtxs-digital-twin-data-exchange-standard/api/use-cases/task-planning-risk-assessment-output-analysis
+# use case #1-2 in DTXS documentaion on
+# https://docs.wai.blue/dtxs-digital-twin-data-exchange-standard/api/use-cases/task-planning-risk-assessment-output-analysis
 
 import os
 import sys
 import json
 from clients.python.dtxs_client.main import DtxsClient
-
-def prBlue(skk): print("\033[34m{}\033[00m" .format(skk))
-def prRed(skk): print("\033[91m{}\033[00m" .format(skk))
-def prGreen(skk): print("\033[92m{}\033[00m" .format(skk))
-def prOrange(skk): print("\033[33m{}\033[00m" .format(skk))
-def prYellow(skk): print("\033[93m{}\033[00m" .format(skk))
-def prPurple(skk): print("\033[95m{}\033[00m" .format(skk))
-def prCyan(skk): print("\033[96m{}\033[00m" .format(skk))
-def prBlack(skk): print("\033[98m{}\033[00m" .format(skk))
-def prLightGray(skk): print("\033[97m{}\033[00m" .format(skk))
-def prLightBlue(skk): print("\033[94m{}\033[00m" .format(skk))
-def prLightPurple(skk): print("\033[94m{}\033[00m" .format(skk))
+from use_cases.common import prBlue, prRed, prGreen, prYellow, prLightBlue
 
 prYellow("DTXS use case #1 test script")
 
 if (len(sys.argv) <= 3):
-  prYellow("Usage: python use-case-1.py <configFile> <dbName> <ifcModel>")
+  prYellow("Usage: python -m use_cases.use_case_1_2.py <configFile> <dbName> <ifcModel>")
   prYellow("")
   prYellow("  configFile     Configuration of OAuth and DTXS endpoints")
   prYellow("  dbName         Name of the database where documents and records will be stored")
@@ -31,7 +20,7 @@ if (len(sys.argv) <= 3):
 
 # Step 1: Prepare the environment
 
-## Read this http://localhost/wai_blue/docs/dtxs-digital-twin-data-exchange-standard/api/use-cases/task-planning-risk-assessment-output-analysis/1-prepare-the-environment
+## Read this https://docs.wai.blue/dtxs-digital-twin-data-exchange-standard/api/use-cases/task-planning-risk-assessment-output-analysis/1-prepare-the-environment
 ## and check if you have your environment ready.
 
 ## Name of the database to be used will be provided as an argument
@@ -59,6 +48,13 @@ prLightBlue("  [1.2] Configuring DTXS client")
 
 client.database = dbName
 prGreen("    -> DTXS client configured")
+
+# Step 2: Plan task
+
+## Read this https://docs.wai.blue/dtxs-digital-twin-data-exchange-standard/api/use-cases/task-planning-risk-assessment-output-analysis/2-plan-task
+## and check what records will be created
+
+## Path to an .ifc model will be used as an argument
 
 prBlue("[2] Plan decommissioning task")
 
