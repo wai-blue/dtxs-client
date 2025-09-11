@@ -1,1 +1,0 @@
-"C:\Users\Arthur Dent 42\AppData\Local\Programs\Python\Python311\python.exe" ./clients/python/test.py %1 %2 %3 %4 %5 %6 %7

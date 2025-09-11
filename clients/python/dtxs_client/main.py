@@ -51,7 +51,7 @@ class DtxsClient:
         headers={"content-type": "application/x-www-form-urlencoded"},
         verify=False
       )
-      self.accessToken = response.json()['access_token'];
+      self.accessToken = response.json()['access_token']
     except:
       print("Error while getting access token.")
 

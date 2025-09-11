@@ -6,7 +6,7 @@ from clients.python.dtxs_client.main import DtxsClient
 from use_cases.common import prBlue, prRed, prGreen, prYellow, prLightBlue
 
 if (len(sys.argv) <= 2):
-  prYellow("Usage: python -m tests.record_test <configFile> <dbName>")
+  prYellow("Usage: python -m tests.test_record <configFile> <dbName>")
   prYellow("")
   prYellow("  configFile     Configuration of OAuth and DTXS endpoints")
   prYellow("  dbName         Name of the database where records will be manipulated with")
