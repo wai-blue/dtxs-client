@@ -387,3 +387,23 @@ match cmd:
           f.write(document)
 
       print("Document was been succesfully downloaded to " + outputFile)
+
+  case "update-document":
+    if (len(sys.argv) < 7): database = ''
+    else: database = sys.argv[3]
+
+    if (database == ''):
+      print("Usage: dtxs-client.py update-document <database> <folderUid> <documentUid> <content>")
+    else:
+      folderUid = sys.argv[4]
+      documentUid = sys.argv[5]
+      content = sys.argv[6]
+
+      print("Updating document...")
+      client.database = database
+      documentVersion = client.updateDocument(folderUid, documentUid, content)
+      if ('error' in documentVersion):
+        error = json.loads(documentVersion)
+        print("ERROR: " + error['error'])
+      else:
+        print("Version " + documentVersion + " of the document was created.")

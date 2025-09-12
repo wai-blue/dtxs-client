@@ -212,6 +212,17 @@ class DtxsClient:
     )
     return response
 
+  def updateDocument(self, folderUID, documentUID, content):
+    response = self.sendRequest(
+      "PUT",
+      "/database/" + self.database + "/folder/" + folderUID + "/document/" + documentUID,
+      {
+        "content": content
+      }
+    )
+    return response
+
+
   def deleteDocument(self, folderUid, documentUid):
     response = self.sendRequest(
       "DELETE",
@@ -247,6 +258,16 @@ class DtxsClient:
 
   def uploadDocument(self, sourceFilePath, folderUid, document):
     chunkSize = 1024*1024*25
+
+    try:
+      document["name"]
+    except KeyError:
+      return {"error":"Missing document name"}
+    try:
+      os.stat(sourceFilePath)
+    except FileNotFoundError:
+      return {"error":"File Not Found"}
+
 
     # receive chunkUid
     chunkUid = self.uploadDocumentChunk(folderUid, document['name'], '', 0, bytearray())
