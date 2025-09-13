@@ -19,12 +19,13 @@
 # }
 
 from dtxs_client.main import DtxsClient
+import datetime
 import sys
 import json
 import os
 
 if (len(sys.argv) <= 2):
-  print("  Usage: test.py <configFile> <command> [arg1] [arg2] ...")
+  print("  Usage: cli_client.py <configFile> <command> [arg1] [arg2] ...")
   print("  Available commands:")
   print("  --- DATABSES ---")
   print("  list-databases  Lists available databases.")
@@ -44,7 +45,7 @@ if (len(sys.argv) <= 2):
   print("  delete-folder <database> <folderUid>                     Delete a folder.")
   print("")
   print("  -- DOCUMENTS --")
-  print("  upload-document <database> <pathToFile>               Upload a document to given database.")
+  print("  upload-document <database> <pathToFile> <folderUid>   Upload a document to given database.")
   print("  get-document <database> <folderUid> <documentUid>     Retrieve the latest information of a document.")
   print("  list-documents <database>                             Lists documents in given database.")
   print("  delete-document <database> <folderUid> <documentUid>  Delete a document.")
@@ -58,7 +59,9 @@ with open(configFile) as f: config = json.load(f)
 client = DtxsClient(config['dtxsClient'])
 client.getAccessToken()
 
-print("Received acces token, length: " + str(len(client.accessToken)) + " bytes")
+print("Received access token, length: " + str(len(client.accessToken)) + " bytes")
+
+startTime = datetime.datetime.now()
 
 match cmd:
   case "list-databases":
@@ -371,3 +374,8 @@ match cmd:
         print("ERROR: " + error['error'])
       else:
         print("Document " + documentUid + " was succesfully deleted.")
+
+endTime = datetime.datetime.now()
+
+duration = endTime - startTime
+print("Took " + str(duration.total_seconds()) + " seconds.")
