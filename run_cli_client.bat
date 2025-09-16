@@ -1,1 +1,1 @@
-"C:\Users\Arthur Dent 42\AppData\Local\Programs\Python\Python311\python.exe" ./clients/python/cli_client.py %1 %2 %3 %4 %5 %6 %7
+"C:\Users\Arthur Dent 42\AppData\Local\Programs\Python\Python311\python.exe" ./cli_client.py %1 %2 %3 %4 %5 %6 %7

@@ -19,6 +19,7 @@
 # }
 
 from clients.python.dtxs_client.main import DtxsClient
+import datetime
 import sys
 import json
 import os
@@ -44,10 +45,11 @@ if (len(sys.argv) <= 2):
   print("  delete-folder <database> <folderUid>                           Delete a folder.")
   print("")
   print("  -- DOCUMENTS --")
-  print("  upload-document <database> <pathToFile> <folderUid>            Upload a document to given database.")
-  print("  get-document <database> <folderUid> <documentUid>              Retrieve the latest information of a document.")
-  print("  list-documents <database>                                      Lists documents in given database.")
-  print("  delete-document <database> <folderUid> <documentUid>           Delete a document.")
+  print("  upload-document <database> <pathToFile> <folderUid>                 Upload a document to given database.")
+  print("  get-document <database> <folderUid> <documentUid>                   Retrieve the latest information of a document.")
+  print("  list-documents <database>                                           Lists documents in given database.")
+  print("  delete-document <database> <folderUid> <documentUid>                Delete a document.")
+  print("  download-document <database> <folderUid> <documentUid> <outputFile> Download a document and save it to outputFile.")
   sys.exit()
 
 configFile = sys.argv[1]
@@ -59,6 +61,8 @@ client = DtxsClient(config['dtxsClient'])
 client.getAccessToken()
 
 print("Received acces token, length: " + str(len(client.accessToken)) + " bytes")
+
+startTime = datetime.datetime.now()
 
 match cmd:
   case "list-databases":
@@ -384,9 +388,9 @@ match cmd:
       document = client.downloadDocument(folderUid, documentUid)
 
       with open(outputFile, 'w') as f:
-          f.write(document)
+        f.write(document)
 
-      print("Document was been succesfully downloaded to " + outputFile)
+      print("Document was been succesfully downloaded and saved to `" + outputFile + "`.")
 
   case "update-document":
     if (len(sys.argv) < 7): database = ''
@@ -407,3 +411,9 @@ match cmd:
         print("ERROR: " + error['error'])
       else:
         print("Version " + documentVersion + " of the document was created.")
+
+
+endTime = datetime.datetime.now()
+
+duration = endTime - startTime
+print("Took " + str(duration.total_seconds()) + " seconds.")

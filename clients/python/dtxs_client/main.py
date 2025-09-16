@@ -262,11 +262,11 @@ class DtxsClient:
     try:
       document["name"]
     except KeyError:
-      return {"error":"Missing document name"}
+      return {"error":"Missing document name."}
     try:
       os.stat(sourceFilePath)
     except FileNotFoundError:
-      return {"error":"File Not Found"}
+      return {"error":"File not found."}
 
 
     # receive chunkUid
