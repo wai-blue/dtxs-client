@@ -60,7 +60,7 @@ with open(configFile) as f: config = json.load(f)
 client = DtxsClient(config['dtxsClient'])
 client.getAccessToken()
 
-print("Received acces token, length: " + str(len(client.accessToken)) + " bytes")
+print("Received access token, length: " + str(len(client.accessToken)) + " bytes")
 
 startTime = datetime.datetime.now()
 
