@@ -63,7 +63,7 @@ ifcModelDocumentUid = client.uploadDocument(ifcModel, "root", { 'class': 'Assets
 prGreen("    -> documentUid = " + ifcModelDocumentUid)
 
 prLightBlue("  [2.2] Upload own metadata for the 3D model")
-ifcModelMetadataRecordUid = client.recordUid = client.createRecord('Assets.Intangibles.Documents', {
+ifcModelMetadataRecordUid = client.createRecord('Assets.Intangibles.Documents', {
   "Type": "IFC 3D model",
   "FileName": os.path.basename(ifcModel),
   "description": "3D model of the room where the robotic measurement task should be carried out.",
